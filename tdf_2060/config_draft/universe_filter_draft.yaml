@@ -1,0 +1,97 @@
+# Universe Filter — 설계 초안 (draft)
+#
+# ETF / Fund 유니버스의 1차 카테고리 필터 + 2차 키워드 필터를 정의한다.
+# 구조: 공통 기본 + ETF별 / Fund별 특화 정책.
+
+# ── 공통 ──────────────────────────────────────────────────────────────
+common:
+  include_kis_mp_categories:    # 대유형(KIS MP) 컬럼 화이트리스트
+    - 국내주식
+    - 글로벌주식
+    - 신흥국주식
+    - 국내채권
+    - 해외채권
+    # 의도적 제외: 국내혼합, 해외혼합, 대체투자
+
+  exclude_keywords:             # 펀드명 부분일치
+    - TDF
+    - TIF
+    - TRF
+    - 멀티에셋
+    - 자산배분
+    - 혼합
+    - 라이프싸이클
+    - 레버리지
+    - 인버스
+    - 커버드콜
+    - 타겟커버드콜
+
+  exclude_sub_types:            # 소유형 컬럼 부분일치
+    - 일반채권혼합
+    - 글로벌라이프싸이클
+    - 보수적자산배분
+    - 공격적자산배분
+    - "글로벌 보수적자산배분"
+    - "글로벌 공격적자산배분"
+    - 일반주식혼합
+    - 글로벌채권혼합
+    - 글로벌주식혼합
+    - 시장중립
+    - 채권알파
+    - 멀티섹터        # 모호 — 추가 검토 필요
+
+  # 합성 ETF 처리 정책
+  synthetic_policy:
+    mode: whitelist             # whitelist | exclude_all
+    whitelist_keywords:         # 합성 ETF 중 합법적 인덱스 추종형
+      - 베트남
+      - 인도네시아
+      - 태국
+      - 멕시코
+      - 브라질
+      # ⚠️ 합성 키워드는 75건 ETF에 등장하므로, 화이트리스트로 좁히지 않으면
+      # 인덱스 추종형 EM ETF 가 잘못 제외될 수 있음.
+
+  min_aum: null                 # 추후 결정 (예: 100억 원)
+  min_history_years: null       # 추후 결정 (예: 1년)
+
+
+# ── ETF 전용 ──────────────────────────────────────────────────────────
+etf:
+  inherits: common
+
+  exclude_keywords_extra:
+    - 합성                       # 단독 키워드. whitelist 외에는 모두 제외
+
+  product_constraints:
+    single_product_max_weight: 0.20      # 단일 ETF 최대 비중
+    single_manager_max_weight: 0.60      # 단일 운용사 최대 비중
+    min_aum: null
+    target_quant_grade_min: "C"          # 정량평가 D 이하 제외 (옵션)
+
+
+# ── Fund 전용 ─────────────────────────────────────────────────────────
+fund:
+  inherits: common
+
+  exclude_keywords_extra:
+    # fund_list 의 글로벌라이프싸이클 131건 제거 → exclude_sub_types 에서 처리
+    # 자산배분 22, 멀티에셋 6 등도 common 에서 처리
+    - 멀티                       # 멀티에셋 / 멀티전략 등
+
+  product_constraints:
+    single_product_max_weight: 0.30      # 펀드형은 단일 펀드 비중 더 큼
+    single_manager_max_weight: 0.50      # 운용사 concentration 더 엄격
+    min_aum: null
+    target_quant_grade_min: "B"          # 펀드형은 정량평가 더 엄격
+
+
+# ── 검증 정책 ─────────────────────────────────────────────────────────
+validation:
+  warn_if_excluded_too_many: true
+  excluded_threshold_pct: 0.30        # 30% 이상 제외되면 warning
+
+# ── 미확정 ────────────────────────────────────────────────────────────
+# (1) 합성 ETF 화이트리스트의 정확한 키워드 (위 목록은 후보)
+# (2) min_aum, min_history_years 의 정확한 값
+# (3) 정량평가 등급 cutoff (C / B 가 적절한지)

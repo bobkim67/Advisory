@@ -1,0 +1,213 @@
+# DB sources mapping — Phase C.
+#
+# 9개 MVO asset_key ↔ SCIP back_dataset.id / back_dataseries.id 매핑.
+# 본 파일은 "어디서 어떤 시계열을 가져올지"만 정의한다.
+# DB credential 은 환경변수 / 별도 파이썬 모듈에서 관리 (이 파일에 secrets 두지 말 것).
+#
+# field 명세:
+#   asset_key:        AssetClassInfo.asset_key
+#   dataset_id:       SCIP.back_dataset.id (직접 매핑)
+#   ticker:           디버그용 라벨 (필수 아님)
+#   value_dataseries: 가격 또는 수익률을 담는 dataseries_id
+#                     기본 6 (FG Return) 우선, 없으면 39 (Total Return Index Unhedged)
+#   currency:         data blob 이 dict 형식일 때 추출할 키 (USD/KRW). 단일 숫자 blob 이면 무시.
+#   frequency:        기대 빈도 (D=일/M=월). 검증용.
+#   required:         true 이면 데이터 부재 시 ValueError.
+#   proxy:            아래 ust30 처럼 mapping_mode 가 proxy 일 때만 사용.
+#
+#   semantic_type:    데이터 의미 분류 (Phase C.1).
+#                       total_return_index | price_index | nav | return_series
+#                         → MVO 입력에 그대로 사용 가능
+#                       yield | spread | macro_indicator
+#                         → return_transform 명시 없이는 ValueError (조용한 변환 금지)
+#   return_transform: 시계열 → 월간 수익률 변환 방식.
+#                       pct_change      : level_t / level_{t-1} - 1
+#                       diff            : level_t - level_{t-1}  (raw spread/yield 차분)
+#                       already_return  : 입력이 이미 수익률
+#                       duration_proxy  : (Phase C.1 미구현) yield × duration 추정
+#                       not_allowed     : MVO 입력에 사용 불가 (즉시 ValueError)
+#
+# 알려진 dataset_id (CLAUDE.md 기준):
+#   11=Vanguard Growth ETF (US9229087369), 12=Vanguard Value ETF (US9229087443),
+#   24=S&P 500 TR, 31=USD/KRW, 36=Vanguard FTSE Developed (US9219438580),
+#   37=Vanguard FTSE EM (US9220428588), 63=MSCI EAFE, 66=MSCI Japan,
+#   87=iShares S&P GSCI Commodity, 144=MSCI Korea, 403=VIX,
+#   404=US HY OAS Spread (level 아님 - 사용 주의), 408=Gold Spot.
+#
+# null 값은 "운영자 결정 필요" 의 의미. DBMarketDataRepository 가
+# null 을 만나면 명시적 ValueError (silent fallback 금지).
+
+regime_source:
+  # 경기지표 (OECD CLI G7 등) — solution.roboadvisorAPI_economicregime 사용 후보.
+  # Phase C 1차 구현은 default file repo 사용. db 모드에서도 fallback 가능.
+  table: roboadvisorAPI_economicregime
+  database: solution
+  date_column: date            # 실제 컬럼명은 운영자가 schema 확인 후 채움
+  region_column: region
+  value_column: value
+  enabled: false               # Phase C 1차: 미사용. file repo 우선.
+
+regime_return_source:
+  # 자산별 월간 지수 — back_datapoint 기반 자산군별 월말 시계열 추출.
+  enabled: false               # Phase C 1차: file repo 우선.
+
+asset_rt_vol:
+  # σ, E[R] 산출 정책.
+  # Phase C 1차: file repo (Asset_rt_vol) 우선.
+  # db 모드는 동일 형식 DataFrame 을 산출하기 위해 dataset_id 별 시계열로 σ, E[R] 자체 계산 필요.
+  computation_mode: from_timeseries  # from_timeseries | from_static_table
+  lookback_years: 10
+  return_field: value_pct_change      # 월간 / 일간 수익률 → 연환산
+  annualization: 12                   # 월간 빈도 가정
+  # Phase D D-03 closed (2026-05-08, 운용역 sign-off): Option C — Hybrid.
+  # asset_rt_vol 은 자산별 max history 사용 (load_asset_rt_vol 의 기존 동작).
+  # 짧은 history 자산도 min_obs 만족하면 허용. short history 는 telemetry/warning 으로 노출.
+  intersection_policy: asset_specific
+  min_obs: 12
+
+corr_matrix:
+  computation_mode: from_timeseries
+  lookback_years: 10
+  # Phase D D-03 closed (2026-05-08): corr 은 common intersection.
+  # load_corr_matrix 의 dropna(how="any") 동작과 정합. effective obs 는 가장 짧은 자산이 결정.
+  # 본 정책은 silent contraction 이 아닌 운용역 승인 정책임을 명시.
+  intersection_policy: common
+  short_history_warning_ratio: 0.8       # max_obs * 0.8 미만 → short_history telemetry/warning
+
+# ── 9 자산군별 매핑 ──────────────────────────────────────────────────
+assets:
+
+  - asset_key: kr_equity
+    dataset_id: 144             # MSCI Korea
+    ticker: "M2KR INDEX"
+    value_dataseries: 6         # FG Return
+    fallback_dataseries: 39     # Total Return Index
+    currency: USD               # USD 기준 (필요 시 KRW 환산은 환율로)
+    frequency: D
+    required: true
+    semantic_type: total_return_index
+    return_transform: pct_change
+
+  - asset_key: us_growth_equity
+    dataset_id: 11              # Vanguard Growth ETF (proxy 성격이지만 대표)
+    ticker: "M2US000G Index"     # asset_mapping 정합 라벨. 실 dataset 은 dataset_id 로 query.
+    value_dataseries: 6
+    fallback_dataseries: 39
+    currency: USD
+    frequency: D
+    required: true
+    semantic_type: total_return_index
+    return_transform: pct_change
+    notes: "MSCI US Growth (M2US000G) 직접 dataset 가 있으면 그쪽으로 교체 권장."
+
+  - asset_key: us_value_equity
+    dataset_id: 12              # Vanguard Value ETF
+    ticker: "M2US000V Index"
+    value_dataseries: 6
+    fallback_dataseries: 39
+    currency: USD
+    frequency: D
+    required: true
+    semantic_type: total_return_index
+    return_transform: pct_change
+
+  - asset_key: dm_ex_us_equity
+    dataset_id: 63              # MSCI EAFE
+    ticker: "TAD09XU Index"
+    value_dataseries: 6
+    fallback_dataseries: 39
+    currency: USD
+    frequency: D
+    required: true
+    semantic_type: total_return_index
+    return_transform: pct_change
+    notes: "TAD09XU(optimization) 또는 M2WOU(regime) dataset 가 별도로 있으면 그쪽 사용."
+
+  - asset_key: em_equity
+    dataset_id: 37              # Vanguard FTSE EM
+    ticker: "M2EF Index"
+    value_dataseries: 6
+    fallback_dataseries: 39
+    currency: USD
+    frequency: D
+    required: true
+    semantic_type: total_return_index
+    return_transform: pct_change
+
+  - asset_key: kr_aggregate_bond
+    # Phase C.2 — SCIP id=59 KIS Pricing Composite Total Return Index (KST0000T Index).
+    # dataseries=9 (TOT RETURN INDEX NET DVDS). 단일 숫자 blob. 2015~ 시계열.
+    dataset_id: 59
+    ticker: "SPBKRCOT Index"     # asset_mapping 정합. 실 dataset 은 KST0000T (id=59).
+    value_dataseries: 9
+    fallback_dataseries: null
+    currency: null              # 단일 숫자 blob → currency 무시
+    frequency: D
+    required: true
+    semantic_type: total_return_index
+    return_transform: pct_change
+    notes: "SCIP id=59 'KIS Pricing Composite Total Return Index'. Phase C.2 확정."
+
+  - asset_key: kr_treasury_10y
+    # Phase C.2 — SCIP id=421 KRX 10년채권지수 (KTBITR Index).
+    # dataseries=9 (TOT RETURN INDEX NET DVDS). 단일 숫자 blob. 2010~ 시계열.
+    dataset_id: 421
+    ticker: "KPGB10YR Index"     # asset_mapping 정합. 실 dataset 은 KTBITR (id=421).
+    value_dataseries: 9
+    fallback_dataseries: null
+    currency: null
+    frequency: D
+    required: true
+    semantic_type: total_return_index
+    return_transform: pct_change
+    notes: |
+      SCIP id=421 'KRX 10년채권지수' (KTBITR Index) — TR index. Phase C.2 확정.
+      이전 KPGB10YR Index 는 yield only 라 사용 불가 → 본 매핑으로 교체.
+
+  - asset_key: us_treasury_30y
+    # Phase C.2 — SCIP id=201 'KIS 미국채 30Y TR 지수' (BRFUT004).
+    # 운영자가 지정. dataseries=33 (KIS Bond Index). KIS 전용 dict blob:
+    #   {"totRtnIndex": "8344.74", "cleanPriceIndex": "...", "mktPriceIndex": "...",
+    #    "addIndex": "0", "avgDur": "15.315", "avgYtm": "4.963", "avgConvex": "...",
+    #    "avgCpnRate": "...", "avgRemainMat": "...", "etfName": "...",
+    #    "mngCorpName": "...", "note": "...", "indexName": "...", "indexCode": "..."}
+    # totRtnIndex 키 = Total Return Index 값.
+    dataset_id: 201
+    ticker: "BRFUT004"
+    value_dataseries: 33
+    fallback_dataseries: null
+    currency: null
+    blob_key: totRtnIndex                  # KIS bond index dict 의 TR 키
+    frequency: D
+    required: true
+    semantic_type: total_return_index
+    return_transform: pct_change
+    notes: |
+      Phase C.2 = KIS 미국채 30Y TR 지수 (BRFUT004) 직접 매핑.
+      이전 후보:
+        - id=99 (USGG30YR Yield) — yield only, not_allowed.
+        - id=73 (TLT-US ETF NAV) — proxy 후보였으나 BRFUT004 가 더 적합.
+      KIS bond index blob 은 dict 형식이므로 blob_key=totRtnIndex 로 추출.
+
+  - asset_key: us_high_yield
+    # Phase C.2 — SCIP id=401 'Bloomberg US HY TR' (LF98TRUU Index).
+    # dataseries=9 (TOT RETURN INDEX NET DVDS). 단일 숫자. 1999~ 풍부.
+    dataset_id: 401
+    ticker: "LF98TRUU Index"
+    value_dataseries: 9
+    fallback_dataseries: null
+    currency: null
+    frequency: D
+    required: true
+    semantic_type: total_return_index
+    return_transform: pct_change
+    notes: |
+      SCIP id=401 'Bloomberg US HY TR' = LF98TRUU Index. Phase C.2 확정.
+      ⚠️ id=404 (HY OAS Spread) 는 절대 사용 금지 (spread level).
+
+# ── 환율 ────────────────────────────────────────────────────────────
+fx:
+  usdkrw:
+    dataset_id: 31              # 검증된 매핑
+    value_dataseries: 6
+    blob_key: USD               # blob dict 의 "USD" 키 = USDKRW

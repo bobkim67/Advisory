@@ -1,0 +1,47 @@
+# GlidePath Reference — 4 vintage 주식 편입비
+#
+# 운영자 직접 정보 (2026-05-08, D-08 closed_with_permanent_limitation):
+#   원본 `0. 정리 - GlidePath 값.xlsx` 는 DRM 보호로 해제 불가.
+#   대신 운영자가 핵심값을 직접 제공 → 본 yaml 에 metadata 로 보존.
+#
+# 위상:
+#   - 본 단계 (Phase D, operating_mode=relaxed_diagnostic) 는 2060 단일 vintage 만 산출.
+#   - 나머지 3 vintage (2050 / 2040 / 2030) 는 reference / metadata 만.
+#   - 다중 vintage 엔진 산출은 후속 Phase 에서 검토.
+#   - 본 yaml 의 값은 코드에서 직접 enforce 하지 않음 (현재 reference only).
+#
+# 정합성:
+#   - 2060 의 equity 0.80 = `tdf_2060.yaml::strategic_allocation.equity` 와 일치 ✓
+#   - 합 (equity + fixed_income) = 1.0 (alternative bucket 도입 전 기준)
+
+glidepath_reference:
+  source: "운영자 직접 정보 (DRM xlsx 해제 불가)"
+  source_file_drm_locked: "Advisory/0. 정리 - GlidePath 값.xlsx"
+  as_of: "2026-05-08"
+  unit: "주식 편입비 (equity bucket weight)"
+  enforced: false                # Phase D relaxed_diagnostic — reference only
+  vintages:
+    "2060":
+      equity: 0.80
+      fixed_income: 0.20
+      target_year: 2060
+      note: "현재 산출 대상. tdf_2060.yaml::strategic_allocation 와 정합."
+    "2050":
+      equity: 0.70
+      fixed_income: 0.30
+      target_year: 2050
+      note: "reference only. 본 단계 미산출."
+    "2040":
+      equity: 0.60
+      fixed_income: 0.40
+      target_year: 2040
+      note: "reference only. 본 단계 미산출."
+    "2030":
+      equity: 0.50
+      fixed_income: 0.50
+      target_year: 2030
+      note: "reference only. 본 단계 미산출."
+  notes: |
+    - 본 정보는 DRM 보호 파일의 metadata 대체.
+    - GlidePath 다중 vintage 엔진 산출은 후속 Phase 에서 검토.
+    - alternative bucket (gold, REIT 등) 도입 시 fixed_income = 1 - equity 가정 재검토 필요.

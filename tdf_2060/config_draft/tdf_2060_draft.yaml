@@ -1,0 +1,64 @@
+# TDF 2060 — 설계 초안 (draft, NOT production)
+#
+# 본 파일은 향후 tdf_engine/config/tdf_2060.yaml 의 출발점이며,
+# 이번 설계 단계에서는 placeholder 값과 구조 정의에만 집중한다.
+# 모든 수치는 백테스트 검증 전이며 운영 사용 금지.
+
+target_date: 2060
+vintage_label: "TDF 2060"
+
+# ── Strategic Asset Allocation ──────────────────────────────────────────
+strategic_allocation:
+  equity: 0.80
+  fixed_income: 0.20
+  # 합 = 1.00 (validator 가 검증)
+
+# ── TAA 허용 범위 ───────────────────────────────────────────────────────
+taa_bounds:
+  equity_min: 0.75
+  equity_max: 0.85
+  fixed_income_min: 0.15
+  fixed_income_max: 0.25
+
+# ── 기준비중 후보 (MVO 초기값 / baseline) ─────────────────────────────
+reference_weights:
+  kr_equity: 0.10
+  us_growth_equity: 0.30
+  us_value_equity: 0.20
+  dm_ex_us_equity: 0.12
+  em_equity: 0.08
+  kr_aggregate_bond: 0.08
+  kr_treasury_10y: 0.04
+  us_treasury_30y: 0.05
+  us_high_yield: 0.03
+  # 합 = 1.00
+
+# ── 자산군별 비중 상하한 (MVO 제약) ─────────────────────────────────
+weight_bounds:
+  kr_equity:          { min: 0.03, max: 0.20 }
+  us_growth_equity:   { min: 0.05, max: 0.40 }   # MVO 가 쏠릴 가능성 → 상한
+  us_value_equity:    { min: 0.05, max: 0.30 }
+  dm_ex_us_equity:    { min: 0.05, max: 0.25 }
+  em_equity:          { min: 0.03, max: 0.15 }
+  kr_aggregate_bond:  { min: 0.00, max: 0.15 }
+  kr_treasury_10y:    { min: 0.00, max: 0.10 }
+  us_treasury_30y:    { min: 0.00, max: 0.15 }
+  us_high_yield:      { min: 0.00, max: 0.07 }   # risk_asset 이므로 상한 낮게
+
+# ── ETF형 / 펀드형 분리 정책 ─────────────────────────────────────────
+portfolio_types:
+  etf:
+    enabled: true
+    label: "TDF 2060 ETF형"
+  fund:
+    enabled: true
+    label: "TDF 2060 펀드형"
+
+# ── 향후 확장 ───────────────────────────────────────────────────────
+# 글라이드패스 (vintage 별 SAA) 는 별도 파일 (glidepath.yaml) 로 분리 예정
+# 본 파일은 2060 단일 vintage 만 다룸
+
+# ── 미확정 항목 ─────────────────────────────────────────────────────
+# (1) us_treasury_30y 데이터 미존재 → fallback 정책은 asset_mapping_draft.yaml 참고
+# (2) MVO 목적함수 정의 (Sharpe / Utility / Excess Return) 는 optimization_constraints
+#     에서 결정하며, 사용자 결정 사항

@@ -1,0 +1,143 @@
+# TDF 2060 MVO 자산군 매핑 — 설계 초안 (draft)
+#
+# 본 파일은 9개 MVO 자산군 각각의 source_name (현재 텍스트 파일/DB 조회용 원천명),
+# display_name (보고서 표시명), ticker (Bloomberg), db_dataset_id (placeholder),
+# fallback_policy (데이터 없을 때 처리 방식) 을 정의한다.
+#
+# 한국 주식/채권의 정본 ticker 와 SCIP DB 매핑은 사용자 결정 후 채움.
+
+assets:
+
+  # ─────── Equity (5개, 합 80%) ───────
+
+  - asset_key: kr_equity
+    display_name: "한국 주식"
+    source_names:
+      optimization: "M2KR INDEX"
+      regime_return: "M2KR Index"
+    bucket: equity
+    flags: [risk_asset]
+    required: true
+    db_dataset_id: null                # 향후 SCIP back_dataset.id 결정 (예: id=144 MSCI Korea?)
+    fallback_policy: error_if_missing
+    notes: "Asset_rt_vol 라벨 = 'M2KR INDEX', regimeAnalysis_src = 'M2KR Index' (대소문자 차이만)."
+
+  - asset_key: us_growth_equity
+    display_name: "미국 성장주"
+    source_names:
+      optimization: "M2US000G Index"
+      regime_return: "M2US000G Index"
+    bucket: equity
+    flags: [risk_asset]
+    required: true
+    db_dataset_id: null                # 후보: SCIP id=11 Vanguard Growth ETF 또는 별도 MSCI Growth
+    fallback_policy: error_if_missing
+    notes: "MVO 자산군 중 risk-adjusted return 이 가장 높음 (0.81). 상한 cap 필수."
+
+  - asset_key: us_value_equity
+    display_name: "미국 가치주"
+    source_names:
+      optimization: "M2US000V Index"
+      regime_return: "M2US000V Index"
+    bucket: equity
+    flags: [risk_asset]
+    required: true
+    db_dataset_id: null                # 후보: SCIP id=12 Vanguard Value ETF 또는 MSCI Value
+    fallback_policy: error_if_missing
+
+  - asset_key: dm_ex_us_equity
+    display_name: "미국외 선진국 주식"
+    source_names:                      # 용도별 source 분리 (사용자 결정 #2)
+      optimization: "TAD09XU Index"
+      regime_return: "M2WOU Index"
+    bucket: equity
+    flags: [risk_asset]
+    required: true
+    db_dataset_id: null                # 후보: SCIP id=63 MSCI EAFE 또는 id=36 Vanguard FTSE Developed
+    fallback_policy: error_if_missing
+    notes: "용도별 source 분리. optimization=TAD09XU, regime_return=M2WOU."
+
+  - asset_key: em_equity
+    display_name: "신흥국 주식"
+    source_names:
+      optimization: "M2EF Index"
+      regime_return: "M2EF Index"
+    bucket: equity
+    flags: [risk_asset]
+    required: true
+    db_dataset_id: null                # 후보: SCIP id=37 Vanguard FTSE Emerging Markets
+    fallback_policy: error_if_missing
+
+  # ─────── Fixed Income (4개, 합 20%) ───────
+
+  - asset_key: kr_aggregate_bond
+    display_name: "한국 종합채권"
+    source_names:                      # 용도별 source 분리 (사용자 결정 #3)
+      optimization: "SPBKRCOT Index"
+      regime_return: "KISKALBI Index"
+    bucket: fixed_income
+    flags: [safe]
+    required: true
+    db_dataset_id: null
+    fallback_policy: error_if_missing
+    notes: "용도별 source 분리. optimization=SPBKRCOT, regime_return=KISKALBI."
+
+  - asset_key: kr_treasury_10y
+    display_name: "한국 국고채10년"
+    source_names:
+      optimization: "KPGB10YR Index"
+      regime_return: null               # regimeAnalysis_src 에 별도 컬럼 없음
+    bucket: fixed_income
+    flags: [safe, duration]
+    required: true
+    db_dataset_id: null
+    fallback_policy: error_if_missing
+    notes: "regimeAnalysis_src 에 별도 컬럼 없음 → regime_return 용도는 사용자 결정 시점까지 null."
+
+  - asset_key: us_treasury_30y
+    display_name: "미국 국고채30년"
+    source_names:
+      # Phase C.2 — DB 매핑 확정: SCIP id=201 'KIS 미국채 30Y TR 지수' (BRFUT004).
+      # file 모드 (Asset_rt_vol/Corr_mat) 에는 여전히 row 가 없으므로 file 실행 시
+      # CMA Builder 가 ValueError. file 모드용 별도 row 추가가 필요하면 augmented fixture 처럼.
+      optimization: "BRFUT004"
+      regime_return: null               # regime_return source (regimeAnalysis_src) 에는 별도 컬럼 없음
+    bucket: fixed_income
+    flags: [safe, duration]
+    required: true
+    fallback_policy: explicit_proxy_only
+    proxy:
+      enabled: false
+      proxy_ticker: null
+    db_dataset_id: 201
+    # Phase C.2 — DB direct mapping 확정 (db_sources.yaml::us_treasury_30y 와 정합).
+    db_mapping_mode: direct
+    notes: |
+      [Phase C.2] DB 매핑 = SCIP id=201 'KIS 미국채 30Y TR 지수' (BRFUT004).
+      KIS bond index dict blob → totRtnIndex 키 추출. semantic_type=total_return_index.
+      [file 모드] Asset_rt_vol/Corr_mat 에 BRFUT004 row 가 없으면 여전히 ValueError.
+      → file 모드 사용은 augmented fixture 또는 운영자가 row 채울 때만 가능.
+      → 실제 운용에서는 --source db 사용 권장.
+
+  - asset_key: us_high_yield
+    display_name: "미국 하이일드 회사채"
+    source_names:
+      optimization: "LF98TRUU Index"
+      regime_return: "LF98TRUU Index"
+    bucket: fixed_income
+    flags: [risk_asset, credit]        # ⚠️ 채권이지만 risk asset 로 취급
+    required: true
+    db_dataset_id: null                # 후보: SCIP id=404 US HY OAS Spread (단순 spread, level 아님)
+    fallback_policy: error_if_missing
+    notes: |
+      주식과의 상관 0.53~0.61 → risk_asset flag 정당화.
+      Regime 1/2 에서 +, Regime 3 에서 −.
+
+# ── 자산군 합 검증 ────────────────────────────────────────────────────
+# validator: sum(reference_weights) == 1.0
+# validator: sum(equity weights) == 0.80
+# validator: sum(fixed_income weights) == 0.20
+
+# ── 향후 추가 후보 ────────────────────────────────────────────────────
+# alternative bucket (gold, US REIT, commodities) — TDF 2060 alternative 도입 시
+# 별도 vintage 의 자산군 차이 — glidepath 정의 시

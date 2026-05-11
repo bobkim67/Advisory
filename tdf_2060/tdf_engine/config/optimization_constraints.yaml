@@ -1,0 +1,91 @@
+# Optimization Constraints — 설계 초안 (draft)
+#
+# MVO 목적함수, 제약, ERR 정책. 사용자 결정 #4, #5 반영.
+
+# ── 목적함수 ─────────────────────────────────────────────────────────
+# 사용자 결정 #4: Excel $L$26 식 미확인 → max_sharpe 를 1차 default 로 사용.
+# objective 는 반드시 config-driven. MVOOptimizer 내부에 하드코딩 금지.
+optimization:
+  objective: max_sharpe
+
+  objective_candidates:
+    - max_sharpe                   # 1차 기본
+    - utility                      # μᵀw − (λ/2)·wᵀΣw
+    - min_volatility               # √(wᵀΣw) 최소화
+    - max_return_under_risk_limit  # μᵀw 최대화 + σ_p ≤ σ_max
+
+  objective_params:
+    risk_free_rate: 0.030          # max_sharpe 에서 사용 (연율)
+    risk_aversion_lambda: 5.0      # utility 에서 사용
+    target_volatility: null        # max_return_under_risk_limit 에서 사용 (예: 0.12)
+
+  solver:
+    method: SLSQP                  # scipy.optimize.minimize method
+    max_iter: 200
+    tol: 1.0e-9
+    multi_start: 5                 # multiple random starts (warm-start 동시 사용 가능)
+
+
+# ── 자산별 비중 제약 ─────────────────────────────────────────────────
+# tdf_2060_draft.yaml.weight_bounds 와 같은 정보를 중복 정의하지 않음.
+# OptimizationTool 은 tdf_2060.weight_bounds 를 참조하여 ConstraintSet 빌드.
+
+constraints:
+  weight_sum_must_equal: 1.0       # 유지 (정책 #6, hard)
+  non_negative: true               # 유지 (정책 #4, hard. bounds [0, max_w_i])
+
+  # Phase D relaxed (2026-05-08, D-01 closed): bucket 합계 hard constraint 비활성.
+  # [0, 1] 로 완화 → MVO ineq trivially 통과 (사실상 bucket 자유).
+  equity_sum:
+    min: 0.0
+    max: 1.0
+  fixed_income_sum:
+    min: 0.0
+    max: 1.0
+
+  equity_sum_reference:            # reference only — NOT enforced
+    min: 0.75
+    max: 0.85
+  fixed_income_sum_reference:
+    min: 0.15
+    max: 0.25
+
+  # region 하한 (optimization_vba 의 rEAFELb / rEMLb 대응)
+  region_lower_bounds:
+    enabled: false                 # 1차 단계 비활성, 향후 활성화
+    dm_ex_us_equity_min: null      # 예: 0.05
+    em_equity_min: null            # 예: 0.03
+
+
+# ── ERR (Equity Replication Ratio) ───────────────────────────────────
+# 사용자 결정 #5: ERR 은 이번 단계 비구현. placeholder 만 보존.
+err:
+  enabled: false
+  definition: pending_excel_formula_review
+  candidate_options:
+    - sum_of_minimum               # ∑ min(w_i, b_i)
+    - regional_minimum             # 지역 단위 합 후 min
+  threshold: null                  # 예: 0.85
+
+
+# ── Warm Start ───────────────────────────────────────────────────────
+warm_start:
+  enabled: true
+  source: reference_weights        # tdf_2060.reference_weights 사용
+  fallback: equal_weight           # reference_weights 없을 때만
+
+
+# ── 다중 시나리오 (optimization_vba 의 외부 4중 루프 대응) ────────
+scenarios:
+  enabled: false                   # 1차 단계 비활성. 단일 시나리오만.
+  axes:
+    rep_option: [1]                # ERR 계산법 (1=sum_of_min, 2=regional_min)
+    eqlb: [1]                      # EAFE/EM 하한 강도
+    err_threshold: [85]            # ERR 하한 (%)
+
+
+# ── 미확정 ──────────────────────────────────────────────────────────
+# (1) Excel $L$26 의 정확한 목적함수 식 — 확인 후 objective_candidates 에 정식 추가
+# (2) ERR 정의 — 확인 후 enabled: true 로 전환
+# (3) region_lower_bounds 의 정확한 값
+# (4) target_volatility 의 적정값

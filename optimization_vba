@@ -1,0 +1,95 @@
+
+Option Explicit
+Option Base 1
+
+Function ColMin(rInput As Range) As Variant
+    Dim nCols As Long
+    
+    Dim temp() As Double
+    Dim i As Integer
+    
+    nCols = rInput.Columns.Count
+    ReDim temp(1, nCols)
+    
+    For i = 1 To nCols
+        temp(1, i) = WorksheetFunction.Min(rInput.Columns(i))
+    Next i
+    
+    
+    ColMin = temp
+End Function
+
+
+Sub RunOptimizer()
+'
+' Solve the optimal solutions and record the outputs
+'
+
+'
+    Application.Calculation = xlCalculationAutomatic
+    Range("rStartTime") = Now
+    
+    Dim nYrs As Long    'number of years
+    Dim i, opt, td, eqlb, err, nIter As Long       'iteration variables
+    
+    Range(Range("rOutputOrigin").Offset(1, 0), Range("rOutputOrigin").Offset(1000000, Range("rCurrOutput").Count)).ClearContents
+    
+    nYrs = Range("rSNs").Count
+    'nYrs = 1
+    nIter = 0
+    
+    Application.Calculation = xlCalculationManual
+    Application.ScreenUpdating = True
+'    Application.ScreenUpdating = False
+    For opt = 1 To 1
+        Range("rCurrRepOption") = opt     ' Options for the computational methodology of "Equity Replication Ratio". 1: Sum of minimum, 2: Regional Minimum
+'        For td = 6 To 8
+'            Range("rTargetDuration") = td    ' Target Duration for fixed income sub-portfolio
+        For eqlb = 1 To 1
+            Range("rEAFELb") = eqlb * 0.1 * Range("rEAFEWeight") 'Lower bound for EAFE Weight
+            Range("rEMLb") = eqlb * 0.1 * Range("rEMWeight") 'Lower bound for EAFE Weight
+            'For err = 75 To 90 Step 5
+            For err = 85 To 85 Step 5
+               Range("rLimitEqRepRatio") = err / 100 ' Lower limit on "Equity Replication Ratio"
+                For i = 1 To nYrs
+                'For i = 50 To 50
+                    Range("rCurrSN") = i
+                    If nIter = 0 Then
+                        Range("rCurrWeight") = Range("rInitWeights").Value
+                    End If
+                    
+                    nIter = nIter + 1
+                    
+                    ActiveSheet.Calculate
+                    
+                    SolverOk SetCell:="$L$26", MaxMinVal:=1, ValueOf:=0, ByChange:="rCurrWeight", _
+                        Engine:=1, EngineDesc:="GRG Nonlinear"
+                    'SolverSolve
+                    SolverSolve userfinish:=True
+                    
+                    ActiveSheet.Calculate
+                    Range("rCurrOutput").Copy
+                    Range("rOutputOrigin").Offset(nIter, 1).PasteSpecial xlPasteValues, xlPasteSpecialOperationNone
+                    Range("rOutputOrigin").Offset(nIter, 0) = nIter
+                    Range("rInitWeights") = Range("rCurrWeight").Value
+                    ActiveSheet.Calculate
+                    ActiveWorkbook.Save
+                Next i
+            Next err
+'        Next td
+        Next eqlb
+    Next opt
+    
+    Application.ScreenUpdating = True
+    Range("rEndTime") = Now
+    ActiveWorkbook.Save
+    
+End Sub
+
+Sub temp()
+    Application.ScreenUpdating = True
+End Sub
+
+
+
+

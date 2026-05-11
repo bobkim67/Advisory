@@ -1,0 +1,32 @@
+Asset Class	Ticker	Name	σ	E[R]
+Equity	M2WD Index	글로벌 주식	12.4%	8.68%
+	SPXT Index	미국 주식	13.1%	10.22%
+	M2US000G Index	미국 성장주	14.9%	11.99%
+	M2US000V Index	미국 가치주	13.1%	8.25%
+	RUMCINTR Index	미국 중형주	14.9%	9.77%
+	RU20INTR Index	미국소형주	17.6%	7.80%
+	TAD09XU Index	미국외 선진국 주식	13.0%	6.85%
+	M2EF Index	신흥국 주식	15.3%	7.46%
+	M2KR INDEX	한국 주식	25.6%	5.72%
+	GDDUAS INDEX	호주 주식	27.1%	7.62%
+Fixed Income	LEGATRUU Index	글로벌 채권	9.0%	4.09%
+	LBUSTRUU Index	미국 채권	10.6%	4.89%
+	USGG3M Index	미국 채권 3개월	11.0%	3.84%
+	USGG2YR Index	미국 채권 2년	11.0%	3.87%
+	USGG5YR Index	미국 채권 5년	11.5%	4.15%
+	USGG10YR Index	미국 채권 10년	8.7%	3.10%
+	LBUTTRUU Index	미국 물가채	10.3%	4.48%
+	LUACTRUU Index	미국 투자등급 회사채	6.4%	4.09%
+	LF98TRUU Index	미국 하이일드 회사채	9.8%	8.03%
+	LG38TRUH Index	미국외 글로벌채권	11.0%	3.46%
+	EMUSTRUU Index	신흥국 달러채권	10.0%	6.83%
+	SPBKRCOT Index	한국종합채권	3.8%	3.23%
+	KPGB3MO Index	한국국고채3개월	0.4%	2.24%
+	KPGB3YR Index	한국국고채3년	2.4%	2.80%
+	KPGB10YR Index	한국국고채10년	8.0%	3.27%
+Alternative	SPGSCITR Index	원자재	23.1%	-2.07%
+	XAU Curncy	금	17.8%	10.53%
+	FNRETR Index	미국 리츠	19.1%	7.65%
+	DWXRSN Index	미국외 리츠	14.9%	4.13%
+	SPGTIND Index	글로벌 인프라	12.9%	7.99%
+Currency	USDKRW Curncy	미국 달러	11.0%	0.47%

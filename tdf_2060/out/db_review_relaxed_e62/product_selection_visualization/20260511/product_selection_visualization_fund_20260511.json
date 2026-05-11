@@ -1,0 +1,354 @@
+{
+  "meta": {
+    "schema_version": "e11b.1",
+    "product_type": "fund",
+    "portfolio_as_of_date": "2026-03-31",
+    "source_mode": "db",
+    "generated_at": "2026-05-11T07:05:11.050928+00:00"
+  },
+  "input_telemetry": {
+    "source_json": "out\\db_review_relaxed_e62\\product_selection_telemetry\\20260511\\product_selection_telemetry_fund_20260511.json",
+    "score_method": "score_penalty",
+    "score_factors": [
+      {
+        "factor": "quant_score",
+        "weight": 0.4,
+        "description": "정량평가 점수",
+        "available": true
+      },
+      {
+        "factor": "sharpe_1y",
+        "weight": 0.3,
+        "description": "1년 수정 샤프지수",
+        "available": true
+      },
+      {
+        "factor": "return_3y",
+        "weight": 0.2,
+        "description": "3년 수익률",
+        "available": true
+      },
+      {
+        "factor": "aum_log",
+        "weight": 0.1,
+        "description": "log1p(AUM)",
+        "available": true
+      },
+      {
+        "factor": "cost_penalty",
+        "weight": 0.0,
+        "description": "(미사용)",
+        "available": false
+      }
+    ]
+  },
+  "funnel": {
+    "raw_count": 781,
+    "passed_filter_count": 414,
+    "classified_count": 262,
+    "eligible_count": 208,
+    "selected_count": 17
+  },
+  "asset_coverage": {
+    "by_asset": {
+      "dm_ex_us_equity": {
+        "raw_count": 15,
+        "eligible_count": 15,
+        "selected_count": 3,
+        "coverage_status": "sufficient"
+      },
+      "em_equity": {
+        "raw_count": 72,
+        "eligible_count": 72,
+        "selected_count": 3,
+        "coverage_status": "sufficient"
+      },
+      "kr_aggregate_bond": {
+        "raw_count": 40,
+        "eligible_count": 0,
+        "selected_count": 0,
+        "coverage_status": "none"
+      },
+      "kr_equity": {
+        "raw_count": 99,
+        "eligible_count": 99,
+        "selected_count": 3,
+        "coverage_status": "sufficient"
+      },
+      "kr_treasury_10y": {
+        "raw_count": 4,
+        "eligible_count": 0,
+        "selected_count": 0,
+        "coverage_status": "none"
+      },
+      "us_growth_equity": {
+        "raw_count": 10,
+        "eligible_count": 10,
+        "selected_count": 3,
+        "coverage_status": "sufficient"
+      },
+      "us_high_yield": {
+        "raw_count": 10,
+        "eligible_count": 10,
+        "selected_count": 3,
+        "coverage_status": "sufficient"
+      },
+      "us_treasury_30y": {
+        "raw_count": 10,
+        "eligible_count": 0,
+        "selected_count": 0,
+        "coverage_status": "none"
+      },
+      "us_value_equity": {
+        "raw_count": 2,
+        "eligible_count": 2,
+        "selected_count": 2,
+        "coverage_status": "sufficient"
+      }
+    }
+  },
+  "filter_exclusions": {
+    "by_reason": {},
+    "by_asset_reason": {}
+  },
+  "selected_product_table": {
+    "rows": [
+      {
+        "asset_key": "us_growth_equity",
+        "product_id": "76305",
+        "product_name": "KB미국대표성장주자(주식)(UH)C-퇴직",
+        "manager": "KB운용",
+        "ticker": null,
+        "rank_within_asset": 1,
+        "score": 45.14698741284585,
+        "product_weight": 0.3,
+        "selected_reason": "product_cap_clipping",
+        "cap_applied": false,
+        "role": "core"
+      },
+      {
+        "asset_key": "us_value_equity",
+        "product_id": "70467",
+        "product_name": "한국투자미국배당귀족자UH(주식)(C-R)",
+        "manager": "한국투자신탁운용",
+        "ticker": null,
+        "rank_within_asset": 1,
+        "score": 26.658714144933,
+        "product_weight": 0.21916444947134975,
+        "selected_reason": null,
+        "cap_applied": false,
+        "role": "core"
+      },
+      {
+        "asset_key": "us_growth_equity",
+        "product_id": "74176",
+        "product_name": "삼성미국그로스자UH[주식-재간접]_Cp(퇴직연금)",
+        "manager": "삼성운용",
+        "ticker": null,
+        "rank_within_asset": 2,
+        "score": 29.704487040652456,
+        "product_weight": 0.2030222198969928,
+        "selected_reason": "product_cap_clipping",
+        "cap_applied": true,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "us_growth_equity",
+        "product_id": "73125",
+        "product_name": "AB미국그로스UH(주식-재간접)종류C-P2",
+        "manager": "AB자산운용",
+        "ticker": null,
+        "rank_within_asset": 3,
+        "score": 29.676620022220767,
+        "product_weight": 0.2030222198969928,
+        "selected_reason": "product_cap_clipping",
+        "cap_applied": true,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "us_value_equity",
+        "product_id": "70455",
+        "product_name": "한국투자미국배당귀족자H(주식)(C-R)",
+        "manager": "한국투자신탁운용",
+        "ticker": null,
+        "rank_within_asset": 2,
+        "score": 17.996237437745975,
+        "product_weight": 0.05479111236783743,
+        "selected_reason": null,
+        "cap_applied": false,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "em_equity",
+        "product_id": "2074",
+        "product_name": "NH-Amundi성장중소형주[주식]ClassC-P2(퇴직연금)",
+        "manager": "NH-Amundi운용",
+        "ticker": null,
+        "rank_within_asset": 1,
+        "score": 61.18902860206768,
+        "product_weight": 0.007999999346730942,
+        "selected_reason": null,
+        "cap_applied": false,
+        "role": "core"
+      },
+      {
+        "asset_key": "kr_equity",
+        "product_id": "43306",
+        "product_name": "한국밸류10년투자파이오니아(주식)(C-Re)",
+        "manager": "한국투자밸류운용",
+        "ticker": null,
+        "rank_within_asset": 1,
+        "score": 90.31315018498938,
+        "product_weight": 0.00799999934673092,
+        "selected_reason": null,
+        "cap_applied": false,
+        "role": "core"
+      },
+      {
+        "asset_key": "em_equity",
+        "product_id": "71972",
+        "product_name": "마이다스아시아리더스성장주자(H)(주식)C-P2",
+        "manager": "마이다스운용",
+        "ticker": null,
+        "rank_within_asset": 2,
+        "score": 55.45823521118854,
+        "product_weight": 0.000999999918341368,
+        "selected_reason": null,
+        "cap_applied": false,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "em_equity",
+        "product_id": "71976",
+        "product_name": "마이다스아시아리더스성장주자(UH)(주식)C-P2",
+        "manager": "마이다스운용",
+        "ticker": null,
+        "rank_within_asset": 3,
+        "score": 54.95637852086876,
+        "product_weight": 0.000999999918341368,
+        "selected_reason": null,
+        "cap_applied": false,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "kr_equity",
+        "product_id": "43040",
+        "product_name": "NH-Amundi필승코리아[주식]ClassC-P2(퇴직연금)",
+        "manager": "NH-Amundi운용",
+        "ticker": null,
+        "rank_within_asset": 2,
+        "score": 78.05471817163252,
+        "product_weight": 0.0009999999183413653,
+        "selected_reason": null,
+        "cap_applied": false,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "kr_equity",
+        "product_id": "41944",
+        "product_name": "교보악사파워인덱스자 1[주식]ClassCP",
+        "manager": "교보악사운용",
+        "ticker": null,
+        "rank_within_asset": 3,
+        "score": 70.03443074013718,
+        "product_weight": 0.0009999999183413653,
+        "selected_reason": null,
+        "cap_applied": false,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "us_high_yield",
+        "product_id": "71800",
+        "product_name": "베어링글로벌하이일드자[UH](채권-재간접)ClassC-P2e",
+        "manager": "베어링운용",
+        "ticker": null,
+        "rank_within_asset": 1,
+        "score": 32.76649493574616,
+        "product_weight": 3.4602086459422286e-17,
+        "selected_reason": null,
+        "cap_applied": false,
+        "role": "core"
+      },
+      {
+        "asset_key": "us_high_yield",
+        "product_id": "71791",
+        "product_name": "베어링글로벌하이일드자[H](채권-재간접)ClassC-P2",
+        "manager": "베어링운용",
+        "ticker": null,
+        "rank_within_asset": 2,
+        "score": 16.402823117199574,
+        "product_weight": 4.325260807427783e-18,
+        "selected_reason": null,
+        "cap_applied": false,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "us_high_yield",
+        "product_id": "74369",
+        "product_name": "교보악사미국코어하이일드자(UH)[채권-재간접]_ClassC-Re(퇴직연금)",
+        "manager": "교보악사운용",
+        "ticker": null,
+        "rank_within_asset": 3,
+        "score": 16.262383246250398,
+        "product_weight": 4.325260807427783e-18,
+        "selected_reason": null,
+        "cap_applied": false,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "dm_ex_us_equity",
+        "product_id": "42669",
+        "product_name": "한화천연자원자(주식)P클래스",
+        "manager": "한화운용",
+        "ticker": null,
+        "rank_within_asset": 1,
+        "score": 53.25957216086021,
+        "product_weight": 3.833798508476153e-18,
+        "selected_reason": null,
+        "cap_applied": false,
+        "role": "core"
+      },
+      {
+        "asset_key": "dm_ex_us_equity",
+        "product_id": "71463",
+        "product_name": "피델리티재팬자(주식-재간접)CP",
+        "manager": "피델리티운용",
+        "ticker": null,
+        "rank_within_asset": 2,
+        "score": 52.951323011091226,
+        "product_weight": 4.792248135595192e-19,
+        "selected_reason": null,
+        "cap_applied": false,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "dm_ex_us_equity",
+        "product_id": "70744",
+        "product_name": "삼성일본리더스전환자 1[주식](Cp(퇴직연금))",
+        "manager": "삼성운용",
+        "ticker": null,
+        "rank_within_asset": 3,
+        "score": 48.338898404656426,
+        "product_weight": 4.792248135595192e-19,
+        "selected_reason": null,
+        "cap_applied": false,
+        "role": "satellite"
+      }
+    ]
+  },
+  "diagnostics": {
+    "warnings": [],
+    "missing_data": [
+      {
+        "field": "final_selection.selected_products[].ticker",
+        "impact": "Bloomberg/Reuters ticker 표기 불가",
+        "recommended_next_step": "외부 ticker mapping table 도입 또는 DBProductRepository.product_metadata 확장"
+      },
+      {
+        "field": "scoring.score_factors[].cost_penalty",
+        "impact": "비용 패널티 미사용 (weight=0.0)",
+        "recommended_next_step": "future phase — fee/expense ratio 데이터 도입"
+      }
+    ]
+  }
+}

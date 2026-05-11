@@ -1,0 +1,160 @@
+# TDF 2060 — 설계 초안 (draft, NOT production)
+#
+# 본 파일은 향후 tdf_engine/config/tdf_2060.yaml 의 출발점이며,
+# 이번 설계 단계에서는 placeholder 값과 구조 정의에만 집중한다.
+# 모든 수치는 백테스트 검증 전이며 운영 사용 금지.
+
+target_date: 2060
+vintage_label: "TDF 2060"
+
+# ── Operating mode ────────────────────────────────────────────────────
+# Phase D relaxed (2026-05-08, D-01 closed): 본 단계 산출은 production 이 아님.
+# 의미:
+#   relaxed_diagnostic = 제약 해제 시 optimizer/TAA 쏠림을 확인하기 위한 diagnostic run.
+#                        glide path 80/20 은 reference 로만 보존. 운용 최종안 아님.
+#                        equity 100% / fixed_income 0% 등은 fail 이 아닌 monitoring flag.
+#   production         = 자산군별 band / bucket range 재도입 후 운용 가능한 산출.
+operating_mode: relaxed_diagnostic
+
+# ── Drift thresholds (D-02 — config-driven, mode-aware) ────────────────
+# evaluate_quality 의 enforcement 분기:
+#   production / review_required : drift exceed → review_required (legacy)
+#   review / warning             : drift exceed → warning (review_required 까지 안 감)
+#   telemetry_only               : drift exceed 가 quality_status 에 영향 없음 (drift 값은 보존)
+#
+# 우선순위: modes.<operating_mode>.enforcement → drift_thresholds.enforcement → "production"
+drift_thresholds:
+  asset: 0.03                          # default (production 운영값, 참고)
+  bucket: 0.05
+  enforcement: production              # 미정시 default
+  modes:
+    relaxed_diagnostic:
+      enforcement: telemetry_only      # drift 무시. 값은 telemetry 로 보존.
+      # asset/bucket override 가능. 미명시 시 위 default (0.03 / 0.05) 사용.
+    review:
+      enforcement: warning             # drift exceed → warning
+    production:
+      enforcement: review_required     # drift exceed → review_required
+
+# ── Strategic Asset Allocation ──────────────────────────────────────────
+strategic_allocation:
+  equity: 0.80
+  fixed_income: 0.20
+  # 합 = 1.00 (validator 가 검증)
+
+# ── TAA 허용 범위 ───────────────────────────────────────────────────────
+# Phase D relaxed (2026-05-08, D-01 closed): bucket range hard constraint 비활성.
+# 값을 [0, 1] 로 완화하여 enforcement 로직이 trivially 통과하도록 함.
+# 운영상 sanity monitoring 용 reference 는 taa_bounds_reference 에 보존.
+taa_bounds:
+  equity_min: 0.0
+  equity_max: 1.0
+  fixed_income_min: 0.0
+  fixed_income_max: 1.0
+
+taa_bounds_reference:           # 이전 enforced 운영값 (Phase B/C). reference only.
+  equity_min: 0.75
+  equity_max: 0.85
+  fixed_income_min: 0.15
+  fixed_income_max: 0.25
+  enforced: false
+
+taa_sanity_range:               # Phase D relaxed: sanity monitoring only — NOT enforced.
+  # 운용역 정책: 이탈 시 fail 이 아닌 검토 flag.
+  equity_min: 0.60
+  equity_max: 0.95
+  fixed_income_min: 0.05
+  fixed_income_max: 0.40
+
+# ── 기준비중 후보 (MVO 초기값 / baseline) ─────────────────────────────
+reference_weights:
+  kr_equity: 0.10
+  us_growth_equity: 0.30
+  us_value_equity: 0.20
+  dm_ex_us_equity: 0.12
+  em_equity: 0.08
+  kr_aggregate_bond: 0.08
+  kr_treasury_10y: 0.04
+  us_treasury_30y: 0.05
+  us_high_yield: 0.03
+  # 합 = 1.00
+
+# ── Bounds 개념 분리 ────────────────────────────────────────────────
+# (Phase B.5)
+#   weight_bounds         : MVO 입력 제약 (= optimization_bounds).
+#                           OptimizationTool 에서 SLSQP bounds 로 사용.
+#   taa_bounds            : (위) bucket 단위 — TAA cash-neutral 후 bucket 합 검증.
+#   taa_policy.constraints.per_asset_max_tilt : TAA 자산별 조정폭.
+#   final_asset_bounds    : TAA 이후 최종 자산군 비중 허용 범위.
+#                           Phase B.5 는 PortfolioValidator 에서 warning 만.
+#                           Hard enforcement 는 향후 결정.
+
+# ── 자산군별 비중 상하한 (MVO 제약) ─────────────────────────────────
+# Phase D relaxed (2026-05-08, D-01 closed): per-asset min/max 비활성.
+# 모든 자산을 [0, 1] 로 완화 → MVO 가 long-only + sum-to-1 만 enforce.
+# 이전 운영값은 weight_bounds_reference 에 보존.
+weight_bounds:
+  kr_equity:          { min: 0.0, max: 1.0 }
+  us_growth_equity:   { min: 0.0, max: 1.0 }
+  us_value_equity:    { min: 0.0, max: 1.0 }
+  dm_ex_us_equity:    { min: 0.0, max: 1.0 }
+  em_equity:          { min: 0.0, max: 1.0 }
+  kr_aggregate_bond:  { min: 0.0, max: 1.0 }
+  kr_treasury_10y:    { min: 0.0, max: 1.0 }
+  us_treasury_30y:    { min: 0.0, max: 1.0 }
+  us_high_yield:      { min: 0.0, max: 1.0 }
+
+weight_bounds_reference:        # reference only — NOT enforced
+  kr_equity:          { min: 0.03, max: 0.20 }
+  us_growth_equity:   { min: 0.05, max: 0.40 }
+  us_value_equity:    { min: 0.05, max: 0.30 }
+  dm_ex_us_equity:    { min: 0.05, max: 0.25 }
+  em_equity:          { min: 0.03, max: 0.15 }
+  kr_aggregate_bond:  { min: 0.00, max: 0.15 }
+  kr_treasury_10y:    { min: 0.00, max: 0.10 }
+  us_treasury_30y:    { min: 0.00, max: 0.15 }
+  us_high_yield:      { min: 0.00, max: 0.07 }
+
+# ── final_asset_bounds ────────────────────────────────────────────────
+# Phase D relaxed (2026-05-08, D-01 closed): final per-asset bounds 비활성.
+# 모든 자산 [0, 1] 로 완화 → validator 의 warning 자체가 trivially 미발생.
+# 이전 운영값은 final_asset_bounds_reference 에 보존.
+final_asset_bounds:
+  kr_equity:          { min: 0.0, max: 1.0 }
+  us_growth_equity:   { min: 0.0, max: 1.0 }
+  us_value_equity:    { min: 0.0, max: 1.0 }
+  dm_ex_us_equity:    { min: 0.0, max: 1.0 }
+  em_equity:          { min: 0.0, max: 1.0 }
+  kr_aggregate_bond:  { min: 0.0, max: 1.0 }
+  kr_treasury_10y:    { min: 0.0, max: 1.0 }
+  us_treasury_30y:    { min: 0.0, max: 1.0 }
+  us_high_yield:      { min: 0.0, max: 1.0 }
+
+final_asset_bounds_reference:   # reference only — NOT enforced
+  kr_equity:          { min: 0.02, max: 0.22 }
+  us_growth_equity:   { min: 0.04, max: 0.42 }
+  us_value_equity:    { min: 0.04, max: 0.32 }
+  dm_ex_us_equity:    { min: 0.04, max: 0.27 }
+  em_equity:          { min: 0.02, max: 0.17 }
+  kr_aggregate_bond:  { min: 0.00, max: 0.17 }
+  kr_treasury_10y:    { min: 0.00, max: 0.12 }
+  us_treasury_30y:    { min: 0.00, max: 0.17 }
+  us_high_yield:      { min: 0.00, max: 0.09 }
+
+# ── ETF형 / 펀드형 분리 정책 ─────────────────────────────────────────
+portfolio_types:
+  etf:
+    enabled: true
+    label: "TDF 2060 ETF형"
+  fund:
+    enabled: true
+    label: "TDF 2060 펀드형"
+
+# ── 향후 확장 ───────────────────────────────────────────────────────
+# 글라이드패스 (vintage 별 SAA) 는 별도 파일 (glidepath.yaml) 로 분리 예정
+# 본 파일은 2060 단일 vintage 만 다룸
+
+# ── 미확정 항목 ─────────────────────────────────────────────────────
+# (1) us_treasury_30y 데이터 미존재 → fallback 정책은 asset_mapping_draft.yaml 참고
+# (2) MVO 목적함수 정의 (Sharpe / Utility / Excess Return) 는 optimization_constraints
+#     에서 결정하며, 사용자 결정 사항

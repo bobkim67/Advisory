@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"/><title>Review Packet — ETF 20260511</title><style>
+body { font-family: 'Malgun Gothic', AppleGothic, sans-serif; max-width: 1080px;
+       margin: 24px auto; padding: 0 24px; color: #222; line-height: 1.55; }
+h1 { border-bottom: 2px solid #333; padding-bottom: 8px; }
+h2 { border-bottom: 1px solid #ccc; padding-bottom: 4px; margin-top: 36px; color: #2a3a5a; }
+h3 { color: #444; margin-top: 24px; }
+table { border-collapse: collapse; margin: 12px 0; }
+th, td { border: 1px solid #bbb; padding: 6px 10px; vertical-align: top; }
+th { background: #eef2f7; }
+img { max-width: 100%; height: auto; border: 1px solid #ddd; padding: 4px;
+      background: #fafafa; margin: 8px 0; }
+blockquote { border-left: 4px solid #a83232; background: #fff7f7;
+             padding: 8px 14px; margin: 14px 0; color: #5a2a2a; }
+code { background: #f0f0f0; padding: 2px 4px; border-radius: 3px; font-size: 95%; }
+.disclaimer { color: #7a3a3a; font-weight: bold; }
+@media print {
+    h1, h2 { page-break-after: avoid; }
+    img { page-break-inside: avoid; }
+    body { font-size: 10.5pt; }
+}
+</style></head><body>
+<h1>Integrated Review Packet — TDF 2060 ETF Portfolio</h1>
+
+<blockquote>schema: e12.1<br/>generated_at: 2026-05-11T07:17:07.673413+00:00  ·  operating_mode: <strong>relaxed_diagnostic</strong></blockquote>
+
+<blockquote><strong>RELAXED DIAGNOSTIC RUN — NOT a production portfolio.</strong><br/>- TAA is rule-based regime overlay — NOT regime-conditioned MVO and NOT optimized TAA.<br/>- Ticker mapping unavailable — product_id / product_name used as identifier.<br/>- Regime-conditioned assumptions unavailable (deferred to future phase).<br/>- Efficient frontier sampled by SLSQP grid scan (E-9), not analytical.</blockquote>
+
+<h2>0. Cover / Run Metadata</h2>
+
+<table>
+<tr><th>항목</th><th>값</th></tr>
+<tr><td>product_type</td><td><strong>ETF</strong></td></tr>
+<tr><td>portfolio_as_of_date</td><td>2026-03-31</td></tr>
+<tr><td>portfolio_as_of_run</td><td>20260511</td></tr>
+<tr><td>source_mode</td><td>db</td></tr>
+<tr><td>quality_status</td><td>warning</td></tr>
+<tr><td>operating_mode</td><td>relaxed_diagnostic</td></tr>
+</table>
+
+<h2>1. Executive Summary</h2>
+
+<p><strong>ETF</strong> portfolio constructed under regime <strong>R1 (Expansion / Acceleration)</strong>. top SAA weights: us_growth_equity 71.60%, us_value_equity 28.40%, dm_ex_us_equity 0.00%. After rule-based regime tilt (SAA Sharpe 0.7769 → TAA Sharpe 0.7879, Δ=+0.0110), products were selected by quant_score / sharpe_1y / return_3y / aum_log factors. final top: us_growth_equity 70.60%, us_value_equity 27.40%, em_equity 1.00%.</p>
+
+<table>
+<tr><th>metric</th><th>value</th></tr>
+<tr><td>current regime</td><td>R1 (Expansion / Acceleration)</td></tr>
+<tr><td>SAA top weights</td><td>us_growth_equity 71.60%, us_value_equity 28.40%, dm_ex_us_equity 0.00%</td></tr>
+<tr><td>TAA target top weights</td><td>us_growth_equity 71.60%, us_value_equity 28.40%, em_equity 2.00%</td></tr>
+<tr><td>Final asset top</td><td>us_growth_equity 70.60%, us_value_equity 27.40%, em_equity 1.00%</td></tr>
+<tr><td>Sharpe SAA → TAA</td><td>0.7769 → 0.7879 (Δ=0.0110)</td></tr>
+</table>
+
+<p><strong>Caveats</strong>:</p>
+<ul>
+<li>Relaxed diagnostic — NOT a production portfolio.</li>
+<li>TAA is rule-based regime overlay — NOT regime-conditioned MVO and NOT optimized TAA.</li>
+<li>Ticker mapping unavailable — product_id / product_name used as identifier.</li>
+<li>Regime-conditioned assumptions unavailable (deferred to future phase).</li>
+<li>Efficient frontier sampled by SLSQP grid scan (E-9), not analytical.</li>
+</ul>
+
+<h2>2. Regime Assessment</h2>
+
+<img src="assets/regime_clock_etf_20260511.png" alt="Regime Clock"/>
+
+<ul>
+<li>region: <strong>G7</strong>, signal as_of: <strong>2026-02-01</strong>, portfolio as_of: <strong>2026-03-31</strong></li>
+<li>current: R1 (Expansion / Acceleration), P=+0.7223, V=+0.0586</li>
+<li>coverage: <strong>full</strong> (window 24 obs, full 49 obs)</li>
+</ul>
+
+<h2>3. SAA Construction (max-Sharpe MVO, relaxed)</h2>
+
+<img src="assets/saa_mvo_etf_20260511.png" alt="SAA MVO"/>
+
+<ul>
+<li>selected SAA: E[R]=15.40%, σ=15.96%, Sharpe=0.7769</li>
+<li>max-Sharpe ref: Sharpe=0.7769; min-vol ref: σ=3.52%</li>
+<li>selected_matches_max_sharpe: <strong>True</strong></li>
+<li>active constraints: long_only, weight_sum=1.0  ·  inactive (relaxed): weight_bounds, equity_sum, fixed_income_sum</li>
+</ul>
+
+<h2>4. TAA Overlay (rule-based regime tilt)</h2>
+
+<img src="assets/taa_tilt_etf_20260511.png" alt="TAA Tilt"/>
+
+<ul>
+<li>SAA: E[R]=15.40%, σ=15.96%, Sharpe=0.7769</li>
+<li>TAA: E[R]=15.93%, σ=16.40%, Sharpe=0.7879</li>
+<li>Δ: E[R]=+0.53pp, σ=+0.45pp, Sharpe=+0.0110</li>
+<li>overweight: em_equity +2.00pp, kr_equity +2.00pp, us_high_yield +1.00pp</li>
+<li>underweight: kr_treasury_10y -2.00pp, us_treasury_30y -3.00pp</li>
+</ul>
+
+<blockquote><strong>Limitation</strong>: TAA is rule-based regime overlay — NOT regime-conditioned MVO and NOT optimized TAA.</blockquote>
+
+<h2>5. Product Selection</h2>
+
+<img src="assets/product_selection_etf_20260511.png" alt="Product Selection"/>
+
+<ul>
+<li>universe funnel: raw=932 → passed=736 → classified=572 → eligible=395 → selected=17</li>
+<li>zero-eligible assets: kr_aggregate_bond, kr_treasury_10y, us_treasury_30y</li>
+</ul>
+
+<p><strong>Selected products (top 10 by weight):</strong></p>
+
+<table>
+<tr><th>asset</th><th>rank</th><th>score</th><th>weight</th><th>product_id</th><th>product_name</th><th>manager</th></tr>
+<tr><td>us_growth_equity</td><td>1</td><td>83.39</td><td>20.00%</td><td>426030</td><td>타임폴리오TIME미국나스닥100액티브상장지수(주식)</td><td>타임폴리오자산운용</td></tr>
+<tr><td>us_growth_equity</td><td>2</td><td>79.12</td><td>20.00%</td><td>411420</td><td>삼성KODEX미국나스닥AI테크액티브상장지수[주식]</td><td>삼성운용</td></tr>
+<tr><td>us_growth_equity</td><td>3</td><td>70.03</td><td>20.00%</td><td>381180</td><td>미래에셋TIGER미국필라델피아반도체나스닥상장지수(주식)</td><td>미래에셋운용</td></tr>
+<tr><td>us_value_equity</td><td>1</td><td>46.40</td><td>20.00%</td><td>402970</td><td>한국투자ACE미국배당다우존스상장지수(주식)</td><td>한국투자신탁운용</td></tr>
+<tr><td>us_value_equity</td><td>2</td><td>46.18</td><td>4.66%</td><td>446720</td><td>신한SOL미국배당다우존스상장지수[주식]</td><td>신한자산운용</td></tr>
+<tr><td>us_value_equity</td><td>3</td><td>37.32</td><td>4.66%</td><td>429000</td><td>미래에셋TIGER미국S&amp;P500배당귀족상장지수(주식)</td><td>미래에셋운용</td></tr>
+<tr><td>em_equity</td><td>1</td><td>96.21</td><td>1.76%</td><td>446690</td><td>삼성KODEX아시아AI반도체exChina액티브상장지수[주식]</td><td>삼성운용</td></tr>
+<tr><td>kr_equity</td><td>1</td><td>155.64</td><td>1.76%</td><td>434730</td><td>NH-AmundiHANARO원자력iSelect상장지수(주식)</td><td>NH-Amundi운용</td></tr>
+<tr><td>em_equity</td><td>2</td><td>53.67</td><td>1.06%</td><td>105010</td><td>미래에셋TIGER라틴상장지수(주식)</td><td>미래에셋운용</td></tr>
+<tr><td>em_equity</td><td>3</td><td>52.66</td><td>1.06%</td><td>277540</td><td>한국투자ACE아시아TOP50상장지수(주식)</td><td>한국투자신탁운용</td></tr>
+</table>
+
+<blockquote><strong>Identifier note</strong>: ticker mapping unavailable — product_id / product_name used as identifier.</blockquote>
+
+<h2>6. Final Portfolio Snapshot</h2>
+
+<p><strong>Final asset weights:</strong></p>
+
+<table>
+<tr><th>asset</th><th>weight</th></tr>
+<tr><td>us_growth_equity</td><td>70.60%</td></tr>
+<tr><td>us_value_equity</td><td>27.40%</td></tr>
+<tr><td>em_equity</td><td>1.00%</td></tr>
+<tr><td>kr_equity</td><td>1.00%</td></tr>
+<tr><td>us_high_yield</td><td>0.00%</td></tr>
+<tr><td>dm_ex_us_equity</td><td>0.00%</td></tr>
+<tr><td>kr_aggregate_bond</td><td>0.00%</td></tr>
+<tr><td>kr_treasury_10y</td><td>0.00%</td></tr>
+<tr><td>us_treasury_30y</td><td>0.00%</td></tr>
+</table>
+
+<ul>
+<li>asset_weight_sum: 1.0  ·  constraints_passed: <strong>True</strong>  ·  quality_status: <strong>warning</strong></li>
+<li>max_abs_projection_drift: —  ·  max_abs_asset_weight_drift: 10.60%  ·  fallback_used: True</li>
+</ul>
+
+<p><strong>Final product top 10:</strong></p>
+
+<table>
+<tr><th>asset</th><th>product_id</th><th>product_name</th><th>manager</th><th>role</th><th>weight</th></tr>
+<tr><td>us_growth_equity</td><td>426030</td><td>타임폴리오TIME미국나스닥100액티브상장지수(주식)</td><td>타임폴리오자산운용</td><td>core</td><td>20.00%</td></tr>
+<tr><td>us_growth_equity</td><td>411420</td><td>삼성KODEX미국나스닥AI테크액티브상장지수[주식]</td><td>삼성운용</td><td>satellite</td><td>20.00%</td></tr>
+<tr><td>us_growth_equity</td><td>381180</td><td>미래에셋TIGER미국필라델피아반도체나스닥상장지수(주식)</td><td>미래에셋운용</td><td>satellite</td><td>20.00%</td></tr>
+<tr><td>us_value_equity</td><td>402970</td><td>한국투자ACE미국배당다우존스상장지수(주식)</td><td>한국투자신탁운용</td><td>core</td><td>20.00%</td></tr>
+<tr><td>us_value_equity</td><td>446720</td><td>신한SOL미국배당다우존스상장지수[주식]</td><td>신한자산운용</td><td>satellite</td><td>4.66%</td></tr>
+<tr><td>us_value_equity</td><td>429000</td><td>미래에셋TIGER미국S&amp;P500배당귀족상장지수(주식)</td><td>미래에셋운용</td><td>satellite</td><td>4.66%</td></tr>
+<tr><td>em_equity</td><td>446690</td><td>삼성KODEX아시아AI반도체exChina액티브상장지수[주식]</td><td>삼성운용</td><td>core</td><td>1.76%</td></tr>
+<tr><td>kr_equity</td><td>434730</td><td>NH-AmundiHANARO원자력iSelect상장지수(주식)</td><td>NH-Amundi운용</td><td>core</td><td>1.76%</td></tr>
+<tr><td>em_equity</td><td>105010</td><td>미래에셋TIGER라틴상장지수(주식)</td><td>미래에셋운용</td><td>satellite</td><td>1.06%</td></tr>
+<tr><td>em_equity</td><td>277540</td><td>한국투자ACE아시아TOP50상장지수(주식)</td><td>한국투자신탁운용</td><td>satellite</td><td>1.06%</td></tr>
+</table>
+
+
+<h2>7. Diagnostics / Missing Data</h2>
+
+<table>
+<tr><th>field</th><th>impact</th><th>next</th><th>source phase</th></tr>
+<tr><td><code>saa.efficient_frontier</code></td><td>selected SAA point 의 frontier 위치 시각화 불가</td><td>E-9 phase</td><td>e7_explainability</td></tr>
+<tr><td><code>regime.history (24m)</code></td><td>장기 regime timeline 시각화 불가</td><td>regime backfill sidecar 또는 telemetry enhancement</td><td>e7_explainability</td></tr>
+<tr><td><code>product.scoring.scored_products</code></td><td>factor 별 score 분해 불가</td><td>E-11 phase + selection/tool.py 에서 score 보존</td><td>e7_explainability</td></tr>
+<tr><td><code>taa.regime_conditioned_assumptions</code></td><td>regime-aware MVO 비교 불가</td><td>future phase (regime_mvo, future study only)</td><td>e7_explainability</td></tr>
+<tr><td><code>product.selected_products.ticker</code></td><td>Bloomberg/Reuters ticker 표기 불가</td><td>외부 ticker mapping table 도입 또는 DBProductRepository 확장</td><td>e7_explainability</td></tr>
+<tr><td><code>regime_conditioned_assumptions</code></td><td>regime-aware MVO 비교 불가</td><td>future phase — regime_mvo (currently future_study only)</td><td>e10_taa_tilt</td></tr>
+<tr><td><code>tilt_rules_applied[].confidence</code></td><td>tilt 의 통계적 유의성 표시 불가</td><td>future phase — confidence scaling</td><td>e10_taa_tilt</td></tr>
+<tr><td><code>final_selection.selected_products[].ticker</code></td><td>Bloomberg/Reuters ticker 표기 불가</td><td>외부 ticker mapping table 도입 또는 DBProductRepository.product_metadata 확장</td><td>e11b_product_selection_viz</td></tr>
+<tr><td><code>scoring.score_factors[].cost_penalty</code></td><td>비용 패널티 미사용 (weight=0.0)</td><td>future phase — fee/expense ratio 데이터 도입</td><td>e11b_product_selection_viz</td></tr>
+</table>
+
+</body></html>

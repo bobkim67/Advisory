@@ -1,0 +1,144 @@
+# Universe classification rules — Phase C-pre.
+#
+# 9개 MVO 자산군별 분류 룰. priority 낮을수록 먼저 시도 (좁은 매칭이 광범위 매칭보다 우선).
+# 첫 매칭 우선 정책 유지. 매칭 시 match_reason 을 함께 노출한다.
+#
+# 룰 평가 순서:
+#   1) kis_mp_categories: 화이트리스트 (지정 시)
+#   2) regions: 화이트리스트 (지정 시)
+#   3) name_excludes: 펀드명에 포함되면 매칭 거부
+#   4) include_keywords: OR 매칭. 빈 리스트면 카테고리/지역 조건만으로 매칭
+#
+# Fund 채권 펀드 매칭 보강 (Phase C-pre):
+#   - kr_treasury_10y / us_treasury_30y / kr_aggregate_bond / us_high_yield 모두
+#     fund 상품도 매칭되도록 키워드 확장.
+
+classification_rules:
+
+  # ── 1) us_high_yield (가장 좁고 명확한 키워드 — 최우선) ──
+  - asset_key: us_high_yield
+    priority: 10
+    include_keywords:
+      - 하이일드
+      - High Yield
+      - HY
+      - Hi-Yield
+
+  # ── 2) us_treasury_30y (미국 장기국채) ──
+  - asset_key: us_treasury_30y
+    priority: 20
+    include_keywords:
+      - 미국30년
+      - 미국 30년
+      - 미국국채30
+      - 美30Y
+      - TLT
+      - EDV
+      - 30년국채
+      - 미국장기국채
+      - 미국 장기국채
+      - 미국장기채
+      - 장기미국채
+      - 미국투자등급장기채
+      - 미국투자등급장기채권
+      - US Treasury
+      - UST 30
+    name_excludes:
+      - 하이일드
+
+  # ── 3) kr_treasury_10y (한국 국고채/국공채 장기) ──
+  - asset_key: kr_treasury_10y
+    priority: 30
+    kis_mp_categories: [국내채권]
+    include_keywords:
+      - 국고채10
+      - 국고채 10
+      - 국고10년
+      - 10년국고
+      - 장기국공채
+      - 중기국공채
+      - 국공채
+      - 국채
+    name_excludes:
+      - 미국
+      - 회사채
+      - 하이일드
+      - 단기
+      - 초단기
+      - MMF
+      - 머니마켓
+      - 단기국공채
+
+  # ── 4) kr_aggregate_bond (국내채권 일반) ──
+  - asset_key: kr_aggregate_bond
+    priority: 40
+    kis_mp_categories: [국내채권]
+    name_excludes:
+      - 국고채10
+      - 국고채 10
+      - 미국
+      - 하이일드
+
+  # ── 5) us_growth_equity ──
+  - asset_key: us_growth_equity
+    priority: 50
+    regions: [미국]
+    include_keywords:
+      - 성장
+      - 그로스
+      - Growth
+      - 나스닥
+      - Nasdaq
+      - NASDAQ
+
+  # ── 6) us_value_equity ──
+  - asset_key: us_value_equity
+    priority: 60
+    regions: [미국]
+    include_keywords:
+      - 가치
+      - Value
+      - 배당
+
+  # ── 7) em_equity (KIS MP 신흥국주식 카테고리) ──
+  - asset_key: em_equity
+    priority: 70
+    kis_mp_categories: [신흥국주식]
+
+  # ── 7b) em_equity (지역 기반 추가 룰) ──
+  - asset_key: em_equity
+    priority: 71
+    regions:
+      - 중국
+      - 인도
+      - 베트남
+      - 인도네시아
+      - 브라질
+      - 신흥국
+      - 멕시코
+      - 필리핀
+      - 대만
+      - 중국+베트남
+
+  # ── 8) dm_ex_us_equity (글로벌주식 + 미국외 지역) ──
+  - asset_key: dm_ex_us_equity
+    priority: 80
+    kis_mp_categories: [글로벌주식]
+    regions:
+      - 일본
+      - 유럽
+      - 독일
+      - 아시아
+      - 글로벌선진국
+
+  # ── 8b) dm_ex_us_equity (펀드명 키워드 — 선진국) ──
+  - asset_key: dm_ex_us_equity
+    priority: 81
+    include_keywords:
+      - 선진국
+
+  # ── 9) kr_equity (가장 일반적 — 마지막) ──
+  - asset_key: kr_equity
+    priority: 90
+    kis_mp_categories: [국내주식]
+    regions: [국내]

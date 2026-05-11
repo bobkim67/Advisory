@@ -1,0 +1,122 @@
+# TAA Policy — 설계 초안 (draft)
+#
+# Regime (1/2/3/4) 별 자산군 tilt 정책 + ECI 입력 region 결정.
+# 본 정책은 regimeAnalysis_rt 의 부호/크기에서 단순 도출한 초안이며,
+# 운영 적용 전 백테스트 필수.
+
+# ── ECI 입력 region 결정 ─────────────────────────────────────────────
+regime_input:
+  mode: composite                 # composite | per_asset_region
+  composite_region: "G7"          # 후보: G7, G20, KOR, USA
+  composite_window: 12            # rolling 평균 window (= Placement)
+
+  # per_asset_region 모드일 때만 적용
+  per_asset_region:
+    kr_equity: KOR
+    us_growth_equity: USA
+    us_value_equity: USA
+    dm_ex_us_equity: G7
+    em_equity: G20
+    kr_aggregate_bond: KOR
+    kr_treasury_10y: KOR
+    us_treasury_30y: USA
+    us_high_yield: USA
+
+# ── Regime 별 tilt 정책 (단위: %p, sum = 0) ──────────────────────────
+regime_tilts:
+
+  1:        # Expansion / Acceleration (P>0, V>0)
+    label: "확장 / 가속"
+    bucket_tilts:
+      equity: +0.05               # +5%p
+      fixed_income: -0.05
+    asset_tilts:
+      em_equity: +0.02
+      kr_equity: +0.02
+      us_high_yield: +0.01        # HY 는 risk_asset
+      kr_treasury_10y: -0.02
+      us_treasury_30y: -0.03
+    reason: "위험자산 강세, 모든 equity bucket 우호. 안전채권 underweight."
+
+  2:        # Recovery (P<0, V>0)
+    label: "회복 / 개선"
+    bucket_tilts:
+      equity: +0.03
+      fixed_income: -0.03
+    asset_tilts:
+      em_equity: +0.02
+      us_high_yield: +0.01
+      kr_aggregate_bond: -0.02
+      kr_treasury_10y: -0.01
+    reason: "신흥국/HY 의 회복 탄력성. 안전자산 약화."
+
+  3:        # Slowdown / Contraction (P<0, V<0)
+    label: "둔화 / 침체"
+    bucket_tilts:
+      equity: -0.05
+      fixed_income: +0.05
+    asset_tilts:
+      us_treasury_30y: +0.03      # long duration safe asset
+      kr_aggregate_bond: +0.02
+      kr_equity: -0.02
+      em_equity: -0.02
+      us_high_yield: -0.01        # HY 는 risk_asset 이므로 함께 underweight
+    reason: "위험자산 매우 약세, 듀레이션/안전자산 강세. HY 도 함께 줄임."
+
+  4:        # Late Cycle / Deceleration (P>0, V<0)
+    label: "후기 사이클 / 감속"
+    bucket_tilts:
+      equity: +0.01
+      fixed_income: -0.01
+    asset_tilts:
+      us_growth_equity: +0.01
+      us_value_equity: +0.01
+      dm_ex_us_equity: +0.01
+      em_equity: -0.02
+      kr_equity: -0.01
+    reason: "미국/선진국 우세, 신흥국/한국 약세. tilt 폭은 가장 작게."
+
+# ── 변동 폭 제약 (TAAConstraint) ─────────────────────────────────────
+# Phase D relaxed (2026-05-08, D-01 closed): TAA 허용범위 일괄 해제.
+# bucket bound, per-asset tilt 폭 모두 비활성. tilt_sum_must_be_zero 만 유지.
+constraints:
+  # Phase D relaxed: bucket bound 비활성. [0, 1] 로 완화.
+  equity_total_min: 0.0
+  equity_total_max: 1.0
+  fixed_income_total_min: 0.0
+  fixed_income_total_max: 1.0
+
+  # Phase D relaxed: per-asset tilt 폭 제한 비활성 (Option B).
+  # 1.0 = 사실상 비제약. ineq trivially 만족.
+  # 추후 자산군별 band 재도입 시 0.03 등으로 복원하면 재활성.
+  per_asset_max_tilt: 1.0
+
+  # tilt 합 = 0 — sum-to-100% 회계 정합성 장치 (정책 #6).
+  # NOT a TAA range limit. SAA 합 1.0 + tilt 합 0 = TAA 합 1.0 보장.
+  # false 로 풀 경우 TAA 합 ≠ 1.0 가능 → 별도 normalization 필요.
+  tilt_sum_must_be_zero: true
+
+  # reference only — NOT enforced
+  equity_total_min_reference: 0.75
+  equity_total_max_reference: 0.85
+  fixed_income_total_min_reference: 0.15
+  fixed_income_total_max_reference: 0.25
+  per_asset_max_tilt_reference: 0.03
+
+# ── 검증 / 출력 정책 ─────────────────────────────────────────────────
+validation:
+  # Phase D relaxed: bucket bound / per-asset tilt 위반 자체 정의 안 됨.
+  warn_if_bucket_bound_violated: false
+  warn_if_per_asset_tilt_violated: false
+  warn_if_unknown_regime: true
+
+output:
+  include_reasons: true           # TAAResult.reasons 에 사유 텍스트 포함
+  include_diagnostics: true
+
+# ── 미확정 ──────────────────────────────────────────────────────────
+# (1) ECI 입력 region 의 정확한 default (G7 vs G20 vs KOR) — 백테스트 후 결정
+# (2) per_asset_max_tilt 의 적정값 (±2%p / ±3%p / ±5%p)
+# (3) HY 의 정확한 tilt 부호와 크기 — Regime 3에서 HY 가 Regime 2의 HY 보다 강했음
+#     (Regime 2 HY +16.5% vs Regime 3 HY +1.5%) → 단순 underweight 가 아닐 수도
+# (4) Regime 4 의 tilt 폭이 너무 작아 무의미할 수 있음 — 단순 SAA 유지로 변경 고려

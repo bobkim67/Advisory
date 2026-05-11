@@ -1,0 +1,621 @@
+{
+  "meta": {
+    "schema_version": "e8.1",
+    "product_type": "etf",
+    "portfolio_as_of_date": "2026-03-31",
+    "regime_signal_as_of": "2026-02-01",
+    "source_mode": "db",
+    "generated_at": "2026-05-11T06:10:17.709265+00:00"
+  },
+  "signal": {
+    "region": "G7",
+    "placement_source": "regime_src::PlacementCalculator",
+    "velocity_source": "regime_src::VelocityCalculator",
+    "classifier": "ECIRegimeClassifier",
+    "composite_window": 12
+  },
+  "observations_full": [
+    {
+      "as_of": "2022-02-01",
+      "placement": -0.47135000000001526,
+      "velocity": -0.281950000000009,
+      "regime": 3,
+      "regime_label": "Slowdown / Contraction",
+      "quadrant_label": "Slowdown / Contraction"
+    },
+    {
+      "as_of": "2022-03-01",
+      "placement": -0.7435833333333193,
+      "velocity": -0.272233333333304,
+      "regime": 3,
+      "regime_label": "Slowdown / Contraction",
+      "quadrant_label": "Slowdown / Contraction"
+    },
+    {
+      "as_of": "2022-04-01",
+      "placement": -0.9912333333333265,
+      "velocity": -0.24765000000000725,
+      "regime": 3,
+      "regime_label": "Slowdown / Contraction",
+      "quadrant_label": "Slowdown / Contraction"
+    },
+    {
+      "as_of": "2022-05-01",
+      "placement": -1.208787500000014,
+      "velocity": -0.21755416666668737,
+      "regime": 3,
+      "regime_label": "Slowdown / Contraction",
+      "quadrant_label": "Slowdown / Contraction"
+    },
+    {
+      "as_of": "2022-06-01",
+      "placement": -1.373614166666684,
+      "velocity": -0.16482666666667,
+      "regime": 3,
+      "regime_label": "Slowdown / Contraction",
+      "quadrant_label": "Slowdown / Contraction"
+    },
+    {
+      "as_of": "2022-07-01",
+      "placement": -1.4654800000000137,
+      "velocity": -0.09186583333332976,
+      "regime": 3,
+      "regime_label": "Slowdown / Contraction",
+      "quadrant_label": "Slowdown / Contraction"
+    },
+    {
+      "as_of": "2022-08-01",
+      "placement": -1.4788416666666677,
+      "velocity": -0.01336166666665406,
+      "regime": 3,
+      "regime_label": "Slowdown / Contraction",
+      "quadrant_label": "Slowdown / Contraction"
+    },
+    {
+      "as_of": "2022-09-01",
+      "placement": -1.4252175000000022,
+      "velocity": 0.053624166666665474,
+      "regime": 2,
+      "regime_label": "Recovery / Improvement",
+      "quadrant_label": "Recovery / Improvement"
+    },
+    {
+      "as_of": "2022-10-01",
+      "placement": -1.3072833333333165,
+      "velocity": 0.11793416666668577,
+      "regime": 2,
+      "regime_label": "Recovery / Improvement",
+      "quadrant_label": "Recovery / Improvement"
+    },
+    {
+      "as_of": "2022-11-01",
+      "placement": -1.1374933333333388,
+      "velocity": 0.16978999999997768,
+      "regime": 2,
+      "regime_label": "Recovery / Improvement",
+      "quadrant_label": "Recovery / Improvement"
+    },
+    {
+      "as_of": "2022-12-01",
+      "placement": -0.9331816666666555,
+      "velocity": 0.20431166666668332,
+      "regime": 2,
+      "regime_label": "Recovery / Improvement",
+      "quadrant_label": "Recovery / Improvement"
+    },
+    {
+      "as_of": "2023-01-01",
+      "placement": -0.7203424999999868,
+      "velocity": 0.2128391666666687,
+      "regime": 2,
+      "regime_label": "Recovery / Improvement",
+      "quadrant_label": "Recovery / Improvement"
+    },
+    {
+      "as_of": "2023-02-01",
+      "placement": -0.525951666666657,
+      "velocity": 0.19439083333332974,
+      "regime": 2,
+      "regime_label": "Recovery / Improvement",
+      "quadrant_label": "Recovery / Improvement"
+    },
+    {
+      "as_of": "2023-03-01",
+      "placement": -0.3595116666666769,
+      "velocity": 0.16643999999998016,
+      "regime": 2,
+      "regime_label": "Recovery / Improvement",
+      "quadrant_label": "Recovery / Improvement"
+    },
+    {
+      "as_of": "2023-04-01",
+      "placement": -0.2156400000000076,
+      "velocity": 0.14387166666666928,
+      "regime": 2,
+      "regime_label": "Recovery / Improvement",
+      "quadrant_label": "Recovery / Improvement"
+    },
+    {
+      "as_of": "2023-05-01",
+      "placement": -0.0952666666666886,
+      "velocity": 0.12037333333331901,
+      "regime": 2,
+      "regime_label": "Recovery / Improvement",
+      "quadrant_label": "Recovery / Improvement"
+    },
+    {
+      "as_of": "2023-06-01",
+      "placement": 0.005270000000024311,
+      "velocity": 0.1005366666667129,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2023-07-01",
+      "placement": 0.07987833333335459,
+      "velocity": 0.07460833333333028,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2023-08-01",
+      "placement": 0.1269908333333376,
+      "velocity": 0.047112499999983015,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2023-09-01",
+      "placement": 0.15059999999999718,
+      "velocity": 0.023609166666659576,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2023-10-01",
+      "placement": 0.16212916666667354,
+      "velocity": 0.01152916666667636,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2023-11-01",
+      "placement": 0.18197833333331914,
+      "velocity": 0.0198491666666456,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2023-12-01",
+      "placement": 0.22028750000001196,
+      "velocity": 0.03830916666669282,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2024-01-01",
+      "placement": 0.2702491666666589,
+      "velocity": 0.04996166666664692,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2024-02-01",
+      "placement": 0.3203374999999937,
+      "velocity": 0.050088333333334845,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2024-03-01",
+      "placement": 0.3560791666666603,
+      "velocity": 0.03574166666666656,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2024-04-01",
+      "placement": 0.364664166666671,
+      "velocity": 0.008585000000010723,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2024-05-01",
+      "placement": 0.34950250000001404,
+      "velocity": -0.01516166666665697,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2024-06-01",
+      "placement": 0.3227933333333226,
+      "velocity": -0.02670916666669143,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2024-07-01",
+      "placement": 0.29985166666666885,
+      "velocity": -0.02294166666665376,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2024-08-01",
+      "placement": 0.2870850000000047,
+      "velocity": -0.01276666666666415,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2024-09-01",
+      "placement": 0.28692999999999813,
+      "velocity": -0.00015500000000656655,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2024-10-01",
+      "placement": 0.2899266666666591,
+      "velocity": 0.0029966666666609854,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2024-11-01",
+      "placement": 0.2881933333333393,
+      "velocity": -0.0017333333333198198,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2024-12-01",
+      "placement": 0.2713925000000046,
+      "velocity": -0.016800833333334708,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2025-01-01",
+      "placement": 0.2356316666666629,
+      "velocity": -0.03576083333334168,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2025-02-01",
+      "placement": 0.18716166666666822,
+      "velocity": -0.048469999999994684,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2025-03-01",
+      "placement": 0.13679583333333767,
+      "velocity": -0.050365833333330556,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2025-04-01",
+      "placement": 0.10841916666664986,
+      "velocity": -0.02837666666668781,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2025-05-01",
+      "placement": 0.12625749999999414,
+      "velocity": 0.01783833333334428,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2025-06-01",
+      "placement": 0.17661333333333573,
+      "velocity": 0.05035583333334159,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2025-07-01",
+      "placement": 0.23779583333333676,
+      "velocity": 0.06118250000000103,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2025-08-01",
+      "placement": 0.299839999999989,
+      "velocity": 0.062044166666652245,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2025-09-01",
+      "placement": 0.365406666666658,
+      "velocity": 0.065566666666669,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2025-10-01",
+      "placement": 0.4350066666666663,
+      "velocity": 0.06960000000000832,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2025-11-01",
+      "placement": 0.509019166666647,
+      "velocity": 0.07401249999998072,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2025-12-01",
+      "placement": 0.5871724999999941,
+      "velocity": 0.07815333333334706,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2026-01-01",
+      "placement": 0.6637058333333528,
+      "velocity": 0.07653333333335866,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2026-02-01",
+      "placement": 0.722328333333337,
+      "velocity": 0.05862249999998426,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    }
+  ],
+  "observations": [
+    {
+      "as_of": "2024-03-01",
+      "placement": 0.3560791666666603,
+      "velocity": 0.03574166666666656,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2024-04-01",
+      "placement": 0.364664166666671,
+      "velocity": 0.008585000000010723,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2024-05-01",
+      "placement": 0.34950250000001404,
+      "velocity": -0.01516166666665697,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2024-06-01",
+      "placement": 0.3227933333333226,
+      "velocity": -0.02670916666669143,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2024-07-01",
+      "placement": 0.29985166666666885,
+      "velocity": -0.02294166666665376,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2024-08-01",
+      "placement": 0.2870850000000047,
+      "velocity": -0.01276666666666415,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2024-09-01",
+      "placement": 0.28692999999999813,
+      "velocity": -0.00015500000000656655,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2024-10-01",
+      "placement": 0.2899266666666591,
+      "velocity": 0.0029966666666609854,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2024-11-01",
+      "placement": 0.2881933333333393,
+      "velocity": -0.0017333333333198198,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2024-12-01",
+      "placement": 0.2713925000000046,
+      "velocity": -0.016800833333334708,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2025-01-01",
+      "placement": 0.2356316666666629,
+      "velocity": -0.03576083333334168,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2025-02-01",
+      "placement": 0.18716166666666822,
+      "velocity": -0.048469999999994684,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2025-03-01",
+      "placement": 0.13679583333333767,
+      "velocity": -0.050365833333330556,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2025-04-01",
+      "placement": 0.10841916666664986,
+      "velocity": -0.02837666666668781,
+      "regime": 4,
+      "regime_label": "Late Cycle / Deceleration",
+      "quadrant_label": "Late Cycle / Deceleration"
+    },
+    {
+      "as_of": "2025-05-01",
+      "placement": 0.12625749999999414,
+      "velocity": 0.01783833333334428,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2025-06-01",
+      "placement": 0.17661333333333573,
+      "velocity": 0.05035583333334159,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2025-07-01",
+      "placement": 0.23779583333333676,
+      "velocity": 0.06118250000000103,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2025-08-01",
+      "placement": 0.299839999999989,
+      "velocity": 0.062044166666652245,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2025-09-01",
+      "placement": 0.365406666666658,
+      "velocity": 0.065566666666669,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2025-10-01",
+      "placement": 0.4350066666666663,
+      "velocity": 0.06960000000000832,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2025-11-01",
+      "placement": 0.509019166666647,
+      "velocity": 0.07401249999998072,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2025-12-01",
+      "placement": 0.5871724999999941,
+      "velocity": 0.07815333333334706,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2026-01-01",
+      "placement": 0.6637058333333528,
+      "velocity": 0.07653333333335866,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    },
+    {
+      "as_of": "2026-02-01",
+      "placement": 0.722328333333337,
+      "velocity": 0.05862249999998426,
+      "regime": 1,
+      "regime_label": "Expansion / Acceleration",
+      "quadrant_label": "Expansion / Acceleration"
+    }
+  ],
+  "coverage": {
+    "count": 24,
+    "start_date": "2024-03-01",
+    "end_date": "2026-02-01",
+    "months_available": 49,
+    "target_months": 24,
+    "coverage_status": "full",
+    "full_history_months": 49,
+    "full_history_start_date": "2022-02-01",
+    "full_history_end_date": "2026-02-01"
+  },
+  "diagnostics": {
+    "warnings": [],
+    "missing_data": [],
+    "current_point_match": true
+  }
+}

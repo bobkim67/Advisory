@@ -1,0 +1,369 @@
+{
+  "meta": {
+    "schema_version": "e11b.1",
+    "product_type": "etf",
+    "portfolio_as_of_date": "2026-03-31",
+    "source_mode": "db",
+    "generated_at": "2026-05-11T07:05:11.048529+00:00"
+  },
+  "input_telemetry": {
+    "source_json": "out\\db_review_relaxed_e62\\product_selection_telemetry\\20260511\\product_selection_telemetry_etf_20260511.json",
+    "score_method": "hard_filter",
+    "score_factors": [
+      {
+        "factor": "quant_score",
+        "weight": 0.4,
+        "description": "정량평가 점수",
+        "available": true
+      },
+      {
+        "factor": "sharpe_1y",
+        "weight": 0.3,
+        "description": "1년 수정 샤프지수",
+        "available": true
+      },
+      {
+        "factor": "return_3y",
+        "weight": 0.2,
+        "description": "3년 수익률",
+        "available": true
+      },
+      {
+        "factor": "aum_log",
+        "weight": 0.1,
+        "description": "log1p(AUM)",
+        "available": true
+      },
+      {
+        "factor": "cost_penalty",
+        "weight": 0.0,
+        "description": "(미사용)",
+        "available": false
+      }
+    ]
+  },
+  "funnel": {
+    "raw_count": 932,
+    "passed_filter_count": 736,
+    "classified_count": 572,
+    "eligible_count": 395,
+    "selected_count": 17
+  },
+  "asset_coverage": {
+    "by_asset": {
+      "dm_ex_us_equity": {
+        "raw_count": 15,
+        "eligible_count": 14,
+        "selected_count": 3,
+        "coverage_status": "sufficient"
+      },
+      "em_equity": {
+        "raw_count": 55,
+        "eligible_count": 36,
+        "selected_count": 3,
+        "coverage_status": "sufficient"
+      },
+      "kr_aggregate_bond": {
+        "raw_count": 97,
+        "eligible_count": 0,
+        "selected_count": 0,
+        "coverage_status": "none"
+      },
+      "kr_equity": {
+        "raw_count": 347,
+        "eligible_count": 304,
+        "selected_count": 3,
+        "coverage_status": "sufficient"
+      },
+      "kr_treasury_10y": {
+        "raw_count": 10,
+        "eligible_count": 0,
+        "selected_count": 0,
+        "coverage_status": "none"
+      },
+      "us_growth_equity": {
+        "raw_count": 22,
+        "eligible_count": 22,
+        "selected_count": 3,
+        "coverage_status": "sufficient"
+      },
+      "us_high_yield": {
+        "raw_count": 2,
+        "eligible_count": 2,
+        "selected_count": 2,
+        "coverage_status": "sufficient"
+      },
+      "us_treasury_30y": {
+        "raw_count": 6,
+        "eligible_count": 0,
+        "selected_count": 0,
+        "coverage_status": "none"
+      },
+      "us_value_equity": {
+        "raw_count": 18,
+        "eligible_count": 17,
+        "selected_count": 3,
+        "coverage_status": "sufficient"
+      }
+    }
+  },
+  "filter_exclusions": {
+    "by_reason": {
+      "grade_below_min(grade=D, min=C)": 64
+    },
+    "by_asset_reason": {
+      "dm_ex_us_equity": {
+        "grade_below_min(grade=D, min=C)": 1
+      },
+      "em_equity": {
+        "grade_below_min(grade=D, min=C)": 19
+      },
+      "kr_equity": {
+        "grade_below_min(grade=D, min=C)": 43
+      },
+      "us_value_equity": {
+        "grade_below_min(grade=D, min=C)": 1
+      }
+    }
+  },
+  "selected_product_table": {
+    "rows": [
+      {
+        "asset_key": "us_growth_equity",
+        "product_id": "426030",
+        "product_name": "타임폴리오TIME미국나스닥100액티브상장지수(주식)",
+        "manager": "타임폴리오자산운용",
+        "ticker": null,
+        "rank_within_asset": 1,
+        "score": 83.3879119887371,
+        "product_weight": 0.2,
+        "selected_reason": "product_cap_clipping",
+        "cap_applied": false,
+        "role": "core"
+      },
+      {
+        "asset_key": "us_growth_equity",
+        "product_id": "411420",
+        "product_name": "삼성KODEX미국나스닥AI테크액티브상장지수[주식]",
+        "manager": "삼성운용",
+        "ticker": null,
+        "rank_within_asset": 2,
+        "score": 79.12103118673072,
+        "product_weight": 0.2,
+        "selected_reason": "product_cap_clipping",
+        "cap_applied": true,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "us_growth_equity",
+        "product_id": "381180",
+        "product_name": "미래에셋TIGER미국필라델피아반도체나스닥상장지수(주식)",
+        "manager": "미래에셋운용",
+        "ticker": null,
+        "rank_within_asset": 3,
+        "score": 70.02946296926405,
+        "product_weight": 0.2,
+        "selected_reason": "product_cap_clipping",
+        "cap_applied": true,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "us_value_equity",
+        "product_id": "402970",
+        "product_name": "한국투자ACE미국배당다우존스상장지수(주식)",
+        "manager": "한국투자신탁운용",
+        "ticker": null,
+        "rank_within_asset": 1,
+        "score": 46.39800463166332,
+        "product_weight": 0.2,
+        "selected_reason": "product_cap_clipping",
+        "cap_applied": false,
+        "role": "core"
+      },
+      {
+        "asset_key": "us_value_equity",
+        "product_id": "446720",
+        "product_name": "신한SOL미국배당다우존스상장지수[주식]",
+        "manager": "신한자산운용",
+        "ticker": null,
+        "rank_within_asset": 2,
+        "score": 46.1828479345496,
+        "product_weight": 0.046618184537228616,
+        "selected_reason": "product_cap_clipping",
+        "cap_applied": true,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "us_value_equity",
+        "product_id": "429000",
+        "product_name": "미래에셋TIGER미국S&P500배당귀족상장지수(주식)",
+        "manager": "미래에셋운용",
+        "ticker": null,
+        "rank_within_asset": 3,
+        "score": 37.315308192051546,
+        "product_weight": 0.046618184537228616,
+        "selected_reason": "product_cap_clipping",
+        "cap_applied": true,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "em_equity",
+        "product_id": "446690",
+        "product_name": "삼성KODEX아시아AI반도체exChina액티브상장지수[주식]",
+        "manager": "삼성운용",
+        "ticker": null,
+        "rank_within_asset": 1,
+        "score": 96.21026773818724,
+        "product_weight": 0.01764040296436599,
+        "selected_reason": null,
+        "cap_applied": true,
+        "role": "core"
+      },
+      {
+        "asset_key": "kr_equity",
+        "product_id": "434730",
+        "product_name": "NH-AmundiHANARO원자력iSelect상장지수(주식)",
+        "manager": "NH-Amundi운용",
+        "ticker": null,
+        "rank_within_asset": 1,
+        "score": 155.6356373008679,
+        "product_weight": 0.01764040296436597,
+        "selected_reason": null,
+        "cap_applied": true,
+        "role": "core"
+      },
+      {
+        "asset_key": "em_equity",
+        "product_id": "105010",
+        "product_name": "미래에셋TIGER라틴상장지수(주식)",
+        "manager": "미래에셋운용",
+        "ticker": null,
+        "rank_within_asset": 2,
+        "score": 53.66874917427821,
+        "product_weight": 0.010640403535976416,
+        "selected_reason": null,
+        "cap_applied": true,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "em_equity",
+        "product_id": "277540",
+        "product_name": "한국투자ACE아시아TOP50상장지수(주식)",
+        "manager": "한국투자신탁운용",
+        "ticker": null,
+        "rank_within_asset": 3,
+        "score": 52.65798973535405,
+        "product_weight": 0.010640403535976416,
+        "selected_reason": null,
+        "cap_applied": true,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "kr_equity",
+        "product_id": "449450",
+        "product_name": "한화PLUSK방산상장지수(주식)",
+        "manager": "한화운용",
+        "ticker": null,
+        "rank_within_asset": 2,
+        "score": 152.0763765609361,
+        "product_weight": 0.010640403535976412,
+        "selected_reason": null,
+        "cap_applied": true,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "kr_equity",
+        "product_id": "433500",
+        "product_name": "한국투자ACE원자력TOP10상장지수(주식)",
+        "manager": "한국투자신탁운용",
+        "ticker": null,
+        "rank_within_asset": 3,
+        "score": 148.67649508917492,
+        "product_weight": 0.010640403535976412,
+        "selected_reason": null,
+        "cap_applied": true,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "dm_ex_us_equity",
+        "product_id": "238720",
+        "product_name": "한국투자ACE일본Nikkei225상장지수(주식-파생)(H)",
+        "manager": "한국투자신탁운용",
+        "ticker": null,
+        "rank_within_asset": 1,
+        "score": 49.10522024797744,
+        "product_weight": 0.009640403617635051,
+        "selected_reason": null,
+        "cap_applied": true,
+        "role": "core"
+      },
+      {
+        "asset_key": "dm_ex_us_equity",
+        "product_id": "101280",
+        "product_name": "삼성KODEX일본TOPIX100상장지수[주식]",
+        "manager": "삼성운용",
+        "ticker": null,
+        "rank_within_asset": 2,
+        "score": 47.47952615981155,
+        "product_weight": 0.009640403617635048,
+        "selected_reason": null,
+        "cap_applied": true,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "dm_ex_us_equity",
+        "product_id": "251350",
+        "product_name": "삼성KODEXMSCI선진국상장지수[주식]",
+        "manager": "삼성운용",
+        "ticker": null,
+        "rank_within_asset": 3,
+        "score": 46.56821875822174,
+        "product_weight": 0.009640403617635048,
+        "selected_reason": null,
+        "cap_applied": true,
+        "role": "satellite"
+      },
+      {
+        "asset_key": "us_high_yield",
+        "product_id": "468380",
+        "product_name": "삼성KODEXiShares미국하이일드액티브상장지수[채권-재간접]",
+        "manager": "삼성운용",
+        "ticker": null,
+        "rank_within_asset": 1,
+        "score": 27.429668148817655,
+        "product_weight": 3.4602086459422286e-17,
+        "selected_reason": null,
+        "cap_applied": false,
+        "role": "core"
+      },
+      {
+        "asset_key": "us_high_yield",
+        "product_id": "455660",
+        "product_name": "한국투자ACE미국하이일드액티브상장지수[채권-재간접](H)",
+        "manager": "한국투자신탁운용",
+        "ticker": null,
+        "rank_within_asset": 2,
+        "score": 17.66207682942506,
+        "product_weight": 8.650521614855565e-18,
+        "selected_reason": null,
+        "cap_applied": false,
+        "role": "satellite"
+      }
+    ]
+  },
+  "diagnostics": {
+    "warnings": [],
+    "missing_data": [
+      {
+        "field": "final_selection.selected_products[].ticker",
+        "impact": "Bloomberg/Reuters ticker 표기 불가",
+        "recommended_next_step": "외부 ticker mapping table 도입 또는 DBProductRepository.product_metadata 확장"
+      },
+      {
+        "field": "scoring.score_factors[].cost_penalty",
+        "impact": "비용 패널티 미사용 (weight=0.0)",
+        "recommended_next_step": "future phase — fee/expense ratio 데이터 도입"
+      }
+    ]
+  }
+}
