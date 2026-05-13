@@ -1,0 +1,5450 @@
+{
+  "meta": {
+    "schema_version": "r1g2.1",
+    "generated_at": "2026-05-13T06:45:15.888841+00:00",
+    "operating_mode": "relaxed_diagnostic",
+    "production_applied": false,
+    "dry_run_only": true,
+    "manager_override_saa_layer": true,
+    "product_allocation_method": "full_reselection",
+    "portfolio_builder_applied": true,
+    "target_weight_source": "r1f2_projection_final_asset_weights",
+    "selection_as_of": "20260513",
+    "baseline_portfolio_as_of": "20260511",
+    "universe_as_of": "20260511",
+    "output_as_of": "20260513",
+    "valid_asset_level_dry_run": true,
+    "valid_product_level_portfolio": true,
+    "product_weight_sum_valid": true,
+    "implementation_ready": false,
+    "implementation_review_status": "review_required",
+    "sign_off_required_for_production": true,
+    "comparison_to_baseline_available": true,
+    "comparison_to_r1f2_available": true,
+    "scope": "R-1G.2 (full re-selection + PortfolioBuilder; 3-way comparison)",
+    "portfolio_type": "fund"
+  },
+  "source_manager_selected_saa_json": {
+    "path": "out\\db_review_relaxed_e62\\saa_opportunity_set\\20260513\\r1i_multi_candidate\\manager_selected_saa_fund_cand_006926_20260513.json",
+    "sha256": "39e998e39e858a993713a471715c662762da3948c9a739c49161a7461bb1b7fe"
+  },
+  "source_r1f2_dry_run_json": {
+    "path": "out\\db_fund_relaxed_e62_r1i_multi_candidate\\cand_006926\\r1f2_dry_run_fund_20260513.json",
+    "sha256": "fd9bdbbf9bd3d06749e95d5c829d0d9129bf3c8958022314c2b3e516c35dabda"
+  },
+  "source_r1g1_reselection_json": null,
+  "baseline_portfolio_json": {
+    "path": "out\\db_fund_relaxed_e62\\portfolio_fund_20260511.json",
+    "sha256": "edcd29c088b0d48f8f1c303fd2b771483f30346d1155fda9f4875b5a89cf365f"
+  },
+  "selected_candidate_id": "cand_006926",
+  "target_asset_weights": {
+    "kr_equity": 0.026495635999223444,
+    "us_growth_equity": 0.056378797660900516,
+    "us_value_equity": 0.32715270802427987,
+    "dm_ex_us_equity": 0.07019732810703036,
+    "em_equity": 0.3421262190103843,
+    "kr_aggregate_bond": 0.16871922578326848,
+    "kr_treasury_10y": 0.0,
+    "us_treasury_30y": 9.54097911952638e-18,
+    "us_high_yield": 0.008930085414913136
+  },
+  "target_weight_sum": 1.0000000000000002,
+  "final_asset_weights": {
+    "kr_equity": 0.026495635999223444,
+    "us_growth_equity": 0.056378797660900516,
+    "us_value_equity": 0.32715270802427987,
+    "dm_ex_us_equity": 0.07019732810703036,
+    "em_equity": 0.3421262190103843,
+    "kr_aggregate_bond": 0.16871922578326848,
+    "kr_treasury_10y": 0.0,
+    "us_treasury_30y": 9.54097911952638e-18,
+    "us_high_yield": 0.008930085414913136
+  },
+  "product_allocation": [
+    {
+      "asset_key": "kr_equity",
+      "product_id": "43306",
+      "fund_code": "K55236CG1954",
+      "product_name": "한국밸류10년투자파이오니아(주식)(C-Re)",
+      "manager": "한국투자밸류운용",
+      "role": "core",
+      "weight": 0.021196508799378757,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "kr_equity",
+      "product_id": "43040",
+      "fund_code": "K55232C99576",
+      "product_name": "NH-Amundi필승코리아[주식]ClassC-P2(퇴직연금)",
+      "manager": "NH-Amundi운용",
+      "role": "satellite",
+      "weight": 0.0026495635999223433,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "kr_equity",
+      "product_id": "41944",
+      "fund_code": "KR5207A10369",
+      "product_name": "교보악사파워인덱스자 1[주식]ClassCP",
+      "manager": "교보악사운용",
+      "role": "satellite",
+      "weight": 0.0026495635999223433,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "us_growth_equity",
+      "product_id": "76305",
+      "fund_code": "K55223D45352",
+      "product_name": "KB미국대표성장주자(주식)(UH)C-퇴직",
+      "manager": "KB운용",
+      "role": "core",
+      "weight": 0.045103038128720414,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "us_growth_equity",
+      "product_id": "74176",
+      "fund_code": "K55105CS5827",
+      "product_name": "삼성미국그로스자UH[주식-재간접]_Cp(퇴직연금)",
+      "manager": "삼성운용",
+      "role": "satellite",
+      "weight": 0.005637879766090051,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "us_growth_equity",
+      "product_id": "73125",
+      "fund_code": "K55370D73619",
+      "product_name": "AB미국그로스UH(주식-재간접)종류C-P2",
+      "manager": "AB자산운용",
+      "role": "satellite",
+      "weight": 0.005637879766090051,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "us_value_equity",
+      "product_id": "70467",
+      "fund_code": "K55101D20882",
+      "product_name": "한국투자미국배당귀족자UH(주식)(C-R)",
+      "manager": "한국투자신탁운용",
+      "role": "core",
+      "weight": 0.2617221664194239,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "us_value_equity",
+      "product_id": "70455",
+      "fund_code": "K55101D20684",
+      "product_name": "한국투자미국배당귀족자H(주식)(C-R)",
+      "manager": "한국투자신탁운용",
+      "role": "satellite",
+      "weight": 0.06543054160485595,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "dm_ex_us_equity",
+      "product_id": "42669",
+      "fund_code": "K55237B46693",
+      "product_name": "한화천연자원자(주식)P클래스",
+      "manager": "한화운용",
+      "role": "core",
+      "weight": 0.056157862485624294,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "dm_ex_us_equity",
+      "product_id": "71463",
+      "fund_code": "KR5235924028",
+      "product_name": "피델리티재팬자(주식-재간접)CP",
+      "manager": "피델리티운용",
+      "role": "satellite",
+      "weight": 0.007019732810703033,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "dm_ex_us_equity",
+      "product_id": "70744",
+      "fund_code": "K55105B48953",
+      "product_name": "삼성일본리더스전환자 1[주식](Cp(퇴직연금))",
+      "manager": "삼성운용",
+      "role": "satellite",
+      "weight": 0.007019732810703033,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "em_equity",
+      "product_id": "2074",
+      "fund_code": "K55232B48005",
+      "product_name": "NH-Amundi성장중소형주[주식]ClassC-P2(퇴직연금)",
+      "manager": "NH-Amundi운용",
+      "role": "core",
+      "weight": 0.27370097520830744,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "em_equity",
+      "product_id": "71972",
+      "fund_code": "K55303CR9028",
+      "product_name": "마이다스아시아리더스성장주자(H)(주식)C-P2",
+      "manager": "마이다스운용",
+      "role": "satellite",
+      "weight": 0.03421262190103844,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "em_equity",
+      "product_id": "71976",
+      "fund_code": "K55303D98252",
+      "product_name": "마이다스아시아리더스성장주자(UH)(주식)C-P2",
+      "manager": "마이다스운용",
+      "role": "satellite",
+      "weight": 0.03421262190103844,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "kr_aggregate_bond",
+      "product_id": "42351",
+      "fund_code": "K55226C77475",
+      "product_name": "HDC알짜배당(주식)종류C-Pe",
+      "manager": "HDC운용",
+      "role": "core",
+      "weight": 0.1349753806266148,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "kr_aggregate_bond",
+      "product_id": "11688",
+      "fund_code": "K55310BZ7024",
+      "product_name": "코레이트셀렉트단기채[채권]C-P2",
+      "manager": "코레이트운용",
+      "role": "satellite",
+      "weight": 0.016871922578326842,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "kr_aggregate_bond",
+      "product_id": "12483",
+      "fund_code": "K55105AZ7255",
+      "product_name": "삼성스마트MMF법인 1Cp(퇴직연금)",
+      "manager": "삼성운용",
+      "role": "satellite",
+      "weight": 0.016871922578326842,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "us_treasury_30y",
+      "product_id": "60389",
+      "fund_code": "K55203EJ4192",
+      "product_name": "대신미국장기국채밸런스[채권-재간접]종류C-R",
+      "manager": "대신운용",
+      "role": "core",
+      "weight": 7.632783295621104e-18,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "us_treasury_30y",
+      "product_id": "71342",
+      "fund_code": "K55203E92883",
+      "product_name": "대신미국장기국채액티브목표전환2[채권-재간접]종류C-R",
+      "manager": "대신운용",
+      "role": "satellite",
+      "weight": 9.540979119526378e-19,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "us_treasury_30y",
+      "product_id": "74222",
+      "fund_code": "K55105CU9528",
+      "product_name": "삼성미국투자등급장기채권자UH[채권]_Cp(퇴직연금)",
+      "manager": "삼성운용",
+      "role": "satellite",
+      "weight": 9.540979119526378e-19,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "us_high_yield",
+      "product_id": "71800",
+      "fund_code": "K55302CE8406",
+      "product_name": "베어링글로벌하이일드자[UH](채권-재간접)ClassC-P2e",
+      "manager": "베어링운용",
+      "role": "core",
+      "weight": 0.007144068331930509,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "us_high_yield",
+      "product_id": "71791",
+      "fund_code": "K55302CE8240",
+      "product_name": "베어링글로벌하이일드자[H](채권-재간접)ClassC-P2",
+      "manager": "베어링운용",
+      "role": "satellite",
+      "weight": 0.0008930085414913134,
+      "warning_flags": []
+    },
+    {
+      "asset_key": "us_high_yield",
+      "product_id": "74369",
+      "fund_code": "K55207EL7882",
+      "product_name": "교보악사미국코어하이일드자(UH)[채권-재간접]_ClassC-Re(퇴직연금)",
+      "manager": "교보악사운용",
+      "role": "satellite",
+      "weight": 0.0008930085414913134,
+      "warning_flags": []
+    }
+  ],
+  "product_weight_sum": 1.0,
+  "product_count": 23,
+  "allocated_by_asset": {
+    "kr_equity": 0.026495635999223444,
+    "us_growth_equity": 0.056378797660900516,
+    "us_value_equity": 0.32715270802427987,
+    "dm_ex_us_equity": 0.07019732810703036,
+    "em_equity": 0.3421262190103843,
+    "kr_aggregate_bond": 0.16871922578326848,
+    "us_treasury_30y": 9.54097911952638e-18,
+    "us_high_yield": 0.008930085414913136
+  },
+  "selected_count_by_asset": {
+    "kr_equity": 3,
+    "us_growth_equity": 3,
+    "us_value_equity": 2,
+    "dm_ex_us_equity": 3,
+    "em_equity": 3,
+    "kr_aggregate_bond": 3,
+    "us_treasury_30y": 3,
+    "us_high_yield": 3
+  },
+  "unresolved_assets": [],
+  "comparison_summary": {
+    "baseline_max_sharpe": {
+      "label": "baseline (max-Sharpe SAA)",
+      "asset_weights": {
+        "kr_equity": 0.009999999183413651,
+        "us_growth_equity": 0.7060444397939856,
+        "us_value_equity": 0.2739555618391872,
+        "dm_ex_us_equity": 4.792248135595191e-18,
+        "em_equity": 0.009999999183413677,
+        "kr_aggregate_bond": 0.0,
+        "kr_treasury_10y": 0.0,
+        "us_treasury_30y": 0.0,
+        "us_high_yield": 4.325260807427785e-17
+      },
+      "product_weight_sum": 1.0,
+      "n_products": 17
+    },
+    "r1f2_proportional": {
+      "label": "R-1F.2 (proportional scaling, ASSET-LEVEL valid only)",
+      "asset_weights_dry_run": {
+        "kr_equity": 0.026495635999223444,
+        "us_growth_equity": 0.056378797660900516,
+        "us_value_equity": 0.32715270802427987,
+        "dm_ex_us_equity": 0.07019732810703036,
+        "em_equity": 0.3421262190103843,
+        "kr_aggregate_bond": 0.16871922578326848,
+        "kr_treasury_10y": 0.0,
+        "us_treasury_30y": 9.54097911952638e-18,
+        "us_high_yield": 0.008930085414913136
+      },
+      "product_weight_sum_dry_run": 0.7521533606947881,
+      "n_products": 17,
+      "needs_selection_rerun_assets": [
+        "dm_ex_us_equity",
+        "us_high_yield"
+      ]
+    },
+    "r1g2_full_reselection": {
+      "label": "R-1G.2 (full re-selection + PortfolioBuilder)",
+      "asset_weights": {
+        "kr_equity": 0.026495635999223444,
+        "us_growth_equity": 0.056378797660900516,
+        "us_value_equity": 0.32715270802427987,
+        "dm_ex_us_equity": 0.07019732810703036,
+        "em_equity": 0.3421262190103843,
+        "kr_aggregate_bond": 0.16871922578326848,
+        "kr_treasury_10y": 0.0,
+        "us_treasury_30y": 9.54097911952638e-18,
+        "us_high_yield": 0.008930085414913136
+      },
+      "product_weight_sum": 1.0,
+      "n_products": 23,
+      "valid_product_level_portfolio": true
+    }
+  },
+  "diagnostics": {
+    "portfolio_builder": {
+      "product_type": "fund",
+      "asset_weight_sum": 1.0,
+      "product_weight_sum": 1.0,
+      "n_products": 23,
+      "taa_diagnostics": {
+        "method": "r1g_target_substitute",
+        "source_label": "r1f2_projection_final_asset_weights",
+        "notes": [
+          "saa_weights / taa_weights here are the R-1G target asset weights (default = R-1F.2 projection final). NOT the production max-Sharpe SAA telemetry. Existing baseline saa_diagnostics.saa_weights is preserved separately."
+        ],
+        "regime": null
+      },
+      "selection_diagnostics": {
+        "product_type": "fund",
+        "n_picks": 23,
+        "warnings": [],
+        "selected_weight_sum": 1.0,
+        "unfilled_by_asset_class": {},
+        "unfilled_total": 0.0,
+        "quant_grade_policy": {
+          "mode": "score_penalty",
+          "min_grade": "B",
+          "penalty_per_grade": 0.1
+        },
+        "grade_filtered_count": 0,
+        "grade_penalized_count": 152,
+        "score_method": "score_penalty",
+        "score_factors": [
+          {
+            "factor": "quant_score",
+            "weight": 0.4,
+            "description": "정량평가 점수",
+            "available": true
+          },
+          {
+            "factor": "sharpe_1y",
+            "weight": 0.3,
+            "description": "1년 수정 샤프지수",
+            "available": true
+          },
+          {
+            "factor": "return_3y",
+            "weight": 0.2,
+            "description": "3년 수익률",
+            "available": true
+          },
+          {
+            "factor": "aum_log",
+            "weight": 0.1,
+            "description": "log1p(AUM)",
+            "available": true
+          },
+          {
+            "factor": "cost_penalty",
+            "weight": 0.0,
+            "description": "(미사용)",
+            "available": false
+          }
+        ],
+        "scored_products": [
+          {
+            "product_id": "43306",
+            "fund_code": "K55236CG1954",
+            "product_name": "한국밸류10년투자파이오니아(주식)(C-Re)",
+            "manager": "한국투자밸류운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 90.31315018498938,
+            "rank_within_asset": 1,
+            "selected": true,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 79.8,
+              "sharpe_1y": 3.4,
+              "return_3y": 283.7,
+              "aum": 561.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "43040",
+            "fund_code": "K55232C99576",
+            "product_name": "NH-Amundi필승코리아[주식]ClassC-P2(퇴직연금)",
+            "manager": "NH-Amundi운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 78.05471817163252,
+            "rank_within_asset": 2,
+            "selected": true,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 84.0,
+              "sharpe_1y": 3.3,
+              "return_3y": 212.4,
+              "aum": 18904.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "41944",
+            "fund_code": "KR5207A10369",
+            "product_name": "교보악사파워인덱스자 1[주식]ClassCP",
+            "manager": "교보악사운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 70.03443074013718,
+            "rank_within_asset": 3,
+            "selected": true,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 84.8,
+              "sharpe_1y": 3.2,
+              "return_3y": 171.2,
+              "aum": 9360.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "48918",
+            "fund_code": "K55216B39114",
+            "product_name": "DB바이오헬스케어자 1[주식]ClassC-P2",
+            "manager": "DB자산운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 69.57819374892722,
+            "rank_within_asset": 4,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 74.8,
+              "sharpe_1y": 2.1,
+              "return_3y": 191.2,
+              "aum": 2648.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "43507",
+            "fund_code": "K55232D64552",
+            "product_name": "NH-Amundi100년기업그린코리아[주식]ClassC-P2(퇴직연금)",
+            "manager": "NH-Amundi운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 69.08110233791865,
+            "rank_within_asset": 5,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 76.3,
+              "sharpe_1y": 3.4,
+              "return_3y": 183.7,
+              "aum": 3013.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "44053",
+            "fund_code": "K55105BU5980",
+            "product_name": "삼성퇴직연금KOSPI200자 1[주식]_C",
+            "manager": "삼성운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 68.09504299735381,
+            "rank_within_asset": 6,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 81.2,
+              "sharpe_1y": 3.2,
+              "return_3y": 169.1,
+              "aum": 4231.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "49328",
+            "fund_code": "K55223BH8160",
+            "product_name": "KB액티브배당자(주식)C-퇴직연금Class",
+            "manager": "KB운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 66.02469809821389,
+            "rank_within_asset": 7,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 80.8,
+              "sharpe_1y": 3.4,
+              "return_3y": 159.5,
+              "aum": 2557.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "40311",
+            "fund_code": "K55101B91408",
+            "product_name": "한국투자퇴직연금인덱스자 1(주식)(C)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 65.36733232671716,
+            "rank_within_asset": 8,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 75.9,
+              "sharpe_1y": 3.2,
+              "return_3y": 167.4,
+              "aum": 290.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "49156",
+            "fund_code": "K55301CW6490",
+            "product_name": "미래에셋코어테크자(주식)종류C-P2",
+            "manager": "미래에셋운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 64.16480144891065,
+            "rank_within_asset": 9,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 80.2,
+              "sharpe_1y": 2.8,
+              "return_3y": 151.4,
+              "aum": 15490.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "40372",
+            "fund_code": "K55101C35403",
+            "product_name": "한국투자KRX300인덱스(주식)(C-Re)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 63.984749447681345,
+            "rank_within_asset": 10,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 75.8,
+              "sharpe_1y": 3.1,
+              "return_3y": 161.1,
+              "aum": 171.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42878",
+            "fund_code": "K55236C56353",
+            "product_name": "한국밸류10년투자밸런스연금자 1(주식)(C-R)",
+            "manager": "한국투자밸류운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 63.44332133440562,
+            "rank_within_asset": 11,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 64.0,
+              "sharpe_1y": 3.4,
+              "return_3y": 182.7,
+              "aum": 16.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42876",
+            "fund_code": "K55236C56262",
+            "product_name": "한국밸류10년투자100세행복연금자(주식)(C-R)",
+            "manager": "한국투자밸류운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 62.85443908991414,
+            "rank_within_asset": 12,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 59.3,
+              "sharpe_1y": 3.3,
+              "return_3y": 188.4,
+              "aum": 103.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42619",
+            "fund_code": "KR5223AE0726",
+            "product_name": "KB퇴직연금배당자(주식)C",
+            "manager": "KB운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 62.127274636640436,
+            "rank_within_asset": 13,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 81.4,
+              "sharpe_1y": 3.3,
+              "return_3y": 139.2,
+              "aum": 1591.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "48610",
+            "fund_code": "K55210C54395",
+            "product_name": "신한패러다임코리아자[주식](종류C-r)",
+            "manager": "신한자산운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 62.036518012602116,
+            "rank_within_asset": 14,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 80.2,
+              "sharpe_1y": 3.2,
+              "return_3y": 141.3,
+              "aum": 1579.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "40605",
+            "fund_code": "KR5236263392",
+            "product_name": "한국밸류10년투자퇴직연금자 1(주식)(A)",
+            "manager": "한국투자밸류운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 60.46758232216348,
+            "rank_within_asset": 15,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 65.7,
+              "sharpe_1y": 3.0,
+              "return_3y": 163.1,
+              "aum": 792.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "40391",
+            "fund_code": "K55101DF5171",
+            "product_name": "한국투자테크자 1(주식)(C-Re)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 60.452406522779995,
+            "rank_within_asset": 16,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 78.9,
+              "sharpe_1y": 2.5,
+              "return_3y": 137.4,
+              "aum": 752.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42419",
+            "fund_code": "K55365B47039",
+            "product_name": "KCGI코리아퇴직연금자[주식]종류C",
+            "manager": "KCGI운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 59.502117272158706,
+            "rank_within_asset": 17,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 51.7,
+              "sharpe_1y": 2.9,
+              "return_3y": 185.8,
+              "aum": 2754.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "2539",
+            "fund_code": "KR5301A74911",
+            "product_name": "미래에셋퇴직연금고배당포커스자 1(주식)종류C",
+            "manager": "미래에셋운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 59.25297585204409,
+            "rank_within_asset": 18,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 79.7,
+              "sharpe_1y": 2.9,
+              "return_3y": 128.5,
+              "aum": 3070.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "44128",
+            "fund_code": "K553N9BX3850",
+            "product_name": "삼성배당주장기 1[주식](Cp(퇴직연금))",
+            "manager": "삼성액티브자산운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 59.18925737159747,
+            "rank_within_asset": 19,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 79.0,
+              "sharpe_1y": 3.0,
+              "return_3y": 129.9,
+              "aum": 1202.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "49029",
+            "fund_code": "K55302BG7548",
+            "product_name": "베어링고배당자(주식)ClassC-P2",
+            "manager": "베어링운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 58.238293776374164,
+            "rank_within_asset": 20,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 80.6,
+              "sharpe_1y": 2.8,
+              "return_3y": 121.3,
+              "aum": 7965.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "3759",
+            "fund_code": "K55209CT1721",
+            "product_name": "신영밸류고배당자(주식)C-P2형",
+            "manager": "신영운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 57.91477914780927,
+            "rank_within_asset": 21,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 79.0,
+              "sharpe_1y": 3.0,
+              "return_3y": 122.1,
+              "aum": 20905.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42092",
+            "fund_code": "KR5105AL0316",
+            "product_name": "삼성퇴직연금코리아중소형자 1[주식]_C",
+            "manager": "삼성운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 56.85882641230826,
+            "rank_within_asset": 22,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 74.7,
+              "sharpe_1y": 3.0,
+              "return_3y": 127.3,
+              "aum": 486.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "49135",
+            "fund_code": "K55301B47307",
+            "product_name": "미래에셋연금한국헬스케어자 1(주식)종류C-P2",
+            "manager": "미래에셋운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 56.81833609457662,
+            "rank_within_asset": 23,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 67.1,
+              "sharpe_1y": 1.9,
+              "return_3y": 143.7,
+              "aum": 798.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42244",
+            "fund_code": "K55301B35088",
+            "product_name": "미래에셋베스트펀드컬렉션자 1(주식-재간접)종류C-P2",
+            "manager": "미래에셋운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 56.113955930913335,
+            "rank_within_asset": 24,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 58.2,
+              "sharpe_1y": 3.3,
+              "return_3y": 155.5,
+              "aum": 1701.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73656",
+            "fund_code": "K55223B75940",
+            "product_name": "KB그로스포커스자(주식)C-퇴직연금 클래스",
+            "manager": "KB운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 56.08958932210975,
+            "rank_within_asset": 25,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 55.0,
+              "sharpe_1y": 3.0,
+              "return_3y": 162.4,
+              "aum": 1206.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "41052",
+            "fund_code": "KR5229A93385",
+            "product_name": "카디안퇴직연금업종일등자[주식]클래스C",
+            "manager": "카디안자산운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 55.943556489108175,
+            "rank_within_asset": 26,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 56.5,
+              "sharpe_1y": 3.1,
+              "return_3y": 159.0,
+              "aum": 461.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "49714",
+            "fund_code": "K55104C97522",
+            "product_name": "브이아이코리아통일르네상스자[주식]C-Pe",
+            "manager": "브이아이운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 55.58286413964891,
+            "rank_within_asset": 27,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 53.0,
+              "sharpe_1y": 3.2,
+              "return_3y": 165.2,
+              "aum": 45.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42420",
+            "fund_code": "K55365B32478",
+            "product_name": "KCGI코리아스몰캡[주식]종류C-P2",
+            "manager": "KCGI운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 55.370328963067514,
+            "rank_within_asset": 28,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 74.7,
+              "sharpe_1y": 2.4,
+              "return_3y": 120.1,
+              "aum": 1813.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "41084",
+            "fund_code": "K55212B70167",
+            "product_name": "브이퇴직연금뉴그로쓰자(주식)종류C",
+            "manager": "브이운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 54.683398720448515,
+            "rank_within_asset": 29,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 72.0,
+              "sharpe_1y": 2.6,
+              "return_3y": 123.8,
+              "aum": 30.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73896",
+            "fund_code": "K55223BZ2864",
+            "product_name": "KB한국대표그룹주자(주식)C-퇴직",
+            "manager": "KB운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 54.216992765524274,
+            "rank_within_asset": 30,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 50.2,
+              "sharpe_1y": 3.2,
+              "return_3y": 162.1,
+              "aum": 1938.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42523",
+            "fund_code": "K55206DD2620",
+            "product_name": "키움차세대모빌리티자 1[주식]C-P2(퇴직연금)",
+            "manager": "키움투자운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 54.08406644019173,
+            "rank_within_asset": 31,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 62.5,
+              "sharpe_1y": 2.3,
+              "return_3y": 138.1,
+              "aum": 2299.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "41962",
+            "fund_code": "K55207C30961",
+            "product_name": "교보악사위대한중소형밸류자 1(주식)ClassC-R(퇴직연금)",
+            "manager": "교보악사운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 54.01527326947041,
+            "rank_within_asset": 32,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 74.0,
+              "sharpe_1y": 2.6,
+              "return_3y": 115.1,
+              "aum": 469.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "41413",
+            "fund_code": "KR5209AM9022",
+            "product_name": "신영퇴직연금배당주식자(주식)C형",
+            "manager": "신영운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 53.68003494953247,
+            "rank_within_asset": 33,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 77.2,
+              "sharpe_1y": 2.8,
+              "return_3y": 105.8,
+              "aum": 2981.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42874",
+            "fund_code": "K55236C56411",
+            "product_name": "한국밸류10년투자중소형연금자(주식)(C-R)",
+            "manager": "한국투자밸류운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 52.56835189384561,
+            "rank_within_asset": 34,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 71.6,
+              "sharpe_1y": 3.1,
+              "return_3y": 113.2,
+              "aum": 35.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "40168",
+            "fund_code": "KR5101A93303",
+            "product_name": "한국투자퇴직연금한국의힘자 1(주식)(C)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 52.19092123656928,
+            "rank_within_asset": 35,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 53.0,
+              "sharpe_1y": 3.2,
+              "return_3y": 146.5,
+              "aum": 1493.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "49339",
+            "fund_code": "K55223C49117",
+            "product_name": "KB주주가치포커스(주식)C-퇴직",
+            "manager": "KB운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 51.93343972099286,
+            "rank_within_asset": 36,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 54.1,
+              "sharpe_1y": 3.0,
+              "return_3y": 143.5,
+              "aum": 1026.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "40363",
+            "fund_code": "K55101BV0976",
+            "product_name": "한국투자다시성장코리아자 1(주식)(C-R)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 51.88951075465626,
+            "rank_within_asset": 37,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 58.9,
+              "sharpe_1y": 2.5,
+              "return_3y": 134.2,
+              "aum": 1627.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73658",
+            "fund_code": "K55102BM9134",
+            "product_name": "하나IT코리아자 1[주식]ClassC-P2",
+            "manager": "하나운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 51.737720418319995,
+            "rank_within_asset": 38,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 53.9,
+              "sharpe_1y": 2.9,
+              "return_3y": 142.3,
+              "aum": 4803.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "40748",
+            "fund_code": "KR5107A19552",
+            "product_name": "우리중소형고배당자 1(주식)ClassC-P",
+            "manager": "우리운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 51.66585139973294,
+            "rank_within_asset": 39,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 71.7,
+              "sharpe_1y": 2.3,
+              "return_3y": 107.9,
+              "aum": 1284.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "2535",
+            "fund_code": "KR5301A74838",
+            "product_name": "미래에셋퇴직연금코어밸류자 1(주식)종류C",
+            "manager": "미래에셋운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 50.747170059741094,
+            "rank_within_asset": 40,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 50.3,
+              "sharpe_1y": 2.9,
+              "return_3y": 145.7,
+              "aum": 478.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42508",
+            "fund_code": "K55206CQ7369",
+            "product_name": "키움올바른ESG 1[주식]Class C-P2(퇴직연금)",
+            "manager": "키움투자운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 49.361202300542814,
+            "rank_within_asset": 41,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 50.9,
+              "sharpe_1y": 2.9,
+              "return_3y": 138.7,
+              "aum": 49.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42232",
+            "fund_code": "KR5301A94554",
+            "product_name": "미래에셋퇴직연금솔로몬자 2(주식)종류C",
+            "manager": "미래에셋운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 49.12431347263915,
+            "rank_within_asset": 42,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 51.6,
+              "sharpe_1y": 3.1,
+              "return_3y": 135.7,
+              "aum": 62.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "43091",
+            "fund_code": "K55303B23171",
+            "product_name": "마이다스신성장기업포커스자(주식)C-P2",
+            "manager": "마이다스운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 48.98889264775335,
+            "rank_within_asset": 43,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 55.0,
+              "sharpe_1y": 3.1,
+              "return_3y": 127.0,
+              "aum": 726.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "40334",
+            "fund_code": "KR5101AY3392",
+            "product_name": "한국투자퇴직연금삼성그룹자 1(주식)(C)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 48.290394630594555,
+            "rank_within_asset": 44,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 67.2,
+              "sharpe_1y": 2.9,
+              "return_3y": 100.2,
+              "aum": 148.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "1880",
+            "fund_code": "K55373C99685",
+            "product_name": "현대강소기업자 1[주식]종류C-P2",
+            "manager": "현대자산운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 47.72493929859083,
+            "rank_within_asset": 45,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 75.2,
+              "sharpe_1y": 1.7,
+              "return_3y": 82.8,
+              "aum": 313.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "44140",
+            "fund_code": "K553N9BU5684",
+            "product_name": "삼성ESG착한책임투자 1[주식]_Cp(퇴직)",
+            "manager": "삼성액티브자산운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 47.26411056119058,
+            "rank_within_asset": 46,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 48.1,
+              "sharpe_1y": 3.1,
+              "return_3y": 158.7,
+              "aum": 426.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "49406",
+            "fund_code": "K55209BV6917",
+            "product_name": "신영마라톤중소형주자(주식)C-P2형",
+            "manager": "신영운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 47.166734312526536,
+            "rank_within_asset": 47,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 73.1,
+              "sharpe_1y": 2.5,
+              "return_3y": 82.5,
+              "aum": 868.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "49104",
+            "fund_code": "KR5301AO1909",
+            "product_name": "미래에셋퇴직플랜KRX100인덱스자 1(주식)종류C",
+            "manager": "미래에셋운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 47.04434421818482,
+            "rank_within_asset": 48,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 49.6,
+              "sharpe_1y": 3.1,
+              "return_3y": 154.9,
+              "aum": 183.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "41411",
+            "fund_code": "K55209BV1660",
+            "product_name": "신영퇴직연금가치주식자(주식)C형",
+            "manager": "신영운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 46.64161930760431,
+            "rank_within_asset": 49,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 51.1,
+              "sharpe_1y": 2.9,
+              "return_3y": 123.4,
+              "aum": 675.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "41677",
+            "fund_code": "KR5363AC3706",
+            "product_name": "트러스톤장기성장퇴직연금자[주식]C클래스",
+            "manager": "트러스톤운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 45.86399076182243,
+            "rank_within_asset": 50,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 46.0,
+              "sharpe_1y": 3.1,
+              "return_3y": 155.2,
+              "aum": 364.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "44114",
+            "fund_code": "K553N9CA6164",
+            "product_name": "삼성통일코리아자 1[주식]Cpe(퇴직연금)",
+            "manager": "삼성액티브자산운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 45.24482805989467,
+            "rank_within_asset": 51,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 47.9,
+              "sharpe_1y": 3.0,
+              "return_3y": 148.2,
+              "aum": 304.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "40403",
+            "fund_code": "K55101DF6468",
+            "product_name": "한국투자ESG 1(주식)(C-Re)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 45.200548236357214,
+            "rank_within_asset": 52,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 48.7,
+              "sharpe_1y": 3.2,
+              "return_3y": 146.5,
+              "aum": 124.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "41418",
+            "fund_code": "K55209BC0285",
+            "product_name": "신영마라톤자(주식)C-P2형",
+            "manager": "신영운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 45.11657351521248,
+            "rank_within_asset": 53,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 50.7,
+              "sharpe_1y": 3.1,
+              "return_3y": 115.1,
+              "aum": 7084.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42051",
+            "fund_code": "K55105BV6797",
+            "product_name": "삼성퇴직연금액티브자 1[주식]_C",
+            "manager": "삼성운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 44.855496255083835,
+            "rank_within_asset": 54,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 48.3,
+              "sharpe_1y": 3.1,
+              "return_3y": 145.0,
+              "aum": 362.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "40323",
+            "fund_code": "K55101BW5016",
+            "product_name": "한국투자퇴직연금마이스터자 1(주식)(C)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 44.75998920096506,
+            "rank_within_asset": 55,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 46.3,
+              "sharpe_1y": 3.1,
+              "return_3y": 150.0,
+              "aum": 16.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "49343",
+            "fund_code": "K55223BH8210",
+            "product_name": "KB중소형주포커스자(주식)C-퇴직 Class",
+            "manager": "KB운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 44.58463905148477,
+            "rank_within_asset": 56,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 73.8,
+              "sharpe_1y": 3.0,
+              "return_3y": 67.5,
+              "aum": 769.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "43086",
+            "fund_code": "K55303AY8700",
+            "product_name": "마이다스미소중소형주자(주식)C-P2",
+            "manager": "마이다스운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 44.523935037110014,
+            "rank_within_asset": 57,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 70.2,
+              "sharpe_1y": 2.6,
+              "return_3y": 75.1,
+              "aum": 625.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "49904",
+            "fund_code": "KR5228AE1745",
+            "product_name": "우리코리아ESG자[주식]ClassP1",
+            "manager": "우리운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 43.755078100541006,
+            "rank_within_asset": 58,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 46.6,
+              "sharpe_1y": 3.1,
+              "return_3y": 142.8,
+              "aum": 129.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "43068",
+            "fund_code": "K55303BA2247",
+            "product_name": "마이다스책임투자(주식)C-P2",
+            "manager": "마이다스운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 42.882966115818064,
+            "rank_within_asset": 59,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 49.7,
+              "sharpe_1y": 3.1,
+              "return_3y": 129.8,
+              "aum": 6485.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "2595",
+            "fund_code": "K55213BU5708",
+            "product_name": "한화100세시대퇴직연금코리아레전드자(주식) 종류C-e",
+            "manager": "한화운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 42.48910776434959,
+            "rank_within_asset": 60,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 47.5,
+              "sharpe_1y": 3.1,
+              "return_3y": 134.7,
+              "aum": 29.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "49618",
+            "fund_code": "K55302BM1899",
+            "product_name": "베어링가치형자(주식)ClassC-P2",
+            "manager": "베어링운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 42.00779624350481,
+            "rank_within_asset": 61,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 44.9,
+              "sharpe_1y": 2.8,
+              "return_3y": 136.8,
+              "aum": 172.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "2596",
+            "fund_code": "K55104BU0289",
+            "product_name": "브이아이사회책임투자[주식]C-Pe",
+            "manager": "브이아이운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 41.31826382682995,
+            "rank_within_asset": 62,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 44.0,
+              "sharpe_1y": 3.0,
+              "return_3y": 135.1,
+              "aum": 48.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "43907",
+            "fund_code": "K553J1DC8064",
+            "product_name": "타임폴리오마켓리더자(주식)종류C-P2",
+            "manager": "타임폴리오자산운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 41.246822824841736,
+            "rank_within_asset": 63,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 53.1,
+              "sharpe_1y": 2.4,
+              "return_3y": 93.1,
+              "aum": 786.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "48612",
+            "fund_code": "K55210CB5851",
+            "product_name": "신한얼리버드자[주식](종류C-r)",
+            "manager": "신한자산운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 41.11345414437286,
+            "rank_within_asset": 64,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 46.2,
+              "sharpe_1y": 2.8,
+              "return_3y": 128.8,
+              "aum": 409.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "43097",
+            "fund_code": "K5M303CH8086",
+            "product_name": "마이다스액티브가치(주식)C-P2",
+            "manager": "마이다스운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 40.004918338901454,
+            "rank_within_asset": 65,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 45.2,
+              "sharpe_1y": 3.1,
+              "return_3y": 124.3,
+              "aum": 329.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "61611",
+            "fund_code": "K55236CW9734",
+            "product_name": "한국밸류글로벌배당인컴자(주식)(C-R)",
+            "manager": "한국투자밸류운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 39.54508857167147,
+            "rank_within_asset": 66,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 64.8,
+              "sharpe_1y": 1.1,
+              "return_3y": 63.3,
+              "aum": 572.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "41576",
+            "fund_code": "KR5306988423",
+            "product_name": "다올VIP스타셀렉션자[주식]종류CP",
+            "manager": "다올운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 39.52013557902072,
+            "rank_within_asset": 67,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 45.2,
+              "sharpe_1y": 2.0,
+              "return_3y": 122.4,
+              "aum": 1830.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "49364",
+            "fund_code": "K55223DB1037",
+            "product_name": "KB코리아뉴웨이브(주식)C-퇴직",
+            "manager": "KB운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 39.077548971362425,
+            "rank_within_asset": 68,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 50.1,
+              "sharpe_1y": 2.6,
+              "return_3y": 87.7,
+              "aum": 1306.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "48626",
+            "fund_code": "K55210DB2196",
+            "product_name": "신한아름다운SRI그린뉴딜자 1[주식](종류C-r)",
+            "manager": "신한자산운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 38.84485246156665,
+            "rank_within_asset": 69,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 42.2,
+              "sharpe_1y": 3.2,
+              "return_3y": 123.8,
+              "aum": 272.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "44027",
+            "fund_code": "K55363DD7974",
+            "product_name": "트러스톤ESG지배구조레벨업자[주식]Cp2클래스",
+            "manager": "트러스톤운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 38.77722099412837,
+            "rank_within_asset": 70,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 45.9,
+              "sharpe_1y": 2.8,
+              "return_3y": 116.1,
+              "aum": 778.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42716",
+            "fund_code": "KR5364AW9393",
+            "product_name": "에셋플러스코리아리치투게더퇴직연금자 1[주식] 종류 C",
+            "manager": "에셋플러스운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 37.184930196739515,
+            "rank_within_asset": 71,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 43.8,
+              "sharpe_1y": 2.3,
+              "return_3y": 112.1,
+              "aum": 958.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "52144",
+            "fund_code": "K55223CN7395",
+            "product_name": "KB스타코스닥150인덱스자(주식-파생)C-퇴직클래스",
+            "manager": "KB운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 34.973250638324906,
+            "rank_within_asset": 72,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 51.0,
+              "sharpe_1y": 1.7,
+              "return_3y": 66.1,
+              "aum": 4593.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "43303",
+            "fund_code": "K55236CG1996",
+            "product_name": "한국밸류지속성장ESG자(주식)C-R",
+            "manager": "한국투자밸류운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 34.41398870909004,
+            "rank_within_asset": 73,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 38.7,
+              "sharpe_1y": 2.4,
+              "return_3y": 107.3,
+              "aum": 322.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "49172",
+            "fund_code": "K55301DD7706",
+            "product_name": "미래에셋클린테크자(주식)종류C-P2",
+            "manager": "미래에셋운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 31.47071102647489,
+            "rank_within_asset": 74,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 54.4,
+              "sharpe_1y": 2.2,
+              "return_3y": 42.4,
+              "aum": 300.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "49372",
+            "fund_code": "K55223DB5806",
+            "product_name": "KBBBIG플러스인덱스(주식) C-퇴직",
+            "manager": "KB운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 30.665161575556866,
+            "rank_within_asset": 75,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 36.3,
+              "sharpe_1y": 2.5,
+              "return_3y": 91.2,
+              "aum": 276.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "49164",
+            "fund_code": "K55301DD0305",
+            "product_name": "미래에셋그린뉴딜인덱스자(주식) 종류C-P2",
+            "manager": "미래에셋운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 30.284857976309855,
+            "rank_within_asset": 76,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 47.3,
+              "sharpe_1y": 2.1,
+              "return_3y": 67.7,
+              "aum": 269.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "43013",
+            "fund_code": "KR5232AY2248",
+            "product_name": "NH-Amundi 스마트베타[주식]ClassC-P2(퇴직연금)",
+            "manager": "NH-Amundi운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 29.74110379440207,
+            "rank_within_asset": 77,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 36.5,
+              "sharpe_1y": 2.1,
+              "return_3y": 86.9,
+              "aum": 77.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "40340",
+            "fund_code": "K55101BM0357",
+            "product_name": "한국투자중소밸류자(주식)(C-R)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 27.67042250922418,
+            "rank_within_asset": 78,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 37.9,
+              "sharpe_1y": 1.3,
+              "return_3y": 72.8,
+              "aum": 571.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "40415",
+            "fund_code": "K55101C64015",
+            "product_name": "한국투자중소성장 1(주식)(C-Re)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 26.42596097193442,
+            "rank_within_asset": 79,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 33.0,
+              "sharpe_1y": 1.3,
+              "return_3y": 76.6,
+              "aum": 91.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "76393",
+            "fund_code": "K55223EG1726",
+            "product_name": "KB스타코리아밸류업인덱스자(주식)C-퇴직",
+            "manager": "KB운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 25.48834036810538,
+            "rank_within_asset": 80,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 61.8,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 2171.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "40379",
+            "fund_code": "K55101B41163",
+            "product_name": "한국투자퇴직연금롱텀밸류자(주식)(C)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 25.431056624698783,
+            "rank_within_asset": 81,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 34.1,
+              "sharpe_1y": 1.2,
+              "return_3y": 69.6,
+              "aum": 28.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "76385",
+            "fund_code": "K55223EG1908",
+            "product_name": "KB코리아밸류업액티브자(주식)C-퇴직",
+            "manager": "KB운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 23.806403014289955,
+            "rank_within_asset": 82,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 57.7,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 1427.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "59876",
+            "fund_code": "K553H6E00487",
+            "product_name": "더제이더행복코리아자[주식]종류C-P2",
+            "manager": "더제이운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 23.44699619954736,
+            "rank_within_asset": 83,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 56.7,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 2142.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "62266",
+            "fund_code": "K553F0E44639",
+            "product_name": "디에스Maestro자[주식]종류C-P2",
+            "manager": "디에스운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 22.989878235697034,
+            "rank_within_asset": 84,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 55.5,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 2693.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "21466",
+            "fund_code": "K55213EM6299",
+            "product_name": "한화K방산조선원전자(주식)C-RP(퇴직연금)",
+            "manager": "한화운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 22.722979373751244,
+            "rank_within_asset": 85,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 55.1,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 924.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73781",
+            "fund_code": "K55306E80020",
+            "product_name": "다올주주환원[주식]종류CPe",
+            "manager": "다올운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 22.505682806169958,
+            "rank_within_asset": 86,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 53.0,
+              "sharpe_1y": 2.5,
+              "return_3y": 0.0,
+              "aum": 258.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "40867",
+            "fund_code": "K55307D32567",
+            "product_name": "유리부스트업코리아자[주식]_ClassC-P1",
+            "manager": "유리운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 22.051198778835655,
+            "rank_within_asset": 87,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 51.6,
+              "sharpe_1y": 3.0,
+              "return_3y": 0.0,
+              "aum": 165.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "41572",
+            "fund_code": "K55306BT9628",
+            "product_name": "다올리틀빅스타자[주식]종류CPe",
+            "manager": "다올운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 21.849034912822177,
+            "rank_within_asset": 88,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 53.4,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 132.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74340",
+            "fund_code": "K55236EB7632",
+            "product_name": "한국밸류10년투자 1(주식)종류C-R",
+            "manager": "한국투자밸류운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 17.946813263919758,
+            "rank_within_asset": 89,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 47.8,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 3673.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "70598",
+            "fund_code": "K55101E50903",
+            "product_name": "한국투자지배구조주주환원(주식)(C-R)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 17.715408382792994,
+            "rank_within_asset": 90,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 47.7,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 418.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73937",
+            "fund_code": "K55223EM4052",
+            "product_name": "KB새로운대한민국자(주식)C-퇴직",
+            "manager": "KB운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 16.377987044934248,
+            "rank_within_asset": 91,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 43.6,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 1953.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "24011",
+            "fund_code": "K55236ED4652",
+            "product_name": "한국밸류10년투자어린이 1(주식)종류C-Re",
+            "manager": "한국투자밸류운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 15.297117696807327,
+            "rank_within_asset": 92,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 39.5,
+              "sharpe_1y": 1.7,
+              "return_3y": 0.0,
+              "aum": 960.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "44210",
+            "fund_code": "K553W5E17427",
+            "product_name": "VIP한국형가치투자자[주식]C-P2클래스",
+            "manager": "브이아이피자산운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 15.209942226146445,
+            "rank_within_asset": 93,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 38.5,
+              "sharpe_1y": 1.9,
+              "return_3y": 0.0,
+              "aum": 10930.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "48645",
+            "fund_code": "K55210DS4276",
+            "product_name": "신한K컬쳐자[주식](종류C-r)",
+            "manager": "신한자산운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 14.427982612137981,
+            "rank_within_asset": 94,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 33.0,
+              "sharpe_1y": 1.5,
+              "return_3y": 10.1,
+              "aum": 36.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "45427",
+            "fund_code": "K55365E63030",
+            "product_name": "KCGIESG동반성장자[주식]종류C-Pe2",
+            "manager": "KCGI운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 14.166361894025995,
+            "rank_within_asset": 95,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 36.2,
+              "sharpe_1y": 2.6,
+              "return_3y": 0.0,
+              "aum": 121.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "77066",
+            "fund_code": "K55232DA8792",
+            "product_name": "NH-Amundi글로벌혁신기업자(H)[주식]ClassC-P2(퇴직연금)",
+            "manager": "NH-Amundi운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 12.743620927849236,
+            "rank_within_asset": 96,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 16.4,
+              "sharpe_1y": 0.3,
+              "return_3y": 43.2,
+              "aum": 598.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73790",
+            "fund_code": "K55236EL8620",
+            "product_name": "한국밸류코리아리레이팅(주식)(C-R)",
+            "manager": "한국투자밸류운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 9.779046344713855,
+            "rank_within_asset": 97,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 29.2,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 229.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73054",
+            "fund_code": "K55235DA0093",
+            "product_name": "피델리티글로벌컨슈머브랜드자(주식-재간접)종류CP",
+            "manager": "피델리티운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 8.206999339422564,
+            "rank_within_asset": 98,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 17.4,
+              "sharpe_1y": -0.0,
+              "return_3y": 14.1,
+              "aum": 119.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "59898",
+            "fund_code": "K55101ER7222",
+            "product_name": "한국투자K지수&테마로테이션(주식-재간접)(C-Re)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_equity",
+            "product_type": "fund",
+            "score": 2.3000994974865145,
+            "rank_within_asset": 99,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 6.2,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 51.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "76305",
+            "fund_code": "K55223D45352",
+            "product_name": "KB미국대표성장주자(주식)(UH)C-퇴직",
+            "manager": "KB운용",
+            "asset_key": "us_growth_equity",
+            "product_type": "fund",
+            "score": 45.14698741284585,
+            "rank_within_asset": 1,
+            "selected": true,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 54.4,
+              "sharpe_1y": 1.2,
+              "return_3y": 111.6,
+              "aum": 1175.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74176",
+            "fund_code": "K55105CS5827",
+            "product_name": "삼성미국그로스자UH[주식-재간접]_Cp(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "us_growth_equity",
+            "product_type": "fund",
+            "score": 29.704487040652456,
+            "rank_within_asset": 2,
+            "selected": true,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 33.1,
+              "sharpe_1y": 0.6,
+              "return_3y": 95.4,
+              "aum": 155.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73125",
+            "fund_code": "K55370D73619",
+            "product_name": "AB미국그로스UH(주식-재간접)종류C-P2",
+            "manager": "AB자산운용",
+            "asset_key": "us_growth_equity",
+            "product_type": "fund",
+            "score": 29.676620022220767,
+            "rank_within_asset": 3,
+            "selected": true,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 39.3,
+              "sharpe_1y": 0.6,
+              "return_3y": 81.9,
+              "aum": 1032.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "70622",
+            "fund_code": "K55101EA4764",
+            "product_name": "한국투자미국나스닥+ETF모으기(주식-재간접)(C-R)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "us_growth_equity",
+            "product_type": "fund",
+            "score": 22.972031177660742,
+            "rank_within_asset": 4,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 55.1,
+              "sharpe_1y": 1.2,
+              "return_3y": 0.0,
+              "aum": 304.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "76353",
+            "fund_code": "K55223DD2223",
+            "product_name": "KB스타미국나스닥100인덱스자(주식-파생)(H)C-퇴직",
+            "manager": "KB운용",
+            "asset_key": "us_growth_equity",
+            "product_type": "fund",
+            "score": 21.95756566974697,
+            "rank_within_asset": 5,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 27.5,
+              "sharpe_1y": 1.0,
+              "return_3y": 76.4,
+              "aum": 5822.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "76294",
+            "fund_code": "K55223D45055",
+            "product_name": "KB미국대표성장주자(주식)(H)C-퇴직",
+            "manager": "KB운용",
+            "asset_key": "us_growth_equity",
+            "product_type": "fund",
+            "score": 20.533416685789952,
+            "rank_within_asset": 6,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 24.5,
+              "sharpe_1y": 0.9,
+              "return_3y": 74.3,
+              "aum": 1583.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "29561",
+            "fund_code": "K55210E46850",
+            "product_name": "신한미국나스닥100인덱스자(UH)[주식-파생](종류C-r)",
+            "manager": "신한자산운용",
+            "asset_key": "us_growth_equity",
+            "product_type": "fund",
+            "score": 16.638014461276857,
+            "rank_within_asset": 7,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 43.5,
+              "sharpe_1y": 1.2,
+              "return_3y": 0.0,
+              "aum": 1431.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "70852",
+            "fund_code": "K55370B49555",
+            "product_name": "AB미국그로스(주식-재간접)종류형C-P2",
+            "manager": "AB자산운용",
+            "asset_key": "us_growth_equity",
+            "product_type": "fund",
+            "score": 16.312465798562478,
+            "rank_within_asset": 8,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 24.7,
+              "sharpe_1y": 0.3,
+              "return_3y": 47.3,
+              "aum": 14850.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74168",
+            "fund_code": "K55105CS5660",
+            "product_name": "삼성미국그로스자H[주식-재간접]_Cp(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "us_growth_equity",
+            "product_type": "fund",
+            "score": 15.322028135258813,
+            "rank_within_asset": 9,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 14.9,
+              "sharpe_1y": 0.3,
+              "return_3y": 63.5,
+              "aum": 55.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "29559",
+            "fund_code": "K55210E46710",
+            "product_name": "신한미국나스닥100인덱스자(H)[주식-파생](종류C-r)",
+            "manager": "신한자산운용",
+            "asset_key": "us_growth_equity",
+            "product_type": "fund",
+            "score": 7.387789774323702,
+            "rank_within_asset": 10,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 20.9,
+              "sharpe_1y": 0.9,
+              "return_3y": 0.0,
+              "aum": 422.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "70467",
+            "fund_code": "K55101D20882",
+            "product_name": "한국투자미국배당귀족자UH(주식)(C-R)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "us_value_equity",
+            "product_type": "fund",
+            "score": 26.658714144933,
+            "rank_within_asset": 1,
+            "selected": true,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 49.2,
+              "sharpe_1y": 0.4,
+              "return_3y": 45.7,
+              "aum": 904.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "70455",
+            "fund_code": "K55101D20684",
+            "product_name": "한국투자미국배당귀족자H(주식)(C-R)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "us_value_equity",
+            "product_type": "fund",
+            "score": 17.996237437745975,
+            "rank_within_asset": 2,
+            "selected": true,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 39.7,
+              "sharpe_1y": 0.0,
+              "return_3y": 16.9,
+              "aum": 1568.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42669",
+            "fund_code": "K55237B46693",
+            "product_name": "한화천연자원자(주식)P클래스",
+            "manager": "한화운용",
+            "asset_key": "dm_ex_us_equity",
+            "product_type": "fund",
+            "score": 53.25957216086021,
+            "rank_within_asset": 1,
+            "selected": true,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 79.7,
+              "sharpe_1y": 2.4,
+              "return_3y": 99.6,
+              "aum": 1628.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "71463",
+            "fund_code": "KR5235924028",
+            "product_name": "피델리티재팬자(주식-재간접)CP",
+            "manager": "피델리티운용",
+            "asset_key": "dm_ex_us_equity",
+            "product_type": "fund",
+            "score": 52.951323011091226,
+            "rank_within_asset": 2,
+            "selected": true,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 67.0,
+              "sharpe_1y": 1.8,
+              "return_3y": 124.8,
+              "aum": 673.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "70744",
+            "fund_code": "K55105B48953",
+            "product_name": "삼성일본리더스전환자 1[주식](Cp(퇴직연금))",
+            "manager": "삼성운용",
+            "asset_key": "dm_ex_us_equity",
+            "product_type": "fund",
+            "score": 48.338898404656426,
+            "rank_within_asset": 3,
+            "selected": true,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 60.3,
+              "sharpe_1y": 1.8,
+              "return_3y": 116.4,
+              "aum": 53.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74112",
+            "fund_code": "K55105B83919",
+            "product_name": "삼성글로벌선진국자UH[주식]_Cp(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "dm_ex_us_equity",
+            "product_type": "fund",
+            "score": 36.68344739331307,
+            "rank_within_asset": 4,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 50.7,
+              "sharpe_1y": 1.3,
+              "return_3y": 77.6,
+              "aum": 138.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "44094",
+            "fund_code": "K55105B54571",
+            "product_name": "삼성일본중소형FOCUS자H[주식]_Cp(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "dm_ex_us_equity",
+            "product_type": "fund",
+            "score": 25.693488335586423,
+            "rank_within_asset": 5,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 33.5,
+              "sharpe_1y": 1.8,
+              "return_3y": 70.4,
+              "aum": 196.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "44115",
+            "fund_code": "K55105B54605",
+            "product_name": "삼성일본중소형FOCUS자UH[주식]_Cp(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "dm_ex_us_equity",
+            "product_type": "fund",
+            "score": 24.368720548151668,
+            "rank_within_asset": 6,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 36.3,
+              "sharpe_1y": 1.5,
+              "return_3y": 58.7,
+              "aum": 38.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "75943",
+            "fund_code": "KR5228AY2566",
+            "product_name": "우리알리안츠유럽배당자[주식_재간접](H)ClassP1",
+            "manager": "우리운용",
+            "asset_key": "dm_ex_us_equity",
+            "product_type": "fund",
+            "score": 22.32257772568402,
+            "rank_within_asset": 7,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 40.6,
+              "sharpe_1y": 0.2,
+              "return_3y": 40.6,
+              "aum": 45.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "71246",
+            "fund_code": "K55230B06478",
+            "product_name": "키움슈로더글로벌가치주인컴자(주식-재간접)ClassC-CP(퇴직연금)",
+            "manager": "키움투자운용",
+            "asset_key": "dm_ex_us_equity",
+            "product_type": "fund",
+            "score": 20.760326272219693,
+            "rank_within_asset": 8,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 42.0,
+              "sharpe_1y": 0.5,
+              "return_3y": 28.6,
+              "aum": 52.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74110",
+            "fund_code": "K55105B83778",
+            "product_name": "삼성글로벌선진국자H[주식]_Cp(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "dm_ex_us_equity",
+            "product_type": "fund",
+            "score": 20.40190354979941,
+            "rank_within_asset": 9,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 30.1,
+              "sharpe_1y": 0.9,
+              "return_3y": 48.0,
+              "aum": 1973.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73882",
+            "fund_code": "K55302B95635",
+            "product_name": "베어링독일자[H](주식-재간접)ClassC-P2",
+            "manager": "베어링운용",
+            "asset_key": "dm_ex_us_equity",
+            "product_type": "fund",
+            "score": 20.10369485429061,
+            "rank_within_asset": 10,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 37.1,
+              "sharpe_1y": -0.0,
+              "return_3y": 35.4,
+              "aum": 64.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "41116",
+            "fund_code": "K55230B06429",
+            "product_name": "키움슈로더유로자(주식-재간접)ClassC-CP(퇴직연금)",
+            "manager": "키움투자운용",
+            "asset_key": "dm_ex_us_equity",
+            "product_type": "fund",
+            "score": 18.189892645040388,
+            "rank_within_asset": 11,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 33.0,
+              "sharpe_1y": 0.2,
+              "return_3y": 31.6,
+              "aum": 549.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "70590",
+            "fund_code": "K55101EA5217",
+            "product_name": "한국투자일본핵심성장테마자UH(주식)(C-Re)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "dm_ex_us_equity",
+            "product_type": "fund",
+            "score": 15.580695654701696,
+            "rank_within_asset": 12,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 41.5,
+              "sharpe_1y": 0.9,
+              "return_3y": 0.0,
+              "aum": 82.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73753",
+            "fund_code": "K55210E51645",
+            "product_name": "신한유로인덱스자(H)[주식-파생](종류C-re)",
+            "manager": "신한자산운용",
+            "asset_key": "dm_ex_us_equity",
+            "product_type": "fund",
+            "score": 8.15134562384885,
+            "rank_within_asset": 13,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 24.5,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 48.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74389",
+            "fund_code": "K55213E48371",
+            "product_name": "한화헤라클레스선진국액티브자(H)(주식)C-RP(퇴직연금)",
+            "manager": "한화운용",
+            "asset_key": "dm_ex_us_equity",
+            "product_type": "fund",
+            "score": 5.278562130773912,
+            "rank_within_asset": 14,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 14.8,
+              "sharpe_1y": 0.8,
+              "return_3y": 0.0,
+              "aum": 79.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "71481",
+            "fund_code": "KR5235936915",
+            "product_name": "피델리티유럽자(주식-재간접)CP",
+            "manager": "피델리티운용",
+            "asset_key": "dm_ex_us_equity",
+            "product_type": "fund",
+            "score": 3.8818407983310728,
+            "rank_within_asset": 15,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 14.6,
+              "sharpe_1y": -0.0,
+              "return_3y": -7.6,
+              "aum": 204.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "2074",
+            "fund_code": "K55232B48005",
+            "product_name": "NH-Amundi성장중소형주[주식]ClassC-P2(퇴직연금)",
+            "manager": "NH-Amundi운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 61.18902860206768,
+            "rank_within_asset": 1,
+            "selected": true,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 78.8,
+              "sharpe_1y": 2.8,
+              "return_3y": 140.3,
+              "aum": 2186.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "71972",
+            "fund_code": "K55303CR9028",
+            "product_name": "마이다스아시아리더스성장주자(H)(주식)C-P2",
+            "manager": "마이다스운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 55.45823521118854,
+            "rank_within_asset": 2,
+            "selected": true,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 78.4,
+              "sharpe_1y": 2.0,
+              "return_3y": 113.9,
+              "aum": 1315.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "71976",
+            "fund_code": "K55303D98252",
+            "product_name": "마이다스아시아리더스성장주자(UH)(주식)C-P2",
+            "manager": "마이다스운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 54.95637852086876,
+            "rank_within_asset": 3,
+            "selected": true,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 72.6,
+              "sharpe_1y": 2.3,
+              "return_3y": 123.1,
+              "aum": 429.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "76014",
+            "fund_code": "K55104CK0132",
+            "product_name": "브이아이오리진글로벌이머징마켓자UH[주식-재간접]C-Pe",
+            "manager": "브이아이운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 48.929314718056,
+            "rank_within_asset": 4,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 67.4,
+              "sharpe_1y": 2.0,
+              "return_3y": 106.5,
+              "aum": 1.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "71783",
+            "fund_code": "K55302C20383",
+            "product_name": "베어링글로벌이머징마켓자[UH](주식-재간접)ClassC-P2",
+            "manager": "베어링운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 42.0591759469228,
+            "rank_within_asset": 5,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 68.1,
+              "sharpe_1y": 1.8,
+              "return_3y": 70.5,
+              "aum": 5.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "72492",
+            "fund_code": "K55301B43371",
+            "product_name": "미래에셋연금브라질업종대표자 1(주식)종류C-P2",
+            "manager": "미래에셋운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 40.17126548857361,
+            "rank_within_asset": 6,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 51.5,
+              "sharpe_1y": 1.6,
+              "return_3y": 93.0,
+              "aum": 135.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74190",
+            "fund_code": "K55105BG9121",
+            "product_name": "삼성누버거버먼이머징국공채플러스자UH[채권-재간접]_Cp(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 40.02892431550275,
+            "rank_within_asset": 7,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 65.8,
+              "sharpe_1y": 1.2,
+              "return_3y": 63.2,
+              "aum": 1198.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "75507",
+            "fund_code": "K55364CF7022",
+            "product_name": "에셋플러스슈퍼아시아리치투게더자 1(주식)종류C-P2",
+            "manager": "에셋플러스운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 38.90764695690482,
+            "rank_within_asset": 8,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 62.0,
+              "sharpe_1y": 1.3,
+              "return_3y": 65.3,
+              "aum": 717.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "76005",
+            "fund_code": "K55104CJ9961",
+            "product_name": "브이아이오리진글로벌이머징마켓자H[주식-재간접]C-P",
+            "manager": "브이아이운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 37.91725887222398,
+            "rank_within_asset": 9,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 56.2,
+              "sharpe_1y": 1.6,
+              "return_3y": 73.4,
+              "aum": 15.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42512",
+            "fund_code": "K55206BL3109",
+            "product_name": "키움러시아익스플로러 1[주식]C-P2(퇴직연금)",
+            "manager": "키움투자운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 37.59441856341256,
+            "rank_within_asset": 10,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 60.9,
+              "sharpe_1y": 0.2,
+              "return_3y": 62.8,
+              "aum": 465.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73503",
+            "fund_code": "K55301BC5240",
+            "product_name": "미래에셋베트남자 1(UH)(주식)종류C-P2",
+            "manager": "미래에셋운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 35.78977049431287,
+            "rank_within_asset": 11,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 51.2,
+              "sharpe_1y": 1.0,
+              "return_3y": 71.6,
+              "aum": 989.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42998",
+            "fund_code": "K55105B93645",
+            "product_name": "삼성중국본토중소형FOCUS자UH[주식]Cp(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 35.467299955856376,
+            "rank_within_asset": 12,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 56.0,
+              "sharpe_1y": 1.6,
+              "return_3y": 60.3,
+              "aum": 194.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73581",
+            "fund_code": "K55301DD9975",
+            "product_name": "미래에셋차이나과창판(주식) 종류 C-P2",
+            "manager": "미래에셋운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 30.798461172766796,
+            "rank_within_asset": 13,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 56.5,
+              "sharpe_1y": 0.9,
+              "return_3y": 36.3,
+              "aum": 799.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74182",
+            "fund_code": "K55105BG8818",
+            "product_name": "삼성누버거버먼이머징국공채플러스자H[채권-재간접]Cp(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 29.96945865808765,
+            "rank_within_asset": 14,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 55.3,
+              "sharpe_1y": 1.1,
+              "return_3y": 34.2,
+              "aum": 892.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42429",
+            "fund_code": "K55365BC8320",
+            "product_name": "KCGI차이나[주식]종류C-P2",
+            "manager": "KCGI운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 29.966293785046155,
+            "rank_within_asset": 15,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 56.3,
+              "sharpe_1y": 0.6,
+              "return_3y": 32.5,
+              "aum": 2127.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73509",
+            "fund_code": "K55301CB9721",
+            "product_name": "미래에셋베트남고배당IPO자(UH)(주식)종류C-P2",
+            "manager": "미래에셋운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 29.41045217303277,
+            "rank_within_asset": 16,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 44.1,
+              "sharpe_1y": 0.9,
+              "return_3y": 71.4,
+              "aum": 131.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "72990",
+            "fund_code": "K55213BX5788",
+            "product_name": "한화중국본토자H(주식)종류C-RP(퇴직연금)",
+            "manager": "한화운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 29.37117473002517,
+            "rank_within_asset": 17,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 53.0,
+              "sharpe_1y": 1.6,
+              "return_3y": 35.0,
+              "aum": 1003.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "71940",
+            "fund_code": "K55105BD5817",
+            "product_name": "삼성아세안자 2[주식](Cp(퇴직연금))",
+            "manager": "삼성운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 27.932752215126527,
+            "rank_within_asset": 18,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 49.9,
+              "sharpe_1y": 0.8,
+              "return_3y": 50.5,
+              "aum": 1577.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42997",
+            "fund_code": "K55105B93611",
+            "product_name": "삼성중국본토중소형FOCUS자H[주식]Cp(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 26.11176167342352,
+            "rank_within_asset": 19,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 47.5,
+              "sharpe_1y": 1.3,
+              "return_3y": 45.1,
+              "aum": 415.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "72248",
+            "fund_code": "K55307BB8272",
+            "product_name": "유리베트남알파자UH[주식]_C/C-P1",
+            "manager": "유리운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 24.55883541928317,
+            "rank_within_asset": 20,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 34.8,
+              "sharpe_1y": 0.7,
+              "return_3y": 63.0,
+              "aum": 263.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "49354",
+            "fund_code": "K55223C89212",
+            "product_name": "KB통중국4차산업자(주식)C-퇴직",
+            "manager": "KB운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 24.50530204138042,
+            "rank_within_asset": 21,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 50.8,
+              "sharpe_1y": 0.4,
+              "return_3y": 16.5,
+              "aum": 2106.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "71781",
+            "fund_code": "K55302C20318",
+            "product_name": "베어링글로벌이머징마켓자[H](주식-재간접)ClassC-P2",
+            "manager": "베어링운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 24.323845442171542,
+            "rank_within_asset": 22,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 46.7,
+              "sharpe_1y": 1.3,
+              "return_3y": 38.5,
+              "aum": 12.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73717",
+            "fund_code": "K55203EK8695",
+            "product_name": "대신내일출금단기채[채권](ClassC-R)",
+            "manager": "대신운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 24.235461535691364,
+            "rank_within_asset": 23,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 58.8,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 1279.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "72015",
+            "fund_code": "K55223B34913",
+            "product_name": "KB퇴직연금통중국고배당자(주식) C 클래스",
+            "manager": "KB운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 23.94104270173749,
+            "rank_within_asset": 24,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 52.2,
+              "sharpe_1y": 0.7,
+              "return_3y": 11.4,
+              "aum": 301.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74047",
+            "fund_code": "K55105B39424",
+            "product_name": "삼성누버거버먼차이나자H[주식-재간접]Cp(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 23.842502965784348,
+            "rank_within_asset": 25,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 50.5,
+              "sharpe_1y": 0.5,
+              "return_3y": 14.2,
+              "aum": 681.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "72020",
+            "fund_code": "K55223B57674",
+            "product_name": "KB중국본토A주자(주식)C-퇴직연금클래스",
+            "manager": "KB운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 23.374117615049496,
+            "rank_within_asset": 26,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 54.5,
+              "sharpe_1y": 1.1,
+              "return_3y": 2.1,
+              "aum": 3793.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42094",
+            "fund_code": "K55105BV6821",
+            "product_name": "삼성퇴직연금GREATCHINA자 1[주식]_C",
+            "manager": "삼성운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 22.94851670446105,
+            "rank_within_asset": 27,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 48.4,
+              "sharpe_1y": 0.8,
+              "return_3y": 27.7,
+              "aum": 35.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74140",
+            "fund_code": "K55105C31569",
+            "product_name": "삼성누버거버먼이머징단기채권자UH[채권-재간접]Cp(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 22.717570760681827,
+            "rank_within_asset": 28,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 40.6,
+              "sharpe_1y": 0.7,
+              "return_3y": 41.2,
+              "aum": 248.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "71939",
+            "fund_code": "K55105B81525",
+            "product_name": "삼성인도중소형FOCUS자UH[주식]_Cp(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 22.208318584964278,
+            "rank_within_asset": 29,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 32.4,
+              "sharpe_1y": -0.0,
+              "return_3y": 55.5,
+              "aum": 472.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "2592",
+            "fund_code": "K55216BT3075",
+            "product_name": "DB차이나본토RQFII자(H)[주식]ClassC-P2E",
+            "manager": "DB자산운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 21.117378427173122,
+            "rank_within_asset": 30,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 46.0,
+              "sharpe_1y": 0.9,
+              "return_3y": 21.3,
+              "aum": 207.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "71591",
+            "fund_code": "K55235BY9353",
+            "product_name": "피델리티퇴직연금글로벌자CP(주식-재간접)종류CP",
+            "manager": "피델리티운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 21.011174763378925,
+            "rank_within_asset": 31,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 32.0,
+              "sharpe_1y": 0.9,
+              "return_3y": 47.9,
+              "aum": 1050.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73530",
+            "fund_code": "K55301BX0485",
+            "product_name": "미래에셋차이나그로스자 1(주식)종류C-P2",
+            "manager": "미래에셋운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 20.960464467609185,
+            "rank_within_asset": 32,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 42.6,
+              "sharpe_1y": 0.4,
+              "return_3y": 26.5,
+              "aum": 3999.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74132",
+            "fund_code": "K55105C31387",
+            "product_name": "삼성누버거버먼이머징단기채권자H[채권-재간접]Cp(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 20.719806588587737,
+            "rank_within_asset": 33,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 46.9,
+              "sharpe_1y": 0.6,
+              "return_3y": 17.1,
+              "aum": 749.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73005",
+            "fund_code": "KR5235AF3634",
+            "product_name": "피델리티이머징마켓자CP(채권-재간접)",
+            "manager": "피델리티운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 20.46448833558642,
+            "rank_within_asset": 34,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 45.3,
+              "sharpe_1y": 0.9,
+              "return_3y": 19.1,
+              "aum": 196.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "75778",
+            "fund_code": "K55107DD5433",
+            "product_name": "우리과창판50바스켓자H(주식)ClassC-Pe",
+            "manager": "우리운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 20.43875021196026,
+            "rank_within_asset": 35,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 45.9,
+              "sharpe_1y": 0.7,
+              "return_3y": 19.6,
+              "aum": 8.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "71397",
+            "fund_code": "KR5229AF6965",
+            "product_name": "카디안차이나드래곤AShare자(UH)[주식]클래스C-P(퇴직연금)",
+            "manager": "카디안자산운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 20.42694972810934,
+            "rank_within_asset": 36,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 45.1,
+              "sharpe_1y": 1.3,
+              "return_3y": 18.3,
+              "aum": 430.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "72488",
+            "fund_code": "KR5301AN6370",
+            "product_name": "미래에셋퇴직플랜아시아그레이트컨슈머자 1(주식-재간접)종류C",
+            "manager": "미래에셋운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 19.696043891552698,
+            "rank_within_asset": 37,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 36.7,
+              "sharpe_1y": 0.7,
+              "return_3y": 32.6,
+              "aum": 114.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "75007",
+            "fund_code": "K55309C96719",
+            "product_name": "골든브릿지차이나백마주 1[주식]종류C-P2",
+            "manager": "골든브릿지운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 19.546577067052645,
+            "rank_within_asset": 38,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 40.0,
+              "sharpe_1y": 0.8,
+              "return_3y": 25.5,
+              "aum": 43.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73956",
+            "fund_code": "KR5235924044",
+            "product_name": "피델리티차이나자(주식-재간접)종류CP",
+            "manager": "피델리티운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 19.436873847303186,
+            "rank_within_asset": 39,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 47.7,
+              "sharpe_1y": 0.2,
+              "return_3y": 9.0,
+              "aum": 709.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "70525",
+            "fund_code": "K55101C38472",
+            "product_name": "한국투자차이나베트남 1(주식)(C-Re)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 18.817631724014163,
+            "rank_within_asset": 40,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 38.1,
+              "sharpe_1y": 0.2,
+              "return_3y": 25.3,
+              "aum": 240.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "72246",
+            "fund_code": "K55307BB3992",
+            "product_name": "유리베트남알파자[주식]_C/C-P1",
+            "manager": "유리운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 18.693720056276653,
+            "rank_within_asset": 41,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 32.1,
+              "sharpe_1y": 0.5,
+              "return_3y": 35.6,
+              "aum": 740.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "72358",
+            "fund_code": "K55301B58650",
+            "product_name": "미래에셋인도중소형포커스자 1(주식)종류C-P2",
+            "manager": "미래에셋운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 18.681241670523743,
+            "rank_within_asset": 42,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 28.8,
+              "sharpe_1y": -0.0,
+              "return_3y": 55.1,
+              "aum": 3345.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "44407",
+            "fund_code": "K55307DM1645",
+            "product_name": "유리차이나백마주뉴웨이브[주식]_C/C-P1",
+            "manager": "유리운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 18.521193820802253,
+            "rank_within_asset": 43,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 44.4,
+              "sharpe_1y": 0.7,
+              "return_3y": 11.5,
+              "aum": 21.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "72724",
+            "fund_code": "KR5306AX4956",
+            "product_name": "다올중국1등주자[주식]종류CP",
+            "manager": "다올운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 18.313033092517756,
+            "rank_within_asset": 44,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 35.1,
+              "sharpe_1y": 0.3,
+              "return_3y": 27.3,
+              "aum": 1954.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73560",
+            "fund_code": "K55301C99280",
+            "product_name": "미래에셋아시아그로스자(UH)(주식-재간접)종류C-P2",
+            "manager": "미래에셋운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 18.260099497486518,
+            "rank_within_asset": 45,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 27.3,
+              "sharpe_1y": 0.9,
+              "return_3y": 56.2,
+              "aum": 51.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "71489",
+            "fund_code": "KR5235924051",
+            "product_name": "피델리티인디아자(주식-재간접)종류CP",
+            "manager": "피델리티운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 16.623554948088028,
+            "rank_within_asset": 46,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 27.4,
+              "sharpe_1y": -0.0,
+              "return_3y": 45.5,
+              "aum": 1331.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "77147",
+            "fund_code": "K55213D18194",
+            "product_name": "한화차이나셀렉트헬스케어자(UH)(주식) 종류C-RP(퇴직연금)",
+            "manager": "한화운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 16.406258352230527,
+            "rank_within_asset": 47,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 35.6,
+              "sharpe_1y": 0.7,
+              "return_3y": 18.0,
+              "aum": 5.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "71368",
+            "fund_code": "KR5229AF6973",
+            "product_name": "카디안차이나드래곤AShare자(H)[주식]클래스C-P(퇴직연금)",
+            "manager": "카디안자산운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 16.354032060555244,
+            "rank_within_asset": 48,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 44.0,
+              "sharpe_1y": 1.0,
+              "return_3y": -1.7,
+              "aum": 450.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "70342",
+            "fund_code": "K55101C51558",
+            "product_name": "한국투자차이나AI빅테크플러스(주식)(C-R)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 15.474810082676838,
+            "rank_within_asset": 49,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 37.2,
+              "sharpe_1y": 0.4,
+              "return_3y": 8.3,
+              "aum": 208.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "70743",
+            "fund_code": "K55105B71328",
+            "product_name": "삼성인디아자 2[주식]Cp(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 15.28311772739167,
+            "rank_within_asset": 50,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 24.5,
+              "sharpe_1y": -0.0,
+              "return_3y": 42.8,
+              "aum": 1700.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "70681",
+            "fund_code": "K55234C19661",
+            "product_name": "IBK켄쇼4.0레볼루션자(H)[주식]종류C-R",
+            "manager": "아이비케이운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 15.248744347220665,
+            "rank_within_asset": 51,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 26.7,
+              "sharpe_1y": 0.5,
+              "return_3y": 37.8,
+              "aum": 819.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "15001",
+            "fund_code": "K55301BM1817",
+            "product_name": "미래에셋인도채권자 1(채권)종류C-P2",
+            "manager": "미래에셋운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 15.198368968876128,
+            "rank_within_asset": 52,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 31.7,
+              "sharpe_1y": -0.0,
+              "return_3y": 17.7,
+              "aum": 788.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "40377",
+            "fund_code": "K55101BB9575",
+            "product_name": "한국투자연금베트남그로스자(주식)(C-R)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 14.330728699105109,
+            "rank_within_asset": 53,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 24.5,
+              "sharpe_1y": 0.5,
+              "return_3y": 36.4,
+              "aum": 928.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "72090",
+            "fund_code": "K55232BJ3739",
+            "product_name": "NH-Amundi글로벌회사채자(H)[채권-재간접]ClassC-P2(퇴직연금)",
+            "manager": "NH-Amundi운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 14.317149738751185,
+            "rank_within_asset": 54,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 34.5,
+              "sharpe_1y": -0.0,
+              "return_3y": 9.5,
+              "aum": 7.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "76377",
+            "fund_code": "K55223EB9542",
+            "product_name": "KB스타인도Nifty50인덱스자(주식-파생)(UH)C-퇴직",
+            "manager": "KB운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 12.824133458210655,
+            "rank_within_asset": 55,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 34.9,
+              "sharpe_1y": -0.0,
+              "return_3y": 0.0,
+              "aum": 17.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73505",
+            "fund_code": "K55301B51465",
+            "product_name": "미래에셋연금인디아업종대표자 1(주식)종류C-P2",
+            "manager": "미래에셋운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 12.706642538622896,
+            "rank_within_asset": 56,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 16.3,
+              "sharpe_1y": -0.0,
+              "return_3y": 43.4,
+              "aum": 927.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73552",
+            "fund_code": "K55301B57603",
+            "product_name": "미래에셋연금아시아퍼시픽소비성장자 1(주식)종류C-P2",
+            "manager": "미래에셋운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 11.309696080872632,
+            "rank_within_asset": 57,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 17.4,
+              "sharpe_1y": 0.3,
+              "return_3y": 33.5,
+              "aum": 47.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "71485",
+            "fund_code": "KR5235924069",
+            "product_name": "피델리티아시아자(주식)CP",
+            "manager": "피델리티운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 11.107286739933993,
+            "rank_within_asset": 58,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 23.3,
+              "sharpe_1y": 0.4,
+              "return_3y": 18.4,
+              "aum": 2081.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73556",
+            "fund_code": "K55301C98993",
+            "product_name": "미래에셋아시아그로스자(H)(주식-재간접)종류C-P2",
+            "manager": "미래에셋운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 10.499474009353541,
+            "rank_within_asset": 59,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 19.6,
+              "sharpe_1y": 0.4,
+              "return_3y": 23.3,
+              "aum": 154.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42722",
+            "fund_code": "KR5364AW9427",
+            "product_name": "에셋플러스차이나리치투게더퇴직연금자 1[주식] 종류 C",
+            "manager": "에셋플러스운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 10.075926086791618,
+            "rank_within_asset": 60,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 19.5,
+              "sharpe_1y": -0.0,
+              "return_3y": 21.2,
+              "aum": 256.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "75634",
+            "fund_code": "K55102CY5590",
+            "product_name": "하나올차이나자[주식-재간접]ClassC-P2",
+            "manager": "하나운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 9.434170750803608,
+            "rank_within_asset": 61,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 27.9,
+              "sharpe_1y": 0.0,
+              "return_3y": 1.1,
+              "aum": 61.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74729",
+            "fund_code": "K55301EM0758",
+            "product_name": "미래에셋차이나코어테크자(주식)(H)종류C-P2e",
+            "manager": "미래에셋운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 8.909383666398918,
+            "rank_within_asset": 62,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 27.0,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 28.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "77139",
+            "fund_code": "K55213D18020",
+            "product_name": "한화차이나셀렉트헬스케어자(H)(주식)종류C-RP(퇴직연금)",
+            "manager": "한화운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 8.135340757538245,
+            "rank_within_asset": 63,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 25.2,
+              "sharpe_1y": 0.5,
+              "return_3y": -1.2,
+              "aum": 5.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "76535",
+            "fund_code": "K55229BY1036",
+            "product_name": "카디안차이나리더스자(UH)[주식-재간접]클래스C-P(퇴직연금)E",
+            "manager": "카디안자산운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 7.878903548889593,
+            "rank_within_asset": 64,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 23.9,
+              "sharpe_1y": 0.5,
+              "return_3y": -0.0,
+              "aum": 3.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "76115",
+            "fund_code": "K55216CJ4223",
+            "product_name": "DB차이나바이오헬스케어자(UH)[주식]종류C-P2",
+            "manager": "DB자산운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 6.798570498169937,
+            "rank_within_asset": 65,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 17.2,
+              "sharpe_1y": 0.1,
+              "return_3y": 5.6,
+              "aum": 107.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "49148",
+            "fund_code": "K55301CQ5227",
+            "product_name": "미래에셋친디아컨슈머 1(주식)종류C-P2",
+            "manager": "미래에셋운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 5.9900346173363275,
+            "rank_within_asset": 66,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 15.9,
+              "sharpe_1y": -0.0,
+              "return_3y": 2.4,
+              "aum": 648.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "71478",
+            "fund_code": "KR5235AK9782",
+            "product_name": "피델리티차이나컨슈머자(주식-재간접)종류CP",
+            "manager": "피델리티운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 5.359989639937028,
+            "rank_within_asset": 67,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 19.6,
+              "sharpe_1y": -0.0,
+              "return_3y": -9.0,
+              "aum": 734.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74452",
+            "fund_code": "K55101EL3276",
+            "product_name": "한국투자차이나항셍테크자H(주식)(C-Re)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 4.088762416104987,
+            "rank_within_asset": 68,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 11.6,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 110.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "76370",
+            "fund_code": "K55223EB9401",
+            "product_name": "KB스타인도Nifty50인덱스자(주식-파생)(H)C-퇴직e",
+            "manager": "KB운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 3.8792297406316933,
+            "rank_within_asset": 69,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 11.4,
+              "sharpe_1y": -0.0,
+              "return_3y": 0.0,
+              "aum": 17.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "55062",
+            "fund_code": "K55101E02193",
+            "product_name": "한국투자인도5대대표그룹(주식)(C-R)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 3.797826306756953,
+            "rank_within_asset": 70,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 10.7,
+              "sharpe_1y": -0.0,
+              "return_3y": 0.0,
+              "aum": 106.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "22147",
+            "fund_code": "K55301E22148",
+            "product_name": "미래에셋아시아테크(주식)종류C-P2",
+            "manager": "미래에셋운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 3.7202232036732497,
+            "rank_within_asset": 71,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 10.0,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 666.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "76107",
+            "fund_code": "K55216CJ4066",
+            "product_name": "DB차이나바이오헬스케어자(H)[주식]종류C-P2",
+            "manager": "DB자산운용",
+            "asset_key": "em_equity",
+            "product_type": "fund",
+            "score": 3.2459768782802705,
+            "rank_within_asset": 72,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 12.9,
+              "sharpe_1y": -0.0,
+              "return_3y": -7.8,
+              "aum": 96.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42351",
+            "fund_code": "K55226C77475",
+            "product_name": "HDC알짜배당(주식)종류C-Pe",
+            "manager": "HDC운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 71.81858609470684,
+            "rank_within_asset": 1,
+            "selected": true,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 80.7,
+              "sharpe_1y": 3.3,
+              "return_3y": 189.4,
+              "aum": 800.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "11688",
+            "fund_code": "K55310BZ7024",
+            "product_name": "코레이트셀렉트단기채[채권]C-P2",
+            "manager": "코레이트운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 37.82136358835879,
+            "rank_within_asset": 2,
+            "selected": true,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 81.8,
+              "sharpe_1y": 4.7,
+              "return_3y": 13.5,
+              "aum": 20203.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "12483",
+            "fund_code": "K55105AZ7255",
+            "product_name": "삼성스마트MMF법인 1Cp(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 34.282008266895865,
+            "rank_within_asset": 3,
+            "selected": true,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 77.9,
+              "sharpe_1y": 0.0,
+              "return_3y": 10.3,
+              "aum": 40948.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "3647",
+            "fund_code": "K55102E94040",
+            "product_name": "하나초단기채[채권]종류C-P2",
+            "manager": "하나운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 33.201486421858974,
+            "rank_within_asset": 4,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 79.8,
+              "sharpe_1y": 1.4,
+              "return_3y": 0.0,
+              "aum": 5512.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "1936",
+            "fund_code": "K55223E28166",
+            "product_name": "KB머니마켓액티브(채권)C-퇴직",
+            "manager": "KB운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 31.273024103368254,
+            "rank_within_asset": 5,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 75.2,
+              "sharpe_1y": 0.9,
+              "return_3y": 0.0,
+              "aum": 10200.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "3712",
+            "fund_code": "K55206EA0253",
+            "product_name": "키움초단기채[채권]ClassC-P2(퇴직연금)",
+            "manager": "키움투자운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 30.16747031397953,
+            "rank_within_asset": 6,
+            "selected": false,
+            "quant_grade": "A",
+            "factor_values": {
+              "quant_score": 72.1,
+              "sharpe_1y": 1.6,
+              "return_3y": 0.0,
+              "aum": 4791.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "11672",
+            "fund_code": "K55223C29408",
+            "product_name": "KB법인용MMF I-2(국공채)C-퇴직",
+            "manager": "KB운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 30.035534387867823,
+            "rank_within_asset": 7,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 67.4,
+              "sharpe_1y": 0.0,
+              "return_3y": 10.1,
+              "aum": 38381.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "14009",
+            "fund_code": "K55210D13332",
+            "product_name": "신한베스트크레딧단기자[채권](종류C-r)",
+            "manager": "신한자산운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 28.650054901393627,
+            "rank_within_asset": 8,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 63.4,
+              "sharpe_1y": -0.0,
+              "return_3y": 12.0,
+              "aum": 7335.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73427",
+            "fund_code": "K55210EB4936",
+            "product_name": "신한초단기채[채권](종류C-r)",
+            "manager": "신한자산운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 27.36311229111587,
+            "rank_within_asset": 9,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 66.1,
+              "sharpe_1y": -0.0,
+              "return_3y": 0.0,
+              "aum": 10209.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "46512",
+            "fund_code": "K55365E79853",
+            "product_name": "KCGI초단기우량채[채권]종류C-Pe2",
+            "manager": "KCGI운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 27.063262426102803,
+            "rank_within_asset": 10,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 65.9,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 1132.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "70698",
+            "fund_code": "K55234BN3624",
+            "product_name": "IBK베트남플러스아시아[주식]종류C-R",
+            "manager": "아이비케이운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 26.808743765776686,
+            "rank_within_asset": 11,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 47.0,
+              "sharpe_1y": 0.6,
+              "return_3y": 51.1,
+              "aum": 355.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "77165",
+            "fund_code": "K55237B73226",
+            "product_name": "한화유럽대표자(H)II(주식-재간접)P클래스",
+            "manager": "한화운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 26.104891256662818,
+            "rank_within_asset": 12,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 49.8,
+              "sharpe_1y": 0.6,
+              "return_3y": 42.3,
+              "aum": 85.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "1193",
+            "fund_code": "K55101BJ6490",
+            "product_name": "한국투자법인용MMF 2(국공채)(C)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 24.463302697574623,
+            "rank_within_asset": 13,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 53.6,
+              "sharpe_1y": -0.0,
+              "return_3y": 9.9,
+              "aum": 33962.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "2076",
+            "fund_code": "K55102BL2999",
+            "product_name": "하나파워e단기채자[채권]ClassC-P2",
+            "manager": "하나운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 24.068223158759547,
+            "rank_within_asset": 14,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 51.9,
+              "sharpe_1y": 0.3,
+              "return_3y": 11.8,
+              "aum": 5335.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73881",
+            "fund_code": "K55105EJ0652",
+            "product_name": "삼성내일지급머니마켓[채권]_Cpe(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 23.522871207164172,
+            "rank_within_asset": 15,
+            "selected": false,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 57.1,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 923.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "12541",
+            "fund_code": "K55206BN9039",
+            "product_name": "키움더드림단기채[채권]C-P2(퇴직연금)",
+            "manager": "키움투자운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 19.508505737378528,
+            "rank_within_asset": 16,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 45.7,
+              "sharpe_1y": -0.0,
+              "return_3y": 12.1,
+              "aum": 17346.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "12031",
+            "fund_code": "K55373CM4524",
+            "product_name": "현대머니마켓플렉스자 1[채권]종류C-P2",
+            "manager": "현대자산운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 19.339514667790354,
+            "rank_within_asset": 17,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 46.6,
+              "sharpe_1y": 0.3,
+              "return_3y": 11.0,
+              "aum": 265.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "30513",
+            "fund_code": "K55207DZ3803",
+            "product_name": "교보악사내일환매초단기우량채[채권]ClassC-R(퇴직연금)",
+            "manager": "교보악사운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 19.197649502465747,
+            "rank_within_asset": 18,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 45.6,
+              "sharpe_1y": 0.1,
+              "return_3y": 11.0,
+              "aum": 5470.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "2069",
+            "fund_code": "K55213B13207",
+            "product_name": "한화내일받는단기국공채자(채권)종류C-RP(퇴직연금)",
+            "manager": "한화운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 18.887931660074017,
+            "rank_within_asset": 19,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 45.3,
+              "sharpe_1y": -0.0,
+              "return_3y": 10.2,
+              "aum": 3888.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "10969",
+            "fund_code": "K55303CK1451",
+            "product_name": "마이다스우량채권자 1(채권)C-P2",
+            "manager": "마이다스운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 18.632487843711402,
+            "rank_within_asset": 20,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 43.6,
+              "sharpe_1y": -0.0,
+              "return_3y": 12.2,
+              "aum": 3742.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "10187",
+            "fund_code": "K55101BA9717",
+            "product_name": "한국투자e단기채ESG(채권)(C-R)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 18.447660167341514,
+            "rank_within_asset": 21,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 43.2,
+              "sharpe_1y": 0.2,
+              "return_3y": 12.1,
+              "aum": 1593.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "10957",
+            "fund_code": "K55214B30415",
+            "product_name": "유진챔피언단기채자(채권) ClassC-P2",
+            "manager": "유진운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 17.04659066088457,
+            "rank_within_asset": 22,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 39.1,
+              "sharpe_1y": -0.0,
+              "return_3y": 11.7,
+              "aum": 14861.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "12435",
+            "fund_code": "K55107B95356",
+            "product_name": "우리하이플러스채권자 1(채권)ClassC-P",
+            "manager": "우리운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 16.833134113732807,
+            "rank_within_asset": 23,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 38.4,
+              "sharpe_1y": -0.0,
+              "return_3y": 11.9,
+              "aum": 15287.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "10195",
+            "fund_code": "K55101BV9563",
+            "product_name": "한국투자크레딧포커스ESG자 1(채권)(C-R)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 16.390457428870405,
+            "rank_within_asset": 24,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 35.9,
+              "sharpe_1y": -0.0,
+              "return_3y": 14.4,
+              "aum": 16583.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "62795",
+            "fund_code": "K55368EJ9507",
+            "product_name": "iM에셋내일출금초단기채(채권)C-Re",
+            "manager": "iM에셋운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 15.670828059894667,
+            "rank_within_asset": 25,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 42.1,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 304.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "11028",
+            "fund_code": "KR5213AC0142",
+            "product_name": "한화코리아밸류채권자(채권)종류C-RP(퇴직연금)",
+            "manager": "한화운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 15.277180164637144,
+            "rank_within_asset": 26,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 34.6,
+              "sharpe_1y": -0.0,
+              "return_3y": 11.9,
+              "aum": 1893.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "1179",
+            "fund_code": "K55101C38761",
+            "product_name": "한국투자신종법인용MMF 3(국공채)(C)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 15.252599094045438,
+            "rank_within_asset": 27,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 36.2,
+              "sharpe_1y": -0.0,
+              "return_3y": 9.5,
+              "aum": 290.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "13107",
+            "fund_code": "K55214CD4817",
+            "product_name": "유진챔피언중단기채자(채권)ClassC-R",
+            "manager": "유진운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 15.171623502062419,
+            "rank_within_asset": 28,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 34.3,
+              "sharpe_1y": -0.0,
+              "return_3y": 11.8,
+              "aum": 2376.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "11299",
+            "fund_code": "K55210BU1775",
+            "product_name": "신한베스트크레딧플러스자[채권](종류C-r)",
+            "manager": "신한자산운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 14.946822797758058,
+            "rank_within_asset": 29,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 34.0,
+              "sharpe_1y": -0.0,
+              "return_3y": 11.5,
+              "aum": 1182.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74781",
+            "fund_code": "K55214E69177",
+            "product_name": "유진챔피언중단기크레딧(채권)ClassC-Re",
+            "manager": "유진운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 13.586003334755668,
+            "rank_within_asset": 30,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 36.0,
+              "sharpe_1y": -0.0,
+              "return_3y": 0.0,
+              "aum": 1048.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "10657",
+            "fund_code": "KR5207A10385",
+            "product_name": "교보악사Tomorrow장기우량K- 1(채권)ClassCP",
+            "manager": "교보악사운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 13.461651338025739,
+            "rank_within_asset": 31,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 31.4,
+              "sharpe_1y": -0.0,
+              "return_3y": 7.3,
+              "aum": 11776.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "12471",
+            "fund_code": "KR5105A60733",
+            "product_name": "삼성ABF코리아장기채권인덱스[채권](Cp(퇴직연금))",
+            "manager": "삼성운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 12.580559675697295,
+            "rank_within_asset": 32,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 31.1,
+              "sharpe_1y": -0.0,
+              "return_3y": 3.1,
+              "aum": 9739.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "4883",
+            "fund_code": "KR5101A93287",
+            "product_name": "한국투자퇴직연금자 1(채권)(C)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 10.624508252768141,
+            "rank_within_asset": 33,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 27.2,
+              "sharpe_1y": -0.0,
+              "return_3y": 9.0,
+              "aum": 405.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "21761",
+            "fund_code": "K55104BW3224",
+            "product_name": "브이아이퇴직연금자1[채권]C-P",
+            "manager": "브이아이운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 10.498763721502996,
+            "rank_within_asset": 34,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 27.0,
+              "sharpe_1y": -0.0,
+              "return_3y": 8.4,
+              "aum": 622.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "12532",
+            "fund_code": "K55206CW2784",
+            "product_name": "키움파이어니어ESG자 1[채권]C",
+            "manager": "키움투자운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 9.836205811106051,
+            "rank_within_asset": 35,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 25.5,
+              "sharpe_1y": -0.0,
+              "return_3y": 7.6,
+              "aum": 314.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "10214",
+            "fund_code": "K55101CU3608",
+            "product_name": "한국투자중기우량채자(채권)(C-Re)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 9.739555118333316,
+            "rank_within_asset": 36,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 24.5,
+              "sharpe_1y": -0.0,
+              "return_3y": 10.4,
+              "aum": 18.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "11550",
+            "fund_code": "KR5301A94984",
+            "product_name": "미래에셋퇴직플랜자 1(채권)종류C",
+            "manager": "미래에셋운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 9.70177024810712,
+            "rank_within_asset": 37,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 26.2,
+              "sharpe_1y": -0.0,
+              "return_3y": 4.8,
+              "aum": 964.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "11274",
+            "fund_code": "KR5210AN1082",
+            "product_name": "신한상대가치장기자[채권](종류C-r)",
+            "manager": "신한자산운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 9.543772309410938,
+            "rank_within_asset": 38,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 25.0,
+              "sharpe_1y": -0.0,
+              "return_3y": 6.7,
+              "aum": 363.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "42754",
+            "fund_code": "K55234B33664",
+            "product_name": "IBK퇴직연금럭셔리라이프스타일자[주식] C",
+            "manager": "아이비케이운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 7.163013569462672,
+            "rank_within_asset": 39,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 28.2,
+              "sharpe_1y": -0.0,
+              "return_3y": -13.5,
+              "aum": 41.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74885",
+            "fund_code": "K55239ER2939",
+            "product_name": "현대인베스트먼트넥스트하이킥목표전환3(채권-재간접)R-e",
+            "manager": "현대인베스트먼트운용",
+            "asset_key": "kr_aggregate_bond",
+            "product_type": "fund",
+            "score": 3.3787189763588117,
+            "rank_within_asset": 40,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 9.7,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 30.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "60389",
+            "fund_code": "K55203EJ4192",
+            "product_name": "대신미국장기국채밸런스[채권-재간접]종류C-R",
+            "manager": "대신운용",
+            "asset_key": "us_treasury_30y",
+            "product_type": "fund",
+            "score": 22.287811465923053,
+            "rank_within_asset": 1,
+            "selected": true,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 54.4,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 195.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "71342",
+            "fund_code": "K55203E92883",
+            "product_name": "대신미국장기국채액티브목표전환2[채권-재간접]종류C-R",
+            "manager": "대신운용",
+            "asset_key": "us_treasury_30y",
+            "product_type": "fund",
+            "score": 21.47903594543241,
+            "rank_within_asset": 2,
+            "selected": true,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 52.2,
+              "sharpe_1y": 0.1,
+              "return_3y": 0.0,
+              "aum": 295.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74222",
+            "fund_code": "K55105CU9528",
+            "product_name": "삼성미국투자등급장기채권자UH[채권]_Cp(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "us_treasury_30y",
+            "product_type": "fund",
+            "score": 18.591599094045435,
+            "rank_within_asset": 3,
+            "selected": true,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 36.0,
+              "sharpe_1y": 0.3,
+              "return_3y": 28.0,
+              "aum": 290.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "1990",
+            "fund_code": "K55223E92725",
+            "product_name": "KB미국장기국채플러스자(채권)(UH)C-퇴직",
+            "manager": "KB운용",
+            "asset_key": "us_treasury_30y",
+            "product_type": "fund",
+            "score": 17.758138939716247,
+            "rank_within_asset": 4,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 48.1,
+              "sharpe_1y": -0.0,
+              "return_3y": 0.0,
+              "aum": 135.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "1982",
+            "fund_code": "K55223E92568",
+            "product_name": "KB미국장기국채플러스자(채권)(H)C-퇴직",
+            "manager": "KB운용",
+            "asset_key": "us_treasury_30y",
+            "product_type": "fund",
+            "score": 9.267662126150361,
+            "rank_within_asset": 5,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 27.2,
+              "sharpe_1y": -0.0,
+              "return_3y": 0.0,
+              "aum": 1147.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74214",
+            "fund_code": "K55105BV1871",
+            "product_name": "삼성미국투자등급장기채권자H[채권]_Cp(퇴직연금)",
+            "manager": "삼성운용",
+            "asset_key": "us_treasury_30y",
+            "product_type": "fund",
+            "score": 8.005428652725067,
+            "rank_within_asset": 6,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 21.8,
+              "sharpe_1y": -0.0,
+              "return_3y": 3.8,
+              "aum": 193.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73471",
+            "fund_code": "K55210ED3548",
+            "product_name": "신한미국장기채플러스자(H)[채권-재간접](종류C-re)",
+            "manager": "신한자산운용",
+            "asset_key": "us_treasury_30y",
+            "product_type": "fund",
+            "score": 7.901638719603053,
+            "rank_within_asset": 7,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 23.4,
+              "sharpe_1y": -0.0,
+              "return_3y": 0.0,
+              "aum": 175.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73406",
+            "fund_code": "K55210E07639",
+            "product_name": "신한미국장기국채목표전환(H)[채권-재간접](종류C-re)",
+            "manager": "신한자산운용",
+            "asset_key": "us_treasury_30y",
+            "product_type": "fund",
+            "score": 7.775436548071219,
+            "rank_within_asset": 8,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 23.0,
+              "sharpe_1y": -0.0,
+              "return_3y": 0.0,
+              "aum": 179.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73436",
+            "fund_code": "K55210EE0857",
+            "product_name": "신한미국장기국채분할매수목표전환 1(H)[채권-재간접](종류C-r)",
+            "manager": "신한자산운용",
+            "asset_key": "us_treasury_30y",
+            "product_type": "fund",
+            "score": 7.3475512719313105,
+            "rank_within_asset": 9,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 21.8,
+              "sharpe_1y": -0.0,
+              "return_3y": 0.0,
+              "aum": 103.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "61114",
+            "fund_code": "K55210E24709",
+            "product_name": "신한미국장기국채목표전환2(H)[채권-재간접](종류C-r)",
+            "manager": "신한자산운용",
+            "asset_key": "us_treasury_30y",
+            "product_type": "fund",
+            "score": 7.324287215288509,
+            "rank_within_asset": 10,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 21.7,
+              "sharpe_1y": -0.0,
+              "return_3y": 0.0,
+              "aum": 115.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "71800",
+            "fund_code": "K55302CE8406",
+            "product_name": "베어링글로벌하이일드자[UH](채권-재간접)ClassC-P2e",
+            "manager": "베어링운용",
+            "asset_key": "us_high_yield",
+            "product_type": "fund",
+            "score": 32.76649493574616,
+            "rank_within_asset": 1,
+            "selected": true,
+            "quant_grade": "B",
+            "factor_values": {
+              "quant_score": 57.9,
+              "sharpe_1y": 0.7,
+              "return_3y": 45.7,
+              "aum": 12.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "71791",
+            "fund_code": "K55302CE8240",
+            "product_name": "베어링글로벌하이일드자[H](채권-재간접)ClassC-P2",
+            "manager": "베어링운용",
+            "asset_key": "us_high_yield",
+            "product_type": "fund",
+            "score": 16.402823117199574,
+            "rank_within_asset": 2,
+            "selected": true,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 34.0,
+              "sharpe_1y": 0.5,
+              "return_3y": 20.0,
+              "aum": 115.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74369",
+            "fund_code": "K55207EL7882",
+            "product_name": "교보악사미국코어하이일드자(UH)[채권-재간접]_ClassC-Re(퇴직연금)",
+            "manager": "교보악사운용",
+            "asset_key": "us_high_yield",
+            "product_type": "fund",
+            "score": 16.262383246250398,
+            "rank_within_asset": 3,
+            "selected": true,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 45.0,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 1.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74816",
+            "fund_code": "K55366B44612",
+            "product_name": "iM에셋미국달러하이일드(채권-재간접)(H)(C-Rp)",
+            "manager": "iM에셋운용",
+            "asset_key": "us_high_yield",
+            "product_type": "fund",
+            "score": 15.503709518470089,
+            "rank_within_asset": 4,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 31.5,
+              "sharpe_1y": 0.4,
+              "return_3y": 20.2,
+              "aum": 105.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "73415",
+            "fund_code": "K55210E32439",
+            "product_name": "신한MAN글로벌하이일드(H)[채권-재간접](종류C-r)",
+            "manager": "신한자산운용",
+            "asset_key": "us_high_yield",
+            "product_type": "fund",
+            "score": 15.501794103512953,
+            "rank_within_asset": 5,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 40.8,
+              "sharpe_1y": 0.7,
+              "return_3y": 0.0,
+              "aum": 1034.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "2740",
+            "fund_code": "K55235BO4158",
+            "product_name": "피델리티아시아하이일드자(채권-재간접)CP",
+            "manager": "피델리티운용",
+            "asset_key": "us_high_yield",
+            "product_type": "fund",
+            "score": 13.418500423920518,
+            "rank_within_asset": 6,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 30.9,
+              "sharpe_1y": 0.3,
+              "return_3y": 10.1,
+              "aum": 80.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74755",
+            "fund_code": "K55101EM9652",
+            "product_name": "한국투자GoldmanSachs글로벌하이일드인컴자UH(채권)(C-R)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "us_high_yield",
+            "product_type": "fund",
+            "score": 11.909372447215457,
+            "rank_within_asset": 7,
+            "selected": false,
+            "quant_grade": "C",
+            "factor_values": {
+              "quant_score": 32.2,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 33.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "75864",
+            "fund_code": "K55207EC7230",
+            "product_name": "교보악사미국코어하이일드자(H)[채권-재간접]ClassC-R(퇴직연금)",
+            "manager": "교보악사운용",
+            "asset_key": "us_high_yield",
+            "product_type": "fund",
+            "score": 8.748896009255485,
+            "rank_within_asset": 8,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 26.4,
+              "sharpe_1y": -0.0,
+              "return_3y": 0.0,
+              "aum": 42.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "74739",
+            "fund_code": "K55101EM9512",
+            "product_name": "한국투자GoldmanSachs글로벌하이일드인컴자H(채권)(C-R)",
+            "manager": "한국투자신탁운용",
+            "asset_key": "us_high_yield",
+            "product_type": "fund",
+            "score": 7.827738989733305,
+            "rank_within_asset": 9,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 23.1,
+              "sharpe_1y": 0.0,
+              "return_3y": 0.0,
+              "aum": 231.0,
+              "missing_fields": []
+            }
+          },
+          {
+            "product_id": "44548",
+            "fund_code": "K55306EG3391",
+            "product_name": "다올BNYUSFallenAngel하이일드자(H)[채권-재간접]종류CPe",
+            "manager": "다올운용",
+            "asset_key": "us_high_yield",
+            "product_type": "fund",
+            "score": 7.754291311719126,
+            "rank_within_asset": 10,
+            "selected": false,
+            "quant_grade": "D",
+            "factor_values": {
+              "quant_score": 23.2,
+              "sharpe_1y": 0.1,
+              "return_3y": 0.0,
+              "aum": 45.0,
+              "missing_fields": []
+            }
+          }
+        ],
+        "excluded_by_asset": {}
+      },
+      "fallback": {
+        "fallback_used": false,
+        "fallback_reasons": {},
+        "reallocations": [],
+        "fallback_absorbers": [],
+        "cash_placeholder_weight": 0.0,
+        "product_weight_sum_before": 1.0,
+        "product_weight_sum_after": 1.0
+      },
+      "quality": {
+        "quality_status": "clean",
+        "enforcement_mode": "telemetry_only",
+        "target_asset_weights": {
+          "kr_equity": 0.026495635999223444,
+          "us_growth_equity": 0.056378797660900516,
+          "us_value_equity": 0.32715270802427987,
+          "dm_ex_us_equity": 0.07019732810703036,
+          "em_equity": 0.3421262190103843,
+          "kr_aggregate_bond": 0.16871922578326848,
+          "kr_treasury_10y": 0.0,
+          "us_treasury_30y": 9.54097911952638e-18,
+          "us_high_yield": 0.008930085414913136
+        },
+        "final_asset_weights": {
+          "dm_ex_us_equity": 0.07019732810703036,
+          "em_equity": 0.3421262190103843,
+          "kr_aggregate_bond": 0.16871922578326848,
+          "kr_equity": 0.026495635999223444,
+          "us_growth_equity": 0.056378797660900516,
+          "us_high_yield": 0.008930085414913136,
+          "us_treasury_30y": 9.54097911952638e-18,
+          "us_value_equity": 0.32715270802427987
+        },
+        "asset_weight_drift": {
+          "us_value_equity": 0.0,
+          "kr_aggregate_bond": 0.0,
+          "us_growth_equity": 0.0,
+          "em_equity": 0.0,
+          "kr_equity": 0.0,
+          "dm_ex_us_equity": 0.0,
+          "kr_treasury_10y": 0.0,
+          "us_treasury_30y": 0.0,
+          "us_high_yield": 0.0
+        },
+        "max_abs_asset_weight_drift": 0.0,
+        "drift_by_bucket": {
+          "fixed_income": 0.0,
+          "equity": 1.1102230246251565e-16
+        },
+        "max_abs_bucket_drift": 1.1102230246251565e-16,
+        "cash_placeholder_weight": 0.0,
+        "review_reasons": [],
+        "drift_telemetry_notes": [],
+        "fallback_absorbers": [],
+        "thresholds": {
+          "asset_drift": 0.03,
+          "bucket_drift": 0.05,
+          "enforcement": "telemetry_only"
+        },
+        "drift_source_by_asset": {
+          "dm_ex_us_equity": "none",
+          "em_equity": "none",
+          "kr_aggregate_bond": "none",
+          "kr_equity": "none",
+          "kr_treasury_10y": "none",
+          "us_growth_equity": "none",
+          "us_high_yield": "none",
+          "us_treasury_30y": "none",
+          "us_value_equity": "none"
+        },
+        "drift_clipping_summary": {
+          "n_assets_with_outflow": 0,
+          "outflow_assets": [],
+          "outflow_by_asset": {},
+          "total_outflow_magnitude": 0,
+          "n_assets_with_inflow": 0,
+          "inflow_assets": [],
+          "inflow_by_asset": {},
+          "total_inflow_magnitude": 0,
+          "drift_source_primary": "none",
+          "drift_source_counts": {}
+        }
+      }
+    },
+    "drift_thresholds": {
+      "enforcement": "telemetry_only",
+      "asset_drift_threshold": 0.03,
+      "bucket_drift_threshold": 0.05
+    },
+    "single_product_max_weight": 0.3,
+    "universe_classified_by_asset_class": {
+      "kr_equity": 99,
+      "kr_aggregate_bond": 40,
+      "em_equity": 72,
+      "kr_treasury_10y": 4,
+      "us_value_equity": 2,
+      "us_growth_equity": 10,
+      "dm_ex_us_equity": 15,
+      "us_high_yield": 10,
+      "us_treasury_30y": 10
+    }
+  },
+  "notes": [
+    "R-1G.2 = R-1G.1 product re-selection + PortfolioBuilder fallback / drift clipping / quality evaluation.",
+    "manager_override_saa is a SEPARATE LAYER; existing SAA telemetry (saa_diagnostics.saa_weights) in baseline portfolio JSON is preserved.",
+    "implementation_ready=false / implementation_review_status='review_required' are STRICT — never auto-promote to true.",
+    "Production reflection is OUT OF SCOPE for R-1G.2. Requires (a) explicit manager selection, (b) Decision Register new entry, (c) separate Phase F sign-off.",
+    "automated candidate recommendation is forbidden."
+  ]
+}

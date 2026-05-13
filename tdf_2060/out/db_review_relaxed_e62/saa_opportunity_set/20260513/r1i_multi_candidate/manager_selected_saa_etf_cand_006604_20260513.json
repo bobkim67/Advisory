@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "schema_version": "r1f1.1",
+    "generated_at": "2026-05-13T06:45:15.914791+00:00",
+    "operating_mode": "relaxed_diagnostic",
+    "production_applied": false,
+    "sign_off_required_for_production": true,
+    "manager_override_saa_layer": true,
+    "scope": "R-1F.1 (validation + dump only; no downstream wiring)"
+  },
+  "selection_input": {
+    "portfolio_type": "etf",
+    "candidate_id": "cand_006604",
+    "selected_by": "r1i_multi_candidate_review",
+    "selected_at": "2026-05-14T00:00:00+00:00",
+    "selection_reason": "R-1I multi-candidate comparison sample; not an automated recommendation.",
+    "manager_view_notes": [
+      "R-1I batch sample input — must be replaced by 운용역 명시 선택 before any production sign-off.",
+      "candidate_tags: ['boundary:lowest_concentration_hhi']"
+    ],
+    "source_review_packet": {
+      "path": "out\\db_review_relaxed_e62\\saa_opportunity_set\\20260513\\r1h_manager_selected_saa_final_review_20260513.md",
+      "sha256": "83fd8397828cae404f77fe635943b229b55bce1ec54d71af89c19a0cce102821"
+    },
+    "allow_downstream_dry_run": true
+  },
+  "selected_candidate": {
+    "candidate_id": "cand_006604",
+    "weights": {
+      "kr_equity": 0.1566353375717826,
+      "us_growth_equity": 0.16932031725884822,
+      "us_value_equity": 0.1658643394518871,
+      "dm_ex_us_equity": 0.15496260514491175,
+      "em_equity": 0.15321740057257047,
+      "kr_aggregate_bond": 0.02521528427049885,
+      "kr_treasury_10y": 0.04353772863338339,
+      "us_treasury_30y": 0.030954822011894947,
+      "us_high_yield": 0.10029216508422284
+    },
+    "expected_return": 0.1048207074557768,
+    "volatility": 0.13334831279574239,
+    "sharpe": 0.5610922694641377,
+    "equity_weight": 0.8000000000000002,
+    "fixed_income_weight": 0.20000000000000004,
+    "max_asset_weight": 0.16932031725884822,
+    "nonzero_asset_count": 9,
+    "concentration_hhi": 0.1417520225046528,
+    "equity_intra_hhi": 0.20031868554091786,
+    "fixed_income_intra_hhi": 0.33870159396163246,
+    "equity_max_asset_weight": 0.16932031725884822,
+    "fixed_income_max_asset_weight": 0.10029216508422284,
+    "mvo_efficiency_score": 0.025154589500543986,
+    "feasibility_status": "feasible"
+  },
+  "validation_summary": {
+    "rules_evaluated": 16,
+    "rules_passed": 16,
+    "rules_failed": 0,
+    "bucket_constraint_check": {
+      "equity_deviation_from_080": 1.1102230246251565e-16,
+      "fixed_income_deviation_from_020": 2.7755575615628914e-17
+    },
+    "weight_sum_deviation_from_1": 2.220446049250313e-16,
+    "removed_metric_check": "absent",
+    "review_packet_sha256_match": true,
+    "review_packet_sha256_actual": "83fd8397828cae404f77fe635943b229b55bce1ec54d71af89c19a0cce102821",
+    "timestamp_after_opportunity_generation": true,
+    "operating_mode": "relaxed_diagnostic",
+    "operating_mode_check": "relaxed_diagnostic_confirmed"
+  },
+  "source_opportunity_json": {
+    "path": "out\\db_review_relaxed_e62\\saa_opportunity_set\\20260513\\saa_opportunity_set_etf_20260513.json",
+    "sha256": "834fe898adb97896cf6c8fbcdd3fed1c508230a4b19689024065bf2ca607458d"
+  },
+  "downstream_dry_run_allowed": true,
+  "downstream_dry_run_executed": false,
+  "notes": [
+    "manager_override_saa is a SEPARATE LAYER — existing SAA telemetry (`saa_diagnostics.saa_weights`) MUST NOT be overwritten.",
+    "Production reflection requires (a) explicit manager selection, (b) Decision Register new entry, (c) separate Phase F sign-off.",
+    "automated candidate recommendation is forbidden; this dump only records an explicit manager-provided selection."
+  ]
+}
