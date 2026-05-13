@@ -65,7 +65,7 @@ def _connect():
 
     return pymysql.connect(
         host=os.environ.get("TDF_DB_HOST", "${DB_HOST}"),
-        user=os.environ.get("TDF_DB_USER", \"${DB_USER}\"),
+        user=os.environ.get("TDF_DB_USER", "${DB_USER}"),
         password=os.environ.get("TDF_DB_PASSWORD", "${DB_PASSWORD}"),
         db=os.environ.get("TDF_DB_NAME", "SCIP"),
         charset="utf8mb4",

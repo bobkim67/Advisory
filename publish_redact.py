@@ -31,7 +31,7 @@ PATTERNS = [
     # solution 단어는 일반 단어이므로 신중 — yaml/yaml 등 context 에서만
     (r"user=['\"]?solution['\"]?", r"user=${DB_USER}"),
     (r"'solution'", r"'${DB_USER}'"),
-    (r"\"solution\"", r"\"${DB_USER}\""),
+    (r'"solution"', r'"${DB_USER}"'),
     (r"sk-[A-Za-z0-9]{20,}", r"${OPENAI_API_KEY}"),
 ]
 

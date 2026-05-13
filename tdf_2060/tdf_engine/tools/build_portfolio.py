@@ -42,7 +42,7 @@ def _build_market_repo(loader, source_root: Path, source: str, as_of_date):
         )
 
     # SQLAlchemy 엔진 생성 — credential 은 환경변수 우선, 없으면 yaml/CLAUDE 의 운영 default.
-    db_user = os.environ.get("TDF_DB_USER", \"${DB_USER}\")
+    db_user = os.environ.get("TDF_DB_USER", "${DB_USER}")
     db_pw = os.environ.get("TDF_DB_PASSWORD", "${DB_PASSWORD}")
     db_host = os.environ.get("TDF_DB_HOST", "${DB_HOST}")
     db_name = os.environ.get("TDF_DB_NAME", "SCIP")
@@ -234,7 +234,7 @@ def dry_run_db_check(
             "error": "db_sources.yaml not found",
         }
 
-    db_user = os.environ.get("TDF_DB_USER", \"${DB_USER}\")
+    db_user = os.environ.get("TDF_DB_USER", "${DB_USER}")
     db_pw = os.environ.get("TDF_DB_PASSWORD", "${DB_PASSWORD}")
     db_host = os.environ.get("TDF_DB_HOST", "${DB_HOST}")
     db_name = os.environ.get("TDF_DB_NAME", "SCIP")
