@@ -17,3 +17,22 @@ scratch/
 
 # Local cache
 .bkit/
+
+# Local per-turn engine outputs under tdf_2060/out/ (Phase B/C/D/E pre-R-track
+# runs; never committed). Sibling R-track 1 dirs (db_*_r1e_dryrun/,
+# db_*_r1g_reselection/, db_*_r1i_multi_candidate/, db_review_relaxed_e62/)
+# are unaffected because gitignore does not untrack already-tracked files.
+tdf_2060/out/db_dry_run/
+tdf_2060/out/db_etf/
+tdf_2060/out/db_etf_relaxed/
+tdf_2060/out/db_etf_relaxed_e62/
+tdf_2060/out/db_etf_relaxed_e62_e11a/
+tdf_2060/out/db_etf_relaxed_e62_run2/
+tdf_2060/out/db_fund/
+tdf_2060/out/db_fund_relaxed/
+tdf_2060/out/db_fund_relaxed_e62/
+tdf_2060/out/db_fund_relaxed_e62_e11a/
+tdf_2060/out/db_review/
+tdf_2060/out/db_review_relaxed/
+tdf_2060/out/file_etf/
+tdf_2060/out/file_fund/
