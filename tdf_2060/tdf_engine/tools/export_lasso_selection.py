@@ -1,4 +1,4 @@
-"""CLI: lasso/polygon selection export.
+"""CLI: lasso/polygon selection export (optionally chained with review).
 
 Input:
   --opportunity-set    PATH   : R-1B.2 opportunity set JSON (10,000 후보)
@@ -7,7 +7,10 @@ Input:
   --portfolio-type     etf|fund : default 'etf' (SAA is identical between types)
   --selected-by        STR    : 운용역 식별자 (forbidden substrings: automated/smoke)
   --selection-reason   STR    : 자유 텍스트
-  --batch-results-dir  PATH   : optional R-1G.2 batch root for has_fallback/universe (e.g., out/db_etf_relaxed_e62_r1i_multi_candidate)
+  --batch-results-dir  PATH   : optional R-1G.2 batch root for has_fallback/universe
+        (e.g., out/db_etf_relaxed_e62_r1i_multi_candidate). When --emit-review
+        is set, this SAME directory is reused to populate review batch signals
+        (clean_implementation archetype, per-candidate WARN propagation).
   --source-review-packet-path STR : for R-1F.1 yaml provenance. **If omitted, the
         lasso selection JSON itself is used as a self-referential review
         packet placeholder (test-only traceability; runtime should override
@@ -15,10 +18,19 @@ Input:
   --source-review-packet-sha256 STR : for R-1F.1 yaml provenance. **If omitted,
         auto-computed from --source-review-packet-path (or lasso JSON if
         defaulted).**
+  --emit-review               : also produce C-4 representative review files
+        (representative_candidates.json, lasso_review_table.csv, lasso_review_summary.md)
+        — NOT a recommendation; archetypes are review-only categories.
+  --review-output-dir  PATH   : optional override for review output directory
+        (default = <output-dir>/review/).
 
 Output:
   <output-dir>/lasso_selection_<selection_id>.json
   <output-dir>/manager_selection_from_lasso_<selection_id>.yaml
+  When --emit-review is set:
+  <review-output-dir>/representative_candidates.json
+  <review-output-dir>/lasso_review_table.csv
+  <review-output-dir>/lasso_review_summary.md
 
 Path convention (Gap-3 of C-3 smoke): the emitted yaml stores
 ``source_review_packet.path`` verbatim. R-1F.1 CLI
@@ -26,7 +38,8 @@ Path convention (Gap-3 of C-3 smoke): the emitted yaml stores
 (convention: ``tdf_2060/``). Run this CLI from the same cwd so the
 emitted path resolves consistently.
 
-Defaults: dry-run only. No production flag.
+Defaults: dry-run only. No production flag. Backward-compatible — when
+--emit-review is absent, behaviour is identical to the C-2 CLI.
 """
 from __future__ import annotations
 
@@ -35,6 +48,14 @@ import json
 import pathlib
 import sys
 
+from tdf_engine.optimization.lasso_review import (
+    LassoReviewError,
+    build_review_csv,
+    build_review_export,
+    build_review_md,
+    dedup_archetypes,
+    extract_archetypes,
+)
 from tdf_engine.optimization.lasso_selection import (
     build_export,
     compute_cloud_tags,
@@ -90,6 +111,13 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--source-review-packet-sha256", default="")
     p.add_argument("--skip-yaml", action="store_true",
                    help="skip R-1F.1 yaml emission (use when post_selection_rule yields >1 candidate)")
+    p.add_argument("--emit-review", action="store_true",
+                   help="also emit C-4 representative review files (JSON/CSV/MD) into "
+                        "<review-output-dir>. Archetypes are review-only categories — "
+                        "NOT a recommendation / final SAA / production-ready label.")
+    p.add_argument("--review-output-dir", type=pathlib.Path, default=None,
+                   help="directory for review files (default: <output-dir>/review/). "
+                        "Ignored when --emit-review is absent.")
     args = p.parse_args(argv)
 
     opp_path: pathlib.Path = args.opportunity_set
@@ -167,6 +195,49 @@ def main(argv: list[str] | None = None) -> int:
                 f"  NOTE: selected_count={export['selected_count']} != 1 — "
                 f"skipping R-1F.1 yaml (use --skip-yaml or change post_selection_rule)"
             )
+
+    if args.emit_review:
+        review_dir: pathlib.Path = args.review_output_dir or (out_dir / "review")
+        review_dir.mkdir(parents=True, exist_ok=True)
+        selected_ids = list(export.get("selected_candidate_ids", []))
+        if not selected_ids:
+            print(f"  WARN: selected_count=0 — skipping review (no candidates to archetype)")
+        else:
+            by_id = {c["candidate_id"]: c for c in tagged}
+            selected_cands = [by_id[cid] for cid in selected_ids if cid in by_id]
+            try:
+                archetypes = extract_archetypes(selected_cands)
+            except LassoReviewError as e:
+                print(f"  WARN: review skipped — {e}")
+            else:
+                dedup = dedup_archetypes(archetypes)
+                review = build_review_export(
+                    lasso_export=export,
+                    candidates=selected_cands,
+                    archetypes=archetypes,
+                    dedup=dedup,
+                )
+                review["source_lasso_selection_file"] = str(json_path).replace("\\", "/")
+                rev_json = review_dir / "representative_candidates.json"
+                rev_csv = review_dir / "lasso_review_table.csv"
+                rev_md = review_dir / "lasso_review_summary.md"
+                rev_json.write_text(
+                    json.dumps(review, indent=2, ensure_ascii=False) + "\n",
+                    encoding="utf-8",
+                )
+                rev_csv.write_text(build_review_csv(selected_cands, archetypes), encoding="utf-8")
+                rev_md.write_text(build_review_md(review, selected_cands), encoding="utf-8")
+                print(f"wrote {rev_json}")
+                print(f"wrote {rev_csv}")
+                print(f"wrote {rev_md}")
+                print(f"  review_unique_representatives = {len(review['representatives'])}")
+                null_arches = [
+                    a["archetype"] for a in review["archetypes"]
+                    if a.get("candidate_id") is None
+                ]
+                print(f"  null_archetypes               = {null_arches}")
+                print(f"  review_single_review_mode     = {review['single_review_mode']}")
+
     return 0
 
 
