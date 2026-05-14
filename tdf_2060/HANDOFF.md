@@ -1,5 +1,14 @@
 # HANDOFF — TDF 2060 Engine
 
+> **★ Current basepoint (2026-05-14, R-track 1차 close 후)**
+> - `main = origin/main = 6d570d5` (R-track 1 close PR #1 머지 + `.gitignore` hotfix 통합 후)
+> - 작업 브랜치 모두 정리, `main` 단독
+> - R-track 2차 진입 전 framework 정리: [`docs/r_track_2_entry_brief.md`](docs/r_track_2_entry_brief.md)
+> - operating_mode `relaxed_diagnostic` 유지, Decision Register count **14 유지**, Phase F **미진입**
+> - 본 ★ 블록이 최신 기준점. 아래 § 이하는 Phase D 시점 (2026-05-08) 의 stale 정보를 일부 포함.
+
+---
+
 다음 세션 진입점. **Phase D (Governance & Operation Readiness) 진입 — 2026-05-08**.
 Phase A~C.5 freeze. 코드 변경 없음.
 

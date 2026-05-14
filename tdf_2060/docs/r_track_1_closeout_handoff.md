@@ -129,3 +129,11 @@ Phase F 진입 후에야 `implementation_ready` 가 검토 대상이 되며, 자
 > R-1G.2 valid product-level dry-run portfolio (cand_008421, ETF/Fund 모두 sum=1.000000) 산출.
 > 다음은 **운용역 §7 결정 + Phase F entry criteria 충족** — 코딩 아님.
 > 본 closeout 으로 R-track 기술 채널 닫고, 거버넌스 채널로 전환.
+
+---
+
+## §10. Next Steps (2026-05-14 추가)
+
+- **R-track 2 entry brief 생성됨**: [`tdf_2060/docs/r_track_2_entry_brief.md`](r_track_2_entry_brief.md) — R-track 2차 진입 전 운용역 판단 기준 framework (lightweight checklist + selection criteria + R-track 1차 산출물 분류 + gap).
+- 본 framework 는 R-track 2차 진입 **prerequisite** 만 정리. **Phase F 진입 선언 / 후보 추천 / production 승격 모두 본 §10 추가로 발생하지 않음.**
+- main 통합 상태: `main = origin/main = 6d570d5` (PR #1 머지 후 `.gitignore` hotfix fast-forward 통합).
