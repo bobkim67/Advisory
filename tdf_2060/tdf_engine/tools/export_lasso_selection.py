@@ -8,12 +8,23 @@ Input:
   --selected-by        STR    : 운용역 식별자 (forbidden substrings: automated/smoke)
   --selection-reason   STR    : 자유 텍스트
   --batch-results-dir  PATH   : optional R-1G.2 batch root for has_fallback/universe (e.g., out/db_etf_relaxed_e62_r1i_multi_candidate)
-  --source-review-packet-path STR : for R-1F.1 yaml provenance (optional)
-  --source-review-packet-sha256 STR : for R-1F.1 yaml provenance (optional)
+  --source-review-packet-path STR : for R-1F.1 yaml provenance. **If omitted, the
+        lasso selection JSON itself is used as a self-referential review
+        packet placeholder (test-only traceability; runtime should override
+        with the 운용역 review packet path).**
+  --source-review-packet-sha256 STR : for R-1F.1 yaml provenance. **If omitted,
+        auto-computed from --source-review-packet-path (or lasso JSON if
+        defaulted).**
 
 Output:
   <output-dir>/lasso_selection_<selection_id>.json
   <output-dir>/manager_selection_from_lasso_<selection_id>.yaml
+
+Path convention (Gap-3 of C-3 smoke): the emitted yaml stores
+``source_review_packet.path`` verbatim. R-1F.1 CLI
+(``tools/select_manager_saa.py``) reads paths relative to its cwd
+(convention: ``tdf_2060/``). Run this CLI from the same cwd so the
+emitted path resolves consistently.
 
 Defaults: dry-run only. No production flag.
 """
@@ -132,15 +143,25 @@ def main(argv: list[str] | None = None) -> int:
 
     if not args.skip_yaml:
         if export["selected_count"] == 1:
+            # Auto-fill source_review_packet if not provided: use lasso JSON
+            # itself as a self-referential placeholder (test-only traceability;
+            # runtime should override with the 운용역 review packet).
+            rp_path = args.source_review_packet_path or str(json_path).replace("\\", "/")
+            rp_sha = args.source_review_packet_sha256 or sha256_file(json_path)
             yaml_text = to_r1f1_yaml(
                 export,
                 portfolio_type=args.portfolio_type,
-                source_review_packet_path=args.source_review_packet_path,
-                source_review_packet_sha256=args.source_review_packet_sha256,
+                source_review_packet_path=rp_path,
+                source_review_packet_sha256=rp_sha,
             )
             yaml_path = out_dir / f"manager_selection_from_lasso_{sel_id}.yaml"
             yaml_path.write_text(yaml_text, encoding="utf-8")
             print(f"wrote {yaml_path}")
+            if not args.source_review_packet_path:
+                print(
+                    "  NOTE: --source-review-packet-path not provided — "
+                    "yaml references the lasso JSON itself (test-only placeholder)."
+                )
         else:
             print(
                 f"  NOTE: selected_count={export['selected_count']} != 1 — "

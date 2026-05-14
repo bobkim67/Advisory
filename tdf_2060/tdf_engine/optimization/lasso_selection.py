@@ -604,9 +604,20 @@ def to_r1f1_yaml(
 ) -> str:
     """Convert lasso export → R-1F.1 manager_selected_saa yaml string.
 
-    Single-candidate flow only (require_single_candidate=True default). For
-    multi-candidate batch (top_n / representative_3 / all > 1), use R-1I
-    batch flow separately.
+    Top-level key is ``manager_selection`` (matching R-1F.1 CLI
+    ``tools/select_manager_saa.py``). Single-candidate flow only
+    (``require_single_candidate=True`` default). For multi-candidate batch
+    (top_n / representative_3 / all > 1), use R-1I batch flow separately.
+
+    Path convention (Gap-3 of C-3 smoke): the emitted yaml stores
+    ``source_review_packet.path`` verbatim. R-1F.1 CLI resolves it relative
+    to the cwd it runs from (convention: ``tdf_2060/``). Callers should
+    pass a path that is resolvable from that cwd.
+
+    Raises:
+        SelectionConfigError: portfolio_type invalid; selected_candidate_ids
+            count != 1 when require_single_candidate; source_review_packet_path
+            empty (V-11 strict downstream).
     """
     if portfolio_type not in PORTFOLIO_TYPES:
         raise SelectionConfigError(f"invalid portfolio_type: {portfolio_type}")
@@ -616,6 +627,15 @@ def to_r1f1_yaml(
         raise SelectionConfigError(
             f"to_r1f1_yaml requires exactly 1 selected candidate, got {len(ids)} "
             f"(post_selection_rule={export.get('post_selection_rule')})"
+        )
+
+    if not source_review_packet_path or not source_review_packet_path.strip():
+        raise SelectionConfigError(
+            "V-11: source_review_packet.path is required for strict sha256 validation"
+        )
+    if not source_review_packet_sha256 or not source_review_packet_sha256.strip():
+        raise SelectionConfigError(
+            "V-11: source_review_packet.sha256 is required for strict sha256 validation"
         )
 
     cand_id = ids[0] if ids else ""
@@ -633,10 +653,13 @@ def to_r1f1_yaml(
         f"# generated_at:        {export.get('created_at','')}",
         "# 영구 라벨: production_applied=false, dry_run_only=true,",
         "#           implementation_ready=false (strict).",
+        "# Path convention: source_review_packet.path and other paths in this",
+        "# yaml are resolved relative to the cwd R-1F.1 CLI runs from",
+        "# (convention: tdf_2060/).",
         "",
         "schema_version: r1f1.1",
         "",
-        "selection_input:",
+        "manager_selection:",
         f"  portfolio_type: {portfolio_type}",
         f"  candidate_id: \"{cand_id}\"",
         f"  selected_by: \"{_yaml_escape(str(export.get('selected_by','')))}\"",

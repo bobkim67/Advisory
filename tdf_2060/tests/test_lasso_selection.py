@@ -325,13 +325,47 @@ def test_build_export_cloud_click(synthetic_pool):
 def test_to_r1f1_yaml_single_pick_structure(synthetic_pool):
     kw = _kwargs_base(synthetic_pool)
     export = build_export(**kw)
-    yaml_text = to_r1f1_yaml(export, portfolio_type="etf")
+    yaml_text = to_r1f1_yaml(
+        export,
+        portfolio_type="etf",
+        source_review_packet_path="scratch/review_packet.md",
+        source_review_packet_sha256="a" * 64,
+    )
     assert "schema_version: r1f1.1" in yaml_text
+    # Top-level key must be `manager_selection:` (R-1F.1 CLI expects this).
+    assert "manager_selection:" in yaml_text
+    assert "selection_input:" not in yaml_text
     assert "candidate_id: \"c5\"" in yaml_text  # top_sharpe = c5
     assert "production_applied: false" in yaml_text
     assert "phase_f_entry_status:" in yaml_text
     assert "manager_signoff_recorded: false" in yaml_text
     assert "source_lasso_selection_id: \"lasso_fixed_id\"" in yaml_text
+    # Path convention note present in header
+    assert "Path convention:" in yaml_text
+
+
+def test_to_r1f1_yaml_empty_review_packet_path_rejected(synthetic_pool):
+    kw = _kwargs_base(synthetic_pool)
+    export = build_export(**kw)
+    with pytest.raises(SelectionConfigError, match="V-11.*path is required"):
+        to_r1f1_yaml(
+            export,
+            portfolio_type="etf",
+            source_review_packet_path="",
+            source_review_packet_sha256="a" * 64,
+        )
+
+
+def test_to_r1f1_yaml_empty_review_packet_sha256_rejected(synthetic_pool):
+    kw = _kwargs_base(synthetic_pool)
+    export = build_export(**kw)
+    with pytest.raises(SelectionConfigError, match="V-11.*sha256 is required"):
+        to_r1f1_yaml(
+            export,
+            portfolio_type="etf",
+            source_review_packet_path="scratch/review_packet.md",
+            source_review_packet_sha256="",
+        )
 
 
 def test_to_r1f1_yaml_multi_pick_rejected(synthetic_pool):
@@ -340,11 +374,21 @@ def test_to_r1f1_yaml_multi_pick_rejected(synthetic_pool):
     kw["post_selection_params"] = {"metric": "sharpe", "n": 3}
     export = build_export(**kw)
     with pytest.raises(SelectionConfigError, match="exactly 1"):
-        to_r1f1_yaml(export, portfolio_type="etf")
+        to_r1f1_yaml(
+            export,
+            portfolio_type="etf",
+            source_review_packet_path="scratch/review_packet.md",
+            source_review_packet_sha256="a" * 64,
+        )
 
 
 def test_to_r1f1_yaml_invalid_portfolio_type(synthetic_pool):
     kw = _kwargs_base(synthetic_pool)
     export = build_export(**kw)
     with pytest.raises(SelectionConfigError):
-        to_r1f1_yaml(export, portfolio_type="bogus")
+        to_r1f1_yaml(
+            export,
+            portfolio_type="bogus",
+            source_review_packet_path="scratch/review_packet.md",
+            source_review_packet_sha256="a" * 64,
+        )
