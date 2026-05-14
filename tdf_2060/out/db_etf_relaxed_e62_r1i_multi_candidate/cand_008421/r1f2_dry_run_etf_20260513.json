@@ -1,0 +1,678 @@
+{
+  "meta": {
+    "schema_version": "r1f2.1",
+    "generated_at": "2026-05-13T06:45:14.277911+00:00",
+    "operating_mode": "relaxed_diagnostic",
+    "production_applied": false,
+    "dry_run_only": true,
+    "manager_override_saa_layer": true,
+    "sign_off_required_for_production": true,
+    "valid_asset_level_dry_run": true,
+    "valid_product_level_portfolio": false,
+    "product_weight_sum_valid": false,
+    "needs_full_product_reselection": true,
+    "implementation_ready": false,
+    "product_allocation_method": "baseline_proportional_scaling",
+    "scope": "R-1F.2 (downstream dry-run wiring: TAA + projection asset-level + product allocation proportional scaling; baseline / production untouched)",
+    "portfolio_type": "etf"
+  },
+  "source_manager_selected_saa_json": {
+    "path": "out\\db_review_relaxed_e62\\saa_opportunity_set\\20260513\\r1i_multi_candidate\\manager_selected_saa_etf_cand_008421_20260513.json",
+    "sha256": "6e3b610461d98a58a4a741d0376f99cd9de508e2c6b3e20266756de5192c5d5e"
+  },
+  "baseline_portfolio_json": {
+    "path": "out\\db_etf_relaxed_e62\\portfolio_etf_20260511.json",
+    "sha256": "04d647f6d6bca8fcdbeacfd4ae2767d02b196fbbcd983df03e4cedc2b421e1aa"
+  },
+  "selected_candidate_id": "cand_008421",
+  "selected_candidate_weights": {
+    "kr_equity": 0.08012718993561226,
+    "us_growth_equity": 0.25558184607976714,
+    "us_value_equity": 0.2120304869236471,
+    "dm_ex_us_equity": 0.10892320202463956,
+    "em_equity": 0.14333727503633395,
+    "kr_aggregate_bond": 0.05114433694199556,
+    "kr_treasury_10y": 0.037867607899175273,
+    "us_treasury_30y": 0.009565316800457762,
+    "us_high_yield": 0.10142273835837144
+  },
+  "manager_override_saa": {
+    "weights": {
+      "kr_equity": 0.08012718993561226,
+      "us_growth_equity": 0.25558184607976714,
+      "us_value_equity": 0.2120304869236471,
+      "dm_ex_us_equity": 0.10892320202463956,
+      "em_equity": 0.14333727503633395,
+      "kr_aggregate_bond": 0.05114433694199556,
+      "kr_treasury_10y": 0.037867607899175273,
+      "us_treasury_30y": 0.009565316800457762,
+      "us_high_yield": 0.10142273835837144
+    },
+    "expected_return": 0.10967587144033782,
+    "volatility": 0.1269241676568378,
+    "sharpe": 0.627743895518431,
+    "concentration_hhi": 0.16353697842258627,
+    "equity_intra_hhi": 0.23298314429959438,
+    "fixed_income_intra_hhi": 0.3606941517711459,
+    "max_asset_weight": 0.25558184607976714
+  },
+  "baseline_max_sharpe_saa": {
+    "weights": {
+      "kr_equity": 0.0,
+      "us_growth_equity": 0.7160444298881974,
+      "us_value_equity": 0.2839555701118023,
+      "dm_ex_us_equity": 1.1408666168698144e-16,
+      "em_equity": 1.123071576015767e-16,
+      "kr_aggregate_bond": 1.0651187230907341e-16,
+      "kr_treasury_10y": 3.699073343988618e-17,
+      "us_treasury_30y": 0.0,
+      "us_high_yield": 0.0
+    }
+  },
+  "regime_used": {
+    "regime": 1,
+    "regime_label": "Expansion / Acceleration"
+  },
+  "asset_allocation_dry_run": [
+    {
+      "asset_key": "kr_equity",
+      "bucket": "equity",
+      "saa_weight_override": 0.08012718993561226,
+      "taa_target_weight_before_projection": 0.10012718993561226,
+      "final_asset_weight": 0.0975728545365526,
+      "projection_drift": -0.002554335399059665
+    },
+    {
+      "asset_key": "us_growth_equity",
+      "bucket": "equity",
+      "saa_weight_override": 0.25558184607976714,
+      "taa_target_weight_before_projection": 0.25558184607976714,
+      "final_asset_weight": 0.25302751068041013,
+      "projection_drift": -0.0025543353993570106
+    },
+    {
+      "asset_key": "us_value_equity",
+      "bucket": "equity",
+      "saa_weight_override": 0.2120304869236471,
+      "taa_target_weight_before_projection": 0.2120304869236471,
+      "final_asset_weight": 0.20947615152294005,
+      "projection_drift": -0.002554335400707042
+    },
+    {
+      "asset_key": "dm_ex_us_equity",
+      "bucket": "equity",
+      "saa_weight_override": 0.10892320202463956,
+      "taa_target_weight_before_projection": 0.10892320202463956,
+      "final_asset_weight": 0.10636886662472225,
+      "projection_drift": -0.0025543353999173124
+    },
+    {
+      "asset_key": "em_equity",
+      "bucket": "equity",
+      "saa_weight_override": 0.14333727503633395,
+      "taa_target_weight_before_projection": 0.16333727503633394,
+      "final_asset_weight": 0.1607829396355896,
+      "projection_drift": -0.0025543354007443453
+    },
+    {
+      "asset_key": "kr_aggregate_bond",
+      "bucket": "fixed_income",
+      "saa_weight_override": 0.05114433694199556,
+      "taa_target_weight_before_projection": 0.05114433694199556,
+      "final_asset_weight": 0.048590001541319504,
+      "projection_drift": -0.0025543354006760596
+    },
+    {
+      "asset_key": "kr_treasury_10y",
+      "bucket": "fixed_income",
+      "saa_weight_override": 0.037867607899175273,
+      "taa_target_weight_before_projection": 0.017867607899175273,
+      "final_asset_weight": 0.015313272499233801,
+      "projection_drift": -0.002554335399941472
+    },
+    {
+      "asset_key": "us_treasury_30y",
+      "bucket": "fixed_income",
+      "saa_weight_override": 0.009565316800457762,
+      "taa_target_weight_before_projection": -0.02043468319954224,
+      "final_asset_weight": 1.2536087622272637e-17,
+      "projection_drift": 0.020434683199542253
+    },
+    {
+      "asset_key": "us_high_yield",
+      "bucket": "fixed_income",
+      "saa_weight_override": 0.10142273835837144,
+      "taa_target_weight_before_projection": 0.11142273835837144,
+      "final_asset_weight": 0.10886840295923203,
+      "projection_drift": -0.002554335399139407
+    }
+  ],
+  "asset_weights_dry_run": {
+    "kr_equity": 0.0975728545365526,
+    "us_growth_equity": 0.25302751068041013,
+    "us_value_equity": 0.20947615152294005,
+    "dm_ex_us_equity": 0.10636886662472225,
+    "em_equity": 0.1607829396355896,
+    "kr_aggregate_bond": 0.048590001541319504,
+    "kr_treasury_10y": 0.015313272499233801,
+    "us_treasury_30y": 1.2536087622272637e-17,
+    "us_high_yield": 0.10886840295923203
+  },
+  "asset_weights_baseline": {
+    "kr_equity": 0.009999999183413651,
+    "us_growth_equity": 0.7060444397939856,
+    "us_value_equity": 0.2739555618391872,
+    "dm_ex_us_equity": 4.792248135595191e-18,
+    "em_equity": 0.009999999183413677,
+    "kr_aggregate_bond": 0.0,
+    "kr_treasury_10y": 0.0,
+    "us_treasury_30y": 0.0,
+    "us_high_yield": 4.325260807427785e-17
+  },
+  "bucket_sums_after_projection": {
+    "equity": 0.8272283230002146,
+    "fixed_income": 0.17277167699978535
+  },
+  "max_abs_projection_drift_dry_run": 0.020434683199542253,
+  "max_abs_projection_drift_baseline": 0.10604443979398548,
+  "taa_diagnostics_dry_run": {
+    "regime": 1,
+    "regime_label": "Expansion / Acceleration",
+    "residual_before_adjust": -1.734723475976807e-18,
+    "tilt_sum_after_adjust": -1.734723475976807e-18,
+    "violations": [],
+    "taa_feasibility": {
+      "projection_used": true,
+      "projection_success": true,
+      "projection_message": "Optimization terminated successfully",
+      "target_weights_before_projection": {
+        "kr_equity": 0.10012718993561226,
+        "us_growth_equity": 0.25558184607976714,
+        "us_value_equity": 0.2120304869236471,
+        "dm_ex_us_equity": 0.10892320202463956,
+        "em_equity": 0.16333727503633394,
+        "kr_aggregate_bond": 0.05114433694199556,
+        "kr_treasury_10y": 0.017867607899175273,
+        "us_treasury_30y": -0.02043468319954224,
+        "us_high_yield": 0.11142273835837144
+      },
+      "final_weights_after_projection": {
+        "kr_equity": 0.0975728545365526,
+        "us_growth_equity": 0.25302751068041013,
+        "us_value_equity": 0.20947615152294005,
+        "dm_ex_us_equity": 0.10636886662472225,
+        "em_equity": 0.1607829396355896,
+        "kr_aggregate_bond": 0.048590001541319504,
+        "kr_treasury_10y": 0.015313272499233801,
+        "us_treasury_30y": 1.2536087622272637e-17,
+        "us_high_yield": 0.10886840295923203
+      },
+      "negative_weight_assets_before_projection": {
+        "us_treasury_30y": -0.02043468319954224
+      },
+      "clipped_weight_total": 0.02043468319954224,
+      "bucket_weights_before_projection": {
+        "equity": 0.8400000000000001,
+        "fixed_income": 0.16000000000000003
+      },
+      "bucket_weights_after_projection": {
+        "equity": 0.8272283230002146,
+        "fixed_income": 0.17277167699978535
+      },
+      "asset_weight_drift_from_target": {
+        "kr_equity": -0.002554335399059665,
+        "us_growth_equity": -0.0025543353993570106,
+        "us_value_equity": -0.002554335400707042,
+        "dm_ex_us_equity": -0.0025543353999173124,
+        "em_equity": -0.0025543354007443453,
+        "kr_aggregate_bond": -0.0025543354006760596,
+        "kr_treasury_10y": -0.002554335399941472,
+        "us_treasury_30y": 0.020434683199542253,
+        "us_high_yield": -0.002554335399139407
+      },
+      "max_abs_projection_drift": 0.020434683199542253,
+      "constraints_after_projection": {
+        "feasible": true,
+        "sum": 1.0,
+        "min_weight": 1.2536087622272637e-17,
+        "buckets": {
+          "equity": 0.8272283230002146,
+          "fixed_income": 0.17277167699978535
+        }
+      },
+      "drift_source_by_asset": {
+        "kr_equity": "redistribution_from_long_only_clipping",
+        "us_growth_equity": "redistribution_from_long_only_clipping",
+        "us_value_equity": "redistribution_from_long_only_clipping",
+        "dm_ex_us_equity": "redistribution_from_long_only_clipping",
+        "em_equity": "redistribution_from_long_only_clipping",
+        "kr_aggregate_bond": "redistribution_from_long_only_clipping",
+        "kr_treasury_10y": "redistribution_from_long_only_clipping",
+        "us_treasury_30y": "long_only_clipping",
+        "us_high_yield": "redistribution_from_long_only_clipping"
+      },
+      "clipping_summary": {
+        "n_assets_clipped_long_only": 1,
+        "clipped_assets": [
+          "us_treasury_30y"
+        ],
+        "long_only_clipping_by_asset": {
+          "us_treasury_30y": 0.02043468319954224
+        },
+        "total_long_only_clipping_magnitude": 0.02043468319954224,
+        "max_long_only_clipping": 0.02043468319954224,
+        "redistribution_total": 0.020434683199542315,
+        "redistribution_by_recipient": {
+          "kr_equity": -0.002554335399059665,
+          "us_growth_equity": -0.0025543353993570106,
+          "us_value_equity": -0.002554335400707042,
+          "dm_ex_us_equity": -0.0025543353999173124,
+          "em_equity": -0.0025543354007443453,
+          "kr_aggregate_bond": -0.0025543354006760596,
+          "kr_treasury_10y": -0.002554335399941472,
+          "us_high_yield": -0.002554335399139407
+        },
+        "drift_source_primary": "redistribution_from_long_only_clipping",
+        "drift_source_counts": {
+          "redistribution_from_long_only_clipping": 8,
+          "long_only_clipping": 1
+        },
+        "relaxed_mode_unexpected_sources": []
+      }
+    },
+    "bucket_sums": {
+      "equity": 0.8272283230002146,
+      "fixed_income": 0.17277167699978535
+    }
+  },
+  "product_allocation_dry_run": [
+    {
+      "product_type": "etf",
+      "asset_key": "kr_equity",
+      "bucket": "equity",
+      "product_id": "434730",
+      "product_name": "NH-AmundiHANARO원자력iSelect상장지수(주식)",
+      "manager": "NH-Amundi운용",
+      "role": "core",
+      "score": null,
+      "final_weight": 0.01764040296436597,
+      "source_asset_weight": 0.009999999183413651,
+      "selection_reason": null,
+      "fallback_absorbed_weight": 0.009640403617635048,
+      "warning_flags": [
+        "fallback_absorber"
+      ],
+      "final_weight_dry_run": 0.1721224612961104,
+      "final_weight_baseline": 0.01764040296436597,
+      "weight_delta": 0.15448205833174442,
+      "asset_weight_baseline": 0.009999999183413651,
+      "asset_weight_dry_run": 0.0975728545365526
+    },
+    {
+      "product_type": "etf",
+      "asset_key": "kr_equity",
+      "bucket": "equity",
+      "product_id": "449450",
+      "product_name": "한화PLUSK방산상장지수(주식)",
+      "manager": "한화운용",
+      "role": "satellite",
+      "score": null,
+      "final_weight": 0.010640403535976412,
+      "source_asset_weight": 0.009999999183413651,
+      "selection_reason": null,
+      "fallback_absorbed_weight": 0.009640403617635048,
+      "warning_flags": [
+        "fallback_absorber"
+      ],
+      "final_weight_dry_run": 0.10382146312052358,
+      "final_weight_baseline": 0.010640403535976412,
+      "weight_delta": 0.09318105958454717,
+      "asset_weight_baseline": 0.009999999183413651,
+      "asset_weight_dry_run": 0.0975728545365526
+    },
+    {
+      "product_type": "etf",
+      "asset_key": "kr_equity",
+      "bucket": "equity",
+      "product_id": "433500",
+      "product_name": "한국투자ACE원자력TOP10상장지수(주식)",
+      "manager": "한국투자신탁운용",
+      "role": "satellite",
+      "score": null,
+      "final_weight": 0.010640403535976412,
+      "source_asset_weight": 0.009999999183413651,
+      "selection_reason": null,
+      "fallback_absorbed_weight": 0.009640403617635048,
+      "warning_flags": [
+        "fallback_absorber"
+      ],
+      "final_weight_dry_run": 0.10382146312052358,
+      "final_weight_baseline": 0.010640403535976412,
+      "weight_delta": 0.09318105958454717,
+      "asset_weight_baseline": 0.009999999183413651,
+      "asset_weight_dry_run": 0.0975728545365526
+    },
+    {
+      "product_type": "etf",
+      "asset_key": "us_growth_equity",
+      "bucket": "equity",
+      "product_id": "426030",
+      "product_name": "타임폴리오TIME미국나스닥100액티브상장지수(주식)",
+      "manager": "타임폴리오자산운용",
+      "role": "core",
+      "score": null,
+      "final_weight": 0.2,
+      "source_asset_weight": 0.7060444397939856,
+      "selection_reason": "product_cap_clipping",
+      "fallback_absorbed_weight": 0.0,
+      "warning_flags": [
+        "unfilled_cause=product_cap_clipping"
+      ],
+      "final_weight_dry_run": 0.07167466987042352,
+      "final_weight_baseline": 0.2,
+      "weight_delta": -0.12832533012957648,
+      "asset_weight_baseline": 0.7060444397939856,
+      "asset_weight_dry_run": 0.25302751068041013
+    },
+    {
+      "product_type": "etf",
+      "asset_key": "us_growth_equity",
+      "bucket": "equity",
+      "product_id": "411420",
+      "product_name": "삼성KODEX미국나스닥AI테크액티브상장지수[주식]",
+      "manager": "삼성운용",
+      "role": "satellite",
+      "score": null,
+      "final_weight": 0.2,
+      "source_asset_weight": 0.7060444397939856,
+      "selection_reason": "product_cap_clipping",
+      "fallback_absorbed_weight": 0.1293955560206015,
+      "warning_flags": [
+        "unfilled_cause=product_cap_clipping",
+        "fallback_absorber"
+      ],
+      "final_weight_dry_run": 0.07167466987042352,
+      "final_weight_baseline": 0.2,
+      "weight_delta": -0.12832533012957648,
+      "asset_weight_baseline": 0.7060444397939856,
+      "asset_weight_dry_run": 0.25302751068041013
+    },
+    {
+      "product_type": "etf",
+      "asset_key": "us_growth_equity",
+      "bucket": "equity",
+      "product_id": "381180",
+      "product_name": "미래에셋TIGER미국필라델피아반도체나스닥상장지수(주식)",
+      "manager": "미래에셋운용",
+      "role": "satellite",
+      "score": null,
+      "final_weight": 0.2,
+      "source_asset_weight": 0.7060444397939856,
+      "selection_reason": "product_cap_clipping",
+      "fallback_absorbed_weight": 0.1293955560206015,
+      "warning_flags": [
+        "unfilled_cause=product_cap_clipping",
+        "fallback_absorber"
+      ],
+      "final_weight_dry_run": 0.07167466987042352,
+      "final_weight_baseline": 0.2,
+      "weight_delta": -0.12832533012957648,
+      "asset_weight_baseline": 0.7060444397939856,
+      "asset_weight_dry_run": 0.25302751068041013
+    },
+    {
+      "product_type": "etf",
+      "asset_key": "us_value_equity",
+      "bucket": "equity",
+      "product_id": "402970",
+      "product_name": "한국투자ACE미국배당다우존스상장지수(주식)",
+      "manager": "한국투자신탁운용",
+      "role": "core",
+      "score": null,
+      "final_weight": 0.2,
+      "source_asset_weight": 0.2739555618391872,
+      "selection_reason": "product_cap_clipping",
+      "fallback_absorbed_weight": 0.0,
+      "warning_flags": [
+        "unfilled_cause=product_cap_clipping"
+      ],
+      "final_weight_dry_run": 0.1529271025684839,
+      "final_weight_baseline": 0.2,
+      "weight_delta": -0.0470728974315161,
+      "asset_weight_baseline": 0.2739555618391872,
+      "asset_weight_dry_run": 0.20947615152294005
+    },
+    {
+      "product_type": "etf",
+      "asset_key": "us_value_equity",
+      "bucket": "equity",
+      "product_id": "446720",
+      "product_name": "신한SOL미국배당다우존스상장지수[주식]",
+      "manager": "신한자산운용",
+      "role": "satellite",
+      "score": null,
+      "final_weight": 0.046618184537228616,
+      "source_asset_weight": 0.2739555618391872,
+      "selection_reason": "product_cap_clipping",
+      "fallback_absorbed_weight": 0.0192226283533099,
+      "warning_flags": [
+        "unfilled_cause=product_cap_clipping",
+        "fallback_absorber"
+      ],
+      "final_weight_dry_run": 0.035645919441406354,
+      "final_weight_baseline": 0.046618184537228616,
+      "weight_delta": -0.010972265095822262,
+      "asset_weight_baseline": 0.2739555618391872,
+      "asset_weight_dry_run": 0.20947615152294005
+    },
+    {
+      "product_type": "etf",
+      "asset_key": "us_value_equity",
+      "bucket": "equity",
+      "product_id": "429000",
+      "product_name": "미래에셋TIGER미국S&P500배당귀족상장지수(주식)",
+      "manager": "미래에셋운용",
+      "role": "satellite",
+      "score": null,
+      "final_weight": 0.046618184537228616,
+      "source_asset_weight": 0.2739555618391872,
+      "selection_reason": "product_cap_clipping",
+      "fallback_absorbed_weight": 0.0192226283533099,
+      "warning_flags": [
+        "unfilled_cause=product_cap_clipping",
+        "fallback_absorber"
+      ],
+      "final_weight_dry_run": 0.035645919441406354,
+      "final_weight_baseline": 0.046618184537228616,
+      "weight_delta": -0.010972265095822262,
+      "asset_weight_baseline": 0.2739555618391872,
+      "asset_weight_dry_run": 0.20947615152294005
+    },
+    {
+      "product_type": "etf",
+      "asset_key": "dm_ex_us_equity",
+      "bucket": "equity",
+      "product_id": "238720",
+      "product_name": "한국투자ACE일본Nikkei225상장지수(주식-파생)(H)",
+      "manager": "한국투자신탁운용",
+      "role": "core",
+      "score": null,
+      "final_weight": 0.009640403617635051,
+      "source_asset_weight": 4.792248135595191e-18,
+      "selection_reason": null,
+      "fallback_absorbed_weight": 0.009640403617635048,
+      "warning_flags": [
+        "fallback_absorber"
+      ],
+      "final_weight_dry_run": 0.0,
+      "final_weight_baseline": 0.009640403617635051,
+      "weight_delta": -0.009640403617635051,
+      "asset_weight_baseline": 4.792248135595191e-18,
+      "asset_weight_dry_run": 0.10636886662472225
+    },
+    {
+      "product_type": "etf",
+      "asset_key": "dm_ex_us_equity",
+      "bucket": "equity",
+      "product_id": "101280",
+      "product_name": "삼성KODEX일본TOPIX100상장지수[주식]",
+      "manager": "삼성운용",
+      "role": "satellite",
+      "score": null,
+      "final_weight": 0.009640403617635048,
+      "source_asset_weight": 4.792248135595191e-18,
+      "selection_reason": null,
+      "fallback_absorbed_weight": 0.009640403617635048,
+      "warning_flags": [
+        "fallback_absorber"
+      ],
+      "final_weight_dry_run": 0.0,
+      "final_weight_baseline": 0.009640403617635048,
+      "weight_delta": -0.009640403617635048,
+      "asset_weight_baseline": 4.792248135595191e-18,
+      "asset_weight_dry_run": 0.10636886662472225
+    },
+    {
+      "product_type": "etf",
+      "asset_key": "dm_ex_us_equity",
+      "bucket": "equity",
+      "product_id": "251350",
+      "product_name": "삼성KODEXMSCI선진국상장지수[주식]",
+      "manager": "삼성운용",
+      "role": "satellite",
+      "score": null,
+      "final_weight": 0.009640403617635048,
+      "source_asset_weight": 4.792248135595191e-18,
+      "selection_reason": null,
+      "fallback_absorbed_weight": 0.009640403617635048,
+      "warning_flags": [
+        "fallback_absorber"
+      ],
+      "final_weight_dry_run": 0.0,
+      "final_weight_baseline": 0.009640403617635048,
+      "weight_delta": -0.009640403617635048,
+      "asset_weight_baseline": 4.792248135595191e-18,
+      "asset_weight_dry_run": 0.10636886662472225
+    },
+    {
+      "product_type": "etf",
+      "asset_key": "em_equity",
+      "bucket": "equity",
+      "product_id": "446690",
+      "product_name": "삼성KODEX아시아AI반도체exChina액티브상장지수[주식]",
+      "manager": "삼성운용",
+      "role": "core",
+      "score": null,
+      "final_weight": 0.01764040296436599,
+      "source_asset_weight": 0.009999999183413677,
+      "selection_reason": null,
+      "fallback_absorbed_weight": 0.009640403617635048,
+      "warning_flags": [
+        "fallback_absorber"
+      ],
+      "final_weight_dry_run": 0.2836276076573558,
+      "final_weight_baseline": 0.01764040296436599,
+      "weight_delta": 0.2659872046929898,
+      "asset_weight_baseline": 0.009999999183413677,
+      "asset_weight_dry_run": 0.1607829396355896
+    },
+    {
+      "product_type": "etf",
+      "asset_key": "em_equity",
+      "bucket": "equity",
+      "product_id": "105010",
+      "product_name": "미래에셋TIGER라틴상장지수(주식)",
+      "manager": "미래에셋운용",
+      "role": "satellite",
+      "score": null,
+      "final_weight": 0.010640403535976416,
+      "source_asset_weight": 0.009999999183413677,
+      "selection_reason": null,
+      "fallback_absorbed_weight": 0.009640403617635048,
+      "warning_flags": [
+        "fallback_absorber"
+      ],
+      "final_weight_dry_run": 0.17107954991244306,
+      "final_weight_baseline": 0.010640403535976416,
+      "weight_delta": 0.16043914637646664,
+      "asset_weight_baseline": 0.009999999183413677,
+      "asset_weight_dry_run": 0.1607829396355896
+    },
+    {
+      "product_type": "etf",
+      "asset_key": "em_equity",
+      "bucket": "equity",
+      "product_id": "277540",
+      "product_name": "한국투자ACE아시아TOP50상장지수(주식)",
+      "manager": "한국투자신탁운용",
+      "role": "satellite",
+      "score": null,
+      "final_weight": 0.010640403535976416,
+      "source_asset_weight": 0.009999999183413677,
+      "selection_reason": null,
+      "fallback_absorbed_weight": 0.009640403617635048,
+      "warning_flags": [
+        "fallback_absorber"
+      ],
+      "final_weight_dry_run": 0.17107954991244306,
+      "final_weight_baseline": 0.010640403535976416,
+      "weight_delta": 0.16043914637646664,
+      "asset_weight_baseline": 0.009999999183413677,
+      "asset_weight_dry_run": 0.1607829396355896
+    },
+    {
+      "product_type": "etf",
+      "asset_key": "us_high_yield",
+      "bucket": "fixed_income",
+      "product_id": "468380",
+      "product_name": "삼성KODEXiShares미국하이일드액티브상장지수[채권-재간접]",
+      "manager": "삼성운용",
+      "role": "core",
+      "score": null,
+      "final_weight": 3.4602086459422286e-17,
+      "source_asset_weight": 4.325260807427785e-17,
+      "selection_reason": null,
+      "fallback_absorbed_weight": 0.0,
+      "warning_flags": [],
+      "final_weight_dry_run": 0.0,
+      "final_weight_baseline": 3.4602086459422286e-17,
+      "weight_delta": -3.4602086459422286e-17,
+      "asset_weight_baseline": 4.325260807427785e-17,
+      "asset_weight_dry_run": 0.10886840295923203
+    },
+    {
+      "product_type": "etf",
+      "asset_key": "us_high_yield",
+      "bucket": "fixed_income",
+      "product_id": "455660",
+      "product_name": "한국투자ACE미국하이일드액티브상장지수[채권-재간접](H)",
+      "manager": "한국투자신탁운용",
+      "role": "satellite",
+      "score": null,
+      "final_weight": 8.650521614855565e-18,
+      "source_asset_weight": 4.325260807427785e-17,
+      "selection_reason": null,
+      "fallback_absorbed_weight": 0.0,
+      "warning_flags": [],
+      "final_weight_dry_run": 0.0,
+      "final_weight_baseline": 8.650521614855565e-18,
+      "weight_delta": -8.650521614855565e-18,
+      "asset_weight_baseline": 4.325260807427785e-17,
+      "asset_weight_dry_run": 0.10886840295923203
+    }
+  ],
+  "product_weight_sum_dry_run": 1.4447950460819667,
+  "needs_selection_rerun_assets": [
+    "dm_ex_us_equity",
+    "us_high_yield"
+  ],
+  "product_allocation_limitation": "baseline zero-weight assets cannot be reallocated by proportional scaling. Product allocation dry-run is a proportional scaling of baseline product weights by the ratio (dry_run_asset_weight / baseline_asset_weight). True re-selection (re-running universe + scoring + selection) is NOT performed here. Assets where baseline weight ≈ 0 but dry-run > 0 are listed under needs_selection_rerun_assets and require R-1G or full re-selection.",
+  "comparison_to_baseline_available": true,
+  "notes": [
+    "manager_override_saa is a SEPARATE LAYER; existing SAA telemetry (`saa_diagnostics.saa_weights`) is preserved in baseline portfolio JSON.",
+    "production_applied=false; this dry-run does NOT modify any production directory or baseline output.",
+    "This dry-run is valid at the ASSET ALLOCATION level only. Product allocation is approximate (proportional scaling) and not portfolio-valid because product_weight_sum_dry_run (1.4448) deviates from 1.0 by more than the validity tolerance (0.001).",
+    "Full product re-selection (R-1G or equivalent universe + scoring + selection re-run) is REQUIRED before manager review for implementation. implementation_ready=false until then.",
+    "automated candidate recommendation is forbidden; this dry-run only consumes an explicit manager-provided selection."
+  ]
+}

@@ -7,3 +7,13 @@ __pycache__/
 *~$*.xlsx
 .DS_Store
 *.egg-info/
+
+# Scratch / temporary per-turn analysis dumps
+scratch/
+**/scratch/
+
+# DRM-protected xlsx source data — do not commit
+*.xlsx
+
+# Local cache
+.bkit/
