@@ -1,0 +1,24 @@
+# E-1 R-track 2 API runtime + test dependencies (minimal).
+#
+# Scope: ONLY the dependencies introduced by the FastAPI lasso export
+# endpoint (tdf_2060/api/, tdf_2060/tests/test_lasso_export_api.py).
+# The wider engine dependencies (pandas / numpy / SQLAlchemy / dash /
+# plotly / matplotlib / scipy / statsmodels / pyarrow / openpyxl / ...)
+# remain documented in the project CLAUDE.md as the assumed venv contents
+# and are out of scope for this file.
+#
+# To reproduce the API surface in a fresh venv:
+#   python -m venv .venv
+#   .venv/bin/pip install -r tdf_2060/requirements.txt
+#   # plus the wider engine deps per CLAUDE.md (or its successor)
+#
+# Pinned with `==` for deterministic reproduction during E-1 prototyping.
+# pydantic is declared explicitly even though FastAPI pulls it as a
+# transitive dependency — tdf_2060/api/schemas.py uses pydantic directly,
+# so future FastAPI major upgrades must not silently move the validation
+# layer without an explicit decision here.
+
+fastapi==0.136.1
+uvicorn==0.42.0
+httpx==0.28.1
+pydantic==2.12.5
