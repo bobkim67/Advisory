@@ -144,14 +144,15 @@ def test_compute_cloud_tags_batch_signals_applied(synthetic_pool):
     by_id = {c["candidate_id"]: c for c in tagged}
     assert by_id["c5"]["has_fallback"] is True
     assert by_id["c1"]["has_fallback"] is None  # not in batch → unknown
-    assert "fallback_WARN" in by_id["c5"]["cloud_labels"].split(",")
+    assert "fallback_EXCLUDE" in by_id["c5"]["cloud_labels"].split(",")
 
 
 def test_compute_cloud_tags_warn_label_present(synthetic_pool):
     tagged = compute_cloud_tags(synthetic_pool)
-    # c10 is corner_like → corner_like_WARN should be in labels
+    # c10 is corner_like → corner_like (informational, no WARN suffix per
+    # 2026-05-15 policy) should be in labels
     by_id = {c["candidate_id"]: c for c in tagged}
-    assert "corner_like_WARN" in by_id["c10"]["cloud_labels"].split(",")
+    assert "corner_like" in by_id["c10"]["cloud_labels"].split(",")
 
 
 # ---------- select_in_polygon ----------
@@ -274,14 +275,17 @@ def test_build_export_invariants_locked(synthetic_pool):
 
 
 def test_build_export_warning_propagation(synthetic_pool):
-    # Polygon catches c10 (corner_like) — warning_labels should include corner_like_WARN
+    # Polygon catches c10 (corner_like). Per 2026-05-15 policy corner_like
+    # is informational (no WARN suffix), so it must NOT appear in
+    # warning_labels. We assert c10 selection and the absence of the old WARN.
     kw = _kwargs_base(synthetic_pool)
     kw["polygon_points"] = [[0.10, 0.06], [0.17, 0.06], [0.17, 0.14], [0.10, 0.14]]
     kw["post_selection_rule"] = "all"
     export = build_export(**kw)
     # c10 should be in selected_before_rule (volatility=0.145 inside, er=0.085 inside)
     assert "c10" in export["selected_candidate_ids_before_rule"]
-    assert "corner_like_WARN" in export["warning_labels"]
+    assert "corner_like_WARN" not in export["warning_labels"]
+    assert "corner_like" not in export["warning_labels"]  # neutral, never a WARN
 
 
 def test_build_export_selected_by_forbidden_substring(synthetic_pool):

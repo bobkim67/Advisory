@@ -154,7 +154,10 @@ def test_clean_implementation_picks_max_sharpe_when_clean_exists(opportunity_set
     assert clean["candidate_id"] == "c5"
 
 
-def test_clean_implementation_null_when_no_candidate_clean(opportunity_set):
+def test_clean_universe_warning_no_longer_blocks_clean(opportunity_set):
+    """Policy (2026-05-15): universe_warning is product-selection concern, not
+    SAA-clean criterion. c6 has has_fallback=False (eligible) + has_universe_warning=True;
+    it must now count as clean_implementation."""
     batch = {
         "c5": {"has_fallback": True, "has_universe_warning": False, "universe_warn_assets": ""},
         "c6": {"has_fallback": False, "has_universe_warning": True, "universe_warn_assets": "us_high_yield"},
@@ -162,8 +165,39 @@ def test_clean_implementation_null_when_no_candidate_clean(opportunity_set):
     out = resolve_selected_candidates(_lasso_export(["c5", "c6"]), opportunity_set, batch_signals=batch)
     archetypes = extract_archetypes(out)
     clean = next(a for a in archetypes if a["archetype"] == "clean_implementation")
-    assert clean["candidate_id"] is None
-    assert clean["reason_if_null"] is not None
+    # c5 is fallback=True → excluded from eligible set.
+    # c6 is fallback=False → eligible AND clean (universe warning ignored).
+    assert clean["candidate_id"] == "c6"
+
+
+def test_all_fallback_raises_lasso_review_error(opportunity_set):
+    """Policy: fallback_used candidates are excluded; if every selected
+    candidate is fallback=True, extract_archetypes raises."""
+    batch = {
+        "c5": {"has_fallback": True, "has_universe_warning": False, "universe_warn_assets": ""},
+        "c6": {"has_fallback": True, "has_universe_warning": False, "universe_warn_assets": ""},
+    }
+    out = resolve_selected_candidates(_lasso_export(["c5", "c6"]), opportunity_set, batch_signals=batch)
+    with pytest.raises(LassoReviewError, match="fallback_used"):
+        extract_archetypes(out)
+
+
+def test_fallback_candidates_dropped_from_archetypes(opportunity_set):
+    """Policy: fallback=True candidate must not become any archetype."""
+    batch = {
+        # c5 has the highest sharpe but is fallback=True → must NOT win top_sharpe.
+        "c5": {"has_fallback": True, "has_universe_warning": False, "universe_warn_assets": ""},
+        "c6": {"has_fallback": False, "has_universe_warning": False, "universe_warn_assets": ""},
+        "c7": {"has_fallback": False, "has_universe_warning": False, "universe_warn_assets": ""},
+    }
+    out = resolve_selected_candidates(
+        _lasso_export(["c5", "c6", "c7"]), opportunity_set, batch_signals=batch,
+    )
+    archetypes = extract_archetypes(out)
+    for a in archetypes:
+        # Every populated archetype must point to an eligible candidate.
+        if a.get("candidate_id") is not None:
+            assert a["candidate_id"] != "c5"
 
 
 # ---------- Medoid ----------

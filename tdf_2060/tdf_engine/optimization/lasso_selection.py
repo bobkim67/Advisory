@@ -206,12 +206,19 @@ def compute_cloud_tags(
             labels.append("concentration_high_WARN")
         if is_mvo_frontier_near:
             labels.append("mvo_frontier_near")
+        # Policy (2026-05-15): corner-like / concentrated portfolios are
+        # informational, not warnings — SAA-review eligibility is unchanged.
         if is_corner_like:
-            labels.append("corner_like_WARN")
+            labels.append("corner_like")
+        # Policy: fallback_used candidates are NOT eligible for SAA review.
+        # The downstream review layer (lasso_review.extract_archetypes) drops
+        # them so they never become representative archetypes.
         if has_fallback is True:
-            labels.append("fallback_WARN")
+            labels.append("fallback_EXCLUDE")
+        # Policy: product universe warnings are a product-selection concern,
+        # not a SAA-selection concern — surfaced as a note only.
         if has_universe_warning is True:
-            labels.append("universe_WARN")
+            labels.append("product_universe_note")
 
         out.append({
             "candidate_id": cid,

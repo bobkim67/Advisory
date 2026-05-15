@@ -153,20 +153,38 @@ def _make_archetype(
 def extract_archetypes(candidates: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
     """Return per-archetype representative records (7 entries, in ARCHETYPES_PRIMARY order).
 
-    clean_implementation may be null with reason_if_null filled. Other archetypes
-    are always populated when len(candidates) >= 1.
+    Policy (2026-05-15):
+      Candidates with ``has_fallback is True`` are NOT eligible for SAA review
+      and are dropped before archetype extraction. Universe warnings are NOT
+      considered here — that is a product-selection concern, surfaced as a
+      note on the candidate via ``product_universe_note`` cloud label.
 
-    For len(candidates) == 1, all 7 archetypes point to the single candidate
+    clean_implementation may be null with reason_if_null filled. Other archetypes
+    are always populated when at least one eligible candidate remains.
+
+    For ``len(eligible) == 1``, all 7 archetypes point to the single candidate
     (single-review degenerate mode); medoid distance is 0.0.
 
-    Raises LassoReviewError for empty input.
+    Raises LassoReviewError when the input is empty OR when every input
+    candidate is excluded by the fallback policy.
     """
     if not candidates:
         raise LassoReviewError(
             "selected_candidate_ids is empty — cannot extract archetypes"
         )
 
+    # Policy filter: drop fallback_used candidates.
+    eligible = [c for c in candidates if c.get("has_fallback") is not True]
+    if not eligible:
+        raise LassoReviewError(
+            "all selected candidates have has_fallback=True — none are eligible "
+            "for SAA review (policy: fallback_used candidates are excluded)"
+        )
+
     archetypes: list[dict[str, Any]] = []
+
+    # Helpful alias so the existing body below keeps reading naturally.
+    candidates = eligible  # type: ignore[assignment]
 
     top_s = max(candidates, key=lambda c: c["sharpe"])
     archetypes.append(_make_archetype(
@@ -197,42 +215,29 @@ def extract_archetypes(candidates: Sequence[Mapping[str, Any]]) -> list[dict[str
         float(mvo_n["mvo_efficiency_score"]),
     ))
 
-    # clean_implementation: has_fallback=False AND has_universe_warning=False (batch only)
-    clean = [
-        c for c in candidates
-        if c.get("has_fallback") is False and c.get("has_universe_warning") is False
-    ]
+    # clean_implementation: has_fallback=False (batch only).
+    # Policy (2026-05-15): has_universe_warning is NOT a SAA-clean criterion —
+    # universe constraints are a product-selection concern, not an SAA one.
+    # (Note: candidates with has_fallback=True were already filtered out
+    # above, so the eligible set here is at most a mix of False / None.)
+    clean = [c for c in candidates if c.get("has_fallback") is False]
     if clean:
         best_clean = max(clean, key=lambda c: c["sharpe"])
         archetypes.append(_make_archetype(
             "clean_implementation", best_clean,
-            "max sharpe among candidates with has_fallback=False AND has_universe_warning=False",
+            "max sharpe among eligible candidates with has_fallback=False",
             float(best_clean["sharpe"]),
         ))
     else:
-        unknown = sum(
-            1 for c in candidates
-            if c.get("has_fallback") is None or c.get("has_universe_warning") is None
+        # Eligible set is entirely None (unknown) after fallback filter — no
+        # batch dry-run data to confirm clean status for any candidate.
+        reason = (
+            "no R-1G.2 batch dry-run data for any eligible candidate "
+            "(all has_fallback values are unknown after fallback filter)"
         )
-        if unknown == len(candidates):
-            reason = (
-                "no R-1G.2 batch dry-run data for any selected candidate "
-                "(both has_fallback and has_universe_warning are unknown)"
-            )
-        elif unknown > 0:
-            reason = (
-                f"{len(candidates) - unknown} candidates evaluated; none satisfy "
-                "both has_fallback=False AND has_universe_warning=False. "
-                f"The remaining {unknown} candidate(s) have unknown batch signals."
-            )
-        else:
-            reason = (
-                "all evaluated candidates have either fallback or universe warning "
-                "(no candidate satisfies has_fallback=False AND has_universe_warning=False)"
-            )
         archetypes.append(_make_archetype(
             "clean_implementation", None,
-            "max sharpe among candidates with has_fallback=False AND has_universe_warning=False",
+            "max sharpe among eligible candidates with has_fallback=False",
             None,
             reason_if_null=reason,
         ))
