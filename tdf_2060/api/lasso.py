@@ -161,14 +161,45 @@ def lasso_export(req: LassoExportRequest) -> LassoExportResponse:
 
     yaml_preview: str | None = None
     if req.emit_yaml_preview and export["selected_count"] == 1:
+        # E-2: client-supplied review packet (both path+sha required together).
+        rp_supplied = (
+            req.source_review_packet_path is not None
+            or req.source_review_packet_sha256 is not None
+        )
+        if rp_supplied:
+            if not req.source_review_packet_path or not req.source_review_packet_sha256:
+                raise HTTPException(
+                    status_code=400,
+                    detail=(
+                        "source_review_packet_path and source_review_packet_sha256 "
+                        "must be provided together (or both omitted)"
+                    ),
+                )
+            sha = req.source_review_packet_sha256.strip().lower()
+            if len(sha) != 64 or any(c not in "0123456789abcdef" for c in sha):
+                raise HTTPException(
+                    status_code=400,
+                    detail=(
+                        "source_review_packet_sha256 must be a 64-char "
+                        "lowercase hex string"
+                    ),
+                )
+            rp_path = req.source_review_packet_path
+            rp_sha = sha
+        else:
+            # Fallback (C-3a default): lasso JSON self-referential placeholder.
+            rp_path = (
+                str(src.relative_to(ENGINE_ROOT))
+                if src.is_relative_to(ENGINE_ROOT)
+                else str(src)
+            )
+            rp_sha = opp_sha
         try:
             yaml_preview = to_r1f1_yaml(
                 export,
                 portfolio_type=req.portfolio_type,
-                source_review_packet_path=str(src.relative_to(ENGINE_ROOT))
-                if src.is_relative_to(ENGINE_ROOT)
-                else str(src),
-                source_review_packet_sha256=opp_sha,
+                source_review_packet_path=rp_path,
+                source_review_packet_sha256=rp_sha,
             )
         except SelectionConfigError as e:
             yaml_preview = f"# yaml preview skipped: {e}"

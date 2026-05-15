@@ -28,6 +28,13 @@ class LassoExportRequest(BaseModel):
     batch_results_dir: str | None = None
     output_dir: str | None = None  # optional; rejected if under tdf_2060/out|tdf_engine|tests|docs|config
     emit_yaml_preview: bool = False
+    # E-2: optional client-supplied review packet metadata for R-1F.1 V-11
+    # traceability. Both fields must be provided together or both omitted.
+    # Server does NOT validate the path exists — it is recorded verbatim into
+    # the yaml preview; downstream R-1F.1 CLI is the layer that performs the
+    # strict path/sha256 check at runtime.
+    source_review_packet_path: str | None = None
+    source_review_packet_sha256: str | None = None
 
 
 class PermanentInvariants(BaseModel):

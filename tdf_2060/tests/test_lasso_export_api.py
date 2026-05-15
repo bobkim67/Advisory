@@ -235,3 +235,111 @@ def test_yaml_preview_absent_when_multi_pick(opp_file):
     assert r.json()["selected_count"] > 1
     # When multi-pick, yaml_preview should be None
     assert r.json()["manager_selection_yaml_preview"] is None
+
+
+# ---------- E-2 source_review_packet client metadata ----------
+
+
+VALID_SHA = "a" * 64
+
+
+def test_yaml_preview_uses_client_review_packet_when_both_provided(opp_file):
+    body = _valid_body(opp_file)
+    body["post_selection_rule"] = "top_sharpe"
+    body["emit_yaml_preview"] = True
+    body["source_review_packet_path"] = "scratch/review_packets/rp_20260515.md"
+    body["source_review_packet_sha256"] = VALID_SHA
+    r = client.post("/api/r-track/lasso/export", json=body)
+    assert r.status_code == 200, r.text
+    yaml = r.json()["manager_selection_yaml_preview"]
+    assert yaml is not None
+    assert "scratch/review_packets/rp_20260515.md" in yaml
+    assert VALID_SHA in yaml
+
+
+def test_yaml_preview_falls_back_when_packet_omitted(opp_file):
+    body = _valid_body(opp_file)
+    body["post_selection_rule"] = "top_sharpe"
+    body["emit_yaml_preview"] = True
+    # No source_review_packet_* fields — server uses opp_set self-placeholder.
+    r = client.post("/api/r-track/lasso/export", json=body)
+    assert r.status_code == 200
+    yaml = r.json()["manager_selection_yaml_preview"]
+    assert yaml is not None
+    # The opp file path appears in the yaml (self-placeholder fallback).
+    # We don't pin the exact path because tmp paths differ; just confirm
+    # the yaml is non-empty and contains the schema marker.
+    assert "schema_version: r1f1.1" in yaml
+
+
+def test_review_packet_path_only_returns_400(opp_file):
+    body = _valid_body(opp_file)
+    body["post_selection_rule"] = "top_sharpe"
+    body["emit_yaml_preview"] = True
+    body["source_review_packet_path"] = "scratch/review_packets/rp.md"
+    # sha256 missing
+    r = client.post("/api/r-track/lasso/export", json=body)
+    assert r.status_code == 400
+    assert "together" in r.json()["detail"].lower()
+
+
+def test_review_packet_sha_only_returns_400(opp_file):
+    body = _valid_body(opp_file)
+    body["post_selection_rule"] = "top_sharpe"
+    body["emit_yaml_preview"] = True
+    body["source_review_packet_sha256"] = VALID_SHA
+    # path missing
+    r = client.post("/api/r-track/lasso/export", json=body)
+    assert r.status_code == 400
+    assert "together" in r.json()["detail"].lower()
+
+
+def test_review_packet_invalid_sha_format_returns_400(opp_file):
+    body = _valid_body(opp_file)
+    body["post_selection_rule"] = "top_sharpe"
+    body["emit_yaml_preview"] = True
+    body["source_review_packet_path"] = "scratch/review_packets/rp.md"
+    # not 64 hex chars
+    for bad in ("notvalid", "g" * 64, "a" * 63, "A" * 64 + "x"):
+        body["source_review_packet_sha256"] = bad
+        r = client.post("/api/r-track/lasso/export", json=body)
+        assert r.status_code == 400, f"expected 400 for sha={bad!r}, got {r.status_code}"
+        assert "sha256" in r.json()["detail"].lower()
+
+
+def test_review_packet_uppercase_sha_normalised(opp_file):
+    """64-char uppercase hex should be accepted (lowercased server-side)."""
+    body = _valid_body(opp_file)
+    body["post_selection_rule"] = "top_sharpe"
+    body["emit_yaml_preview"] = True
+    body["source_review_packet_path"] = "scratch/review_packets/rp.md"
+    body["source_review_packet_sha256"] = "A" * 64
+    r = client.post("/api/r-track/lasso/export", json=body)
+    assert r.status_code == 200, r.text
+    yaml = r.json()["manager_selection_yaml_preview"]
+    assert "a" * 64 in yaml  # lowercased
+
+
+def test_review_packet_ignored_when_multi_pick(opp_file):
+    """Multi-pick still yields null yaml even with client packet metadata."""
+    body = _valid_body(opp_file)
+    body["post_selection_rule"] = "all"  # multi-pick
+    body["emit_yaml_preview"] = True
+    body["source_review_packet_path"] = "scratch/review_packets/rp.md"
+    body["source_review_packet_sha256"] = VALID_SHA
+    r = client.post("/api/r-track/lasso/export", json=body)
+    assert r.status_code == 200
+    assert r.json()["manager_selection_yaml_preview"] is None
+
+
+def test_review_packet_invariants_locked(opp_file):
+    body = _valid_body(opp_file)
+    body["post_selection_rule"] = "top_sharpe"
+    body["emit_yaml_preview"] = True
+    body["source_review_packet_path"] = "scratch/review_packets/rp.md"
+    body["source_review_packet_sha256"] = VALID_SHA
+    r = client.post("/api/r-track/lasso/export", json=body)
+    inv = r.json()["permanent_invariants"]
+    assert inv["is_production_selection"] is False
+    assert inv["dry_run_only"] is True
+    assert inv["phase_f_entered"] is False
