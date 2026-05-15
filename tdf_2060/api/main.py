@@ -11,6 +11,7 @@ from __future__ import annotations
 from fastapi import FastAPI
 
 from .lasso import router as lasso_router
+from .opportunity_set import router as opportunity_set_router
 
 
 def build_app() -> FastAPI:
@@ -25,6 +26,7 @@ def build_app() -> FastAPI:
         ),
     )
     app.include_router(lasso_router)
+    app.include_router(opportunity_set_router)
 
     @app.get("/health")
     def health() -> dict[str, str]:

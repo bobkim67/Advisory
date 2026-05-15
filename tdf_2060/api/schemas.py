@@ -54,3 +54,37 @@ class LassoExportResponse(BaseModel):
             "downstream R-1F.* / R-1G.* CLIs are NOT auto-triggered by this endpoint.",
         ]
     )
+
+
+# D-11: scatter dataset projection — frontend reads this to render the base
+# 10k scatter so representative markers land on real coordinates.
+class ScatterCandidate(BaseModel):
+    candidate_id: str
+    volatility: float
+    expected_return: float
+    sharpe: float
+    concentration_hhi: float
+    max_asset_weight: float
+    mvo_efficiency_score: float
+    feasibility_status: str
+    overlap_score: int
+    cloud_labels: str
+    has_fallback: bool | None
+    has_universe_warning: bool | None
+
+
+class ScatterDatasetResponse(BaseModel):
+    schema_version: str = "r_track_2_scatter.1"
+    source_opportunity_set_path: str
+    source_opportunity_set_sha256: str
+    candidate_count: int
+    candidates: list[ScatterCandidate]
+    is_production_selection: bool = False
+    dry_run_only: bool = True
+    notes: list[str] = Field(
+        default_factory=lambda: [
+            "Projection of R-1B.2 opportunity set for UI scatter rendering only.",
+            "Drops weights / per-bucket HHI to keep payload small.",
+            "is_production_selection=false / dry_run_only=true forced.",
+        ]
+    )
