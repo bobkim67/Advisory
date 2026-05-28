@@ -22,7 +22,7 @@ def _mk_cand(cid, sharpe, er, vol, hhi, maxw, mvo=0.02,
             "kr_equity": 0.1, "us_growth_equity": 0.15, "us_value_equity": 0.15,
             "dm_ex_us_equity": 0.1, "em_equity": 0.1,  # eq = 0.6 — only synthetic
             "kr_aggregate_bond": 0.1, "kr_treasury_10y": 0.05,
-            "us_treasury_30y": 0.025, "us_high_yield": 0.025,  # fi = 0.2
+            "us_aggregate_bond": 0.025, "us_high_yield": 0.025,  # fi = 0.2
         },
         "sharpe": sharpe,
         "expected_return": er,

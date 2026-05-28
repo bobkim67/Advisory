@@ -35,9 +35,10 @@ _TICKER_BY_KEY = {
     "us_value_equity":    "M2US000V Index",
     "dm_ex_us_equity":    "TAD09XU Index",
     "em_equity":          "M2EF Index",
+    "gold":               "XAU Curncy",
     "kr_aggregate_bond":  "SPBKRCOT Index",
     "kr_treasury_10y":    "KPGB10YR Index",
-    "us_treasury_30y":    "BRFUT004",
+    "us_aggregate_bond":  "LBUSTRUU Index",
     "us_high_yield":      "LF98TRUU Index",
 }
 
@@ -80,13 +81,13 @@ def test_taa_projection_removes_negative_weights():
         "kr_equity": 0.05, "us_growth_equity": 0.40, "us_value_equity": 0.20,
         "dm_ex_us_equity": 0.05, "em_equity": 0.05,
         "kr_aggregate_bond": 0.10, "kr_treasury_10y": -0.02,
-        "us_treasury_30y": -0.03, "us_high_yield": 0.20,
+        "us_aggregate_bond": -0.03, "us_high_yield": 0.20,
     })
     bucket_by_asset = {
         "kr_equity": "equity", "us_growth_equity": "equity", "us_value_equity": "equity",
         "dm_ex_us_equity": "equity", "em_equity": "equity",
         "kr_aggregate_bond": "fixed_income", "kr_treasury_10y": "fixed_income",
-        "us_treasury_30y": "fixed_income", "us_high_yield": "fixed_income",
+        "us_aggregate_bond": "fixed_income", "us_high_yield": "fixed_income",
     }
     final, diag = project_to_feasible(
         target_weights=target,
@@ -97,7 +98,7 @@ def test_taa_projection_removes_negative_weights():
     )
     assert (final >= -1e-9).all()
     assert "kr_treasury_10y" in diag.negative_weight_assets_before_projection
-    assert "us_treasury_30y" in diag.negative_weight_assets_before_projection
+    assert "us_aggregate_bond" in diag.negative_weight_assets_before_projection
 
 
 # ── 2) sum=1 보존 ─────────────────────────────────────────────────────

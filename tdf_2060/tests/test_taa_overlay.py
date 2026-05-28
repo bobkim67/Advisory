@@ -13,9 +13,10 @@ def saa() -> pd.Series:
             "us_value_equity": 0.20,
             "dm_ex_us_equity": 0.12,
             "em_equity": 0.08,
+            "gold": 0.00,
             "kr_aggregate_bond": 0.08,
             "kr_treasury_10y": 0.04,
-            "us_treasury_30y": 0.05,
+            "us_aggregate_bond": 0.05,
             "us_high_yield": 0.03,
         }
     )

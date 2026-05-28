@@ -259,23 +259,29 @@ def _frontier_er_at_vol(
 # ---------------------------------------------------------------------------
 
 
-def _build_ref_80_20_equal_intra_bucket_weights(
-    asset_keys: list[str], bucket_map: dict[str, str]
+def _build_ref_equal_intra_bucket_weights(
+    asset_keys: list[str],
+    bucket_map: dict[str, str],
+    equity_total: float = EQUITY_BUCKET_TOTAL,
+    fixed_income_total: float = FIXED_INCOME_BUCKET_TOTAL,
 ) -> list[float]:
-    """equity 80% 를 equity 자산 균등, fixed_income 20% 를 FI 자산 균등 분배.
+    """Equity bucket 합 / FI bucket 합 을 intra-bucket 균등 분배.
 
-    R-1B.2: 모든 sampled candidate 와 동일한 bucket 합 (80/20) 을 갖되 intra-bucket
-    만 균등인 특수 case. 후보 비교 anchor.
+    R-1B.2 정합: bucket 합은 (equity_total, fixed_income_total) 로 hard. intra-bucket
+    만 균등. Phase 6.5 — bucket totals 자유 입력 지원 (기본 0.80 / 0.20).
     """
     eq_keys = [k for k in asset_keys if bucket_map[k] == EQUITY_BUCKET]
     fi_keys = [k for k in asset_keys if bucket_map[k] == FIXED_INCOME_BUCKET]
-    if not eq_keys or not fi_keys:
+    if equity_total > 1e-9 and not eq_keys:
         raise ValueError(
-            "R-1B-lite ref_80_20_equal_intra_bucket requires at least one equity "
-            "and one fixed_income asset."
+            "ref_equal_intra_bucket: equity_total > 0 but no equity asset present."
         )
-    eq_w = EQUITY_BUCKET_TOTAL / len(eq_keys)
-    fi_w = FIXED_INCOME_BUCKET_TOTAL / len(fi_keys)
+    if fixed_income_total > 1e-9 and not fi_keys:
+        raise ValueError(
+            "ref_equal_intra_bucket: fixed_income_total > 0 but no fixed_income asset present."
+        )
+    eq_w = (equity_total / len(eq_keys)) if eq_keys else 0.0
+    fi_w = (fixed_income_total / len(fi_keys)) if fi_keys else 0.0
     out = []
     for k in asset_keys:
         bk = bucket_map[k]
@@ -285,10 +291,98 @@ def _build_ref_80_20_equal_intra_bucket_weights(
             out.append(fi_w)
         else:
             raise ValueError(
-                f"R-1B-lite ref_80_20_equal_intra_bucket: unsupported bucket "
-                f"'{bk}' for asset '{k}'."
+                f"ref_equal_intra_bucket: unsupported bucket '{bk}' for asset '{k}'."
             )
     return out
+
+
+# Backward-compat alias (do not remove — referenced by older code paths).
+_build_ref_80_20_equal_intra_bucket_weights = _build_ref_equal_intra_bucket_weights
+
+
+# ---------------------------------------------------------------------------
+# Bucket-level constrained sampling (Phase 6.5 — cap/floor + free bucket)
+# ---------------------------------------------------------------------------
+
+
+def _sample_bucket_constrained(
+    rng,
+    n_target: int,
+    n_keys: int,
+    bucket_total: float,
+    floors: list[float],
+    caps: list[float],
+    max_attempts_multiplier: int = 5,
+    dirichlet_alpha: float = 1.0,
+) -> tuple[list[list[float]], int]:
+    """Bucket 단위 Dirichlet × bucket_total → cap/floor rejection sampling.
+
+    Returns (accepted_rows, total_attempts).
+      accepted_rows : list of length-`n_keys` lists summing to `bucket_total`.
+      total_attempts: 누적 Dirichlet draws (rejection 포함).
+
+    Backward-compat 보장:
+      cap/floor 기본값 (0, bucket_total) + bucket_total = EQUITY_BUCKET_TOTAL 인 경우
+      Dirichlet draws 가 항상 valid 라 단일 batch (size=n_target) 1회 호출. 따라서
+      legacy code path 의 rng state 진행과 동일 (단, dirichlet → renormalize → scale
+      순서 동일).
+    """
+    import numpy as np
+
+    if n_keys == 0:
+        if bucket_total > 1e-9:
+            raise ValueError(
+                f"_sample_bucket_constrained: bucket_total={bucket_total} > 0 "
+                f"but no assets in bucket."
+            )
+        return [], 0
+
+    if bucket_total <= 1e-12:
+        # zero bucket: 모든 후보가 zero vector
+        return [[0.0] * n_keys for _ in range(n_target)], 0
+
+    if n_keys == 1:
+        # single-asset bucket: weight = bucket_total (feasible 시 동일 후보 n_target개)
+        if floors[0] - 1e-9 <= bucket_total <= caps[0] + 1e-9:
+            return [[bucket_total] for _ in range(n_target)], 0
+        return [], 0
+
+    # dirichlet_alpha: 1.0=내부 균등(기본), <1=코너/sparse 선호. 대칭 Dirichlet.
+    alpha = np.full(n_keys, float(dirichlet_alpha), dtype=float)
+    floors_arr = np.asarray(floors, dtype=float)
+    caps_arr = np.asarray(caps, dtype=float)
+
+    accepted: list[list[float]] = []
+    total_attempts = 0
+    max_attempts = max(n_target * max(max_attempts_multiplier, 1), n_target * 2)
+    # 첫 batch 는 size=n_target. constraint 가 없는 경우 (legacy default) 1회로 종료.
+    first_batch = True
+
+    while len(accepted) < n_target and total_attempts < max_attempts:
+        bs = (
+            n_target if first_batch
+            else min(n_target, max(max_attempts - total_attempts, 1))
+        )
+        first_batch = False
+
+        samples = rng.dirichlet(alpha, size=bs)
+        # ULP-safe renormalize (legacy 와 동일)
+        row_sums = samples.sum(axis=1, keepdims=True)
+        nonzero = (row_sums > 0).flatten()
+        samples = samples[nonzero] / row_sums[nonzero] * bucket_total
+
+        valid_mask = np.all(
+            (samples >= floors_arr - 1e-12) & (samples <= caps_arr + 1e-12),
+            axis=1,
+        )
+        valid = samples[valid_mask]
+        if valid.shape[0] > 0:
+            need = n_target - len(accepted)
+            take = valid[:need]
+            accepted.extend(take.tolist())
+        total_attempts += bs
+
+    return accepted, total_attempts
 
 
 # ---------------------------------------------------------------------------
@@ -387,77 +481,169 @@ def build_opportunity_set(
     n_candidates: int = DEFAULT_N_CANDIDATES,
     random_seed: int = DEFAULT_SEED,
     frontier_grid_points: int = FRONTIER_GRID_POINTS,
+    equity_total: float = EQUITY_BUCKET_TOTAL,
+    fixed_income_total: float = FIXED_INCOME_BUCKET_TOTAL,
+    asset_constraints: dict[str, tuple[float, float]] | None = None,
+    selected_assets: list[str] | None = None,
+    max_attempts_multiplier: int = 5,
+    risk_free_rate: float | None = None,
+    dirichlet_alpha: float = 1.0,
 ) -> dict[str, Any]:
-    """R-1B.2: bucket-constrained Dirichlet candidates + 2 reference points + metrics.
+    """R-1B.2 + Phase 6.5: bucket-constrained Dirichlet + cap/floor rejection.
 
-    All sampled candidates satisfy:
-      equity_weight        ≡ 0.80  (hard)
-      fixed_income_weight  ≡ 0.20  (hard)
+    Default arguments reproduce the original R-1B.2 80:20 hard behavior bit-identically.
+    New Phase 6.5 parameters:
+      equity_total / fixed_income_total : free bucket totals (sum must be 1.0).
+      asset_constraints                 : {asset_key: (floor, cap)} per-asset bounds.
+      selected_assets                   : subset of CMA asset_keys (None = all).
+      max_attempts_multiplier           : rejection sampling budget = n_candidates × mult.
 
     Reference points may violate the bucket constraint (notably ref_max_sharpe =
-    unconstrained MVO result).
+    unconstrained MVO result restricted to selected asset subset).
 
-    Returns JSON-serializable dict per R-1B-lite (R-1B.2) schema:
-      meta / inputs / generation / constraints / candidates / reference_points /
-      diagnostics
-    (similar_search 키는 R-1B-lite 에서 dump 하지 않는다.)
+    Returns JSON-serializable dict per R-1B-lite schema. Phase 6.5 additions:
+      generation.equity_bucket_total / .fixed_income_bucket_total now reflect inputs
+      constraints.asset_constraints (when provided)
+      diagnostics.sampling_warning (str | None) for partial-result cases
+      diagnostics.attempts_used = {equity: N, fixed_income: N}
     """
     import numpy as np
 
+    if equity_total < -1e-9 or fixed_income_total < -1e-9:
+        raise ValueError(
+            f"bucket totals must be >= 0: equity={equity_total}, fi={fixed_income_total}"
+        )
+    bucket_sum = equity_total + fixed_income_total
+    if abs(bucket_sum - 1.0) > 1e-6:
+        raise ValueError(
+            f"equity_total + fixed_income_total must equal 1.0: got {bucket_sum:.6f} "
+            f"(equity={equity_total}, fi={fixed_income_total})"
+        )
+
     saa = _require_direct_saa_and_cma(portfolio)
     cma = saa["cma"]
-    asset_keys = [str(k) for k in cma["asset_keys"]]
+    all_asset_keys = [str(k) for k in cma["asset_keys"]]
+
+    # asset subset filtering (selected_assets keeps original order from CMA)
+    if selected_assets is not None:
+        selected_set = set(selected_assets)
+        invalid = [k for k in selected_assets if k not in all_asset_keys]
+        if invalid:
+            raise ValueError(
+                f"selected_assets contains unknown keys: {invalid}. "
+                f"valid asset_keys = {all_asset_keys}"
+            )
+        asset_keys = [k for k in all_asset_keys if k in selected_set]
+    else:
+        asset_keys = list(all_asset_keys)
     n = len(asset_keys)
+    if n == 0:
+        raise ValueError("selected_assets resulted in empty asset list")
 
     er = _vec(cma["expected_returns"], asset_keys)
     sig = _vec(cma["volatilities"], asset_keys)
     cov = _mat(cma["covariance_matrix"], asset_keys)
-    rf = float(saa.get("rf") or 0.0)
+    # rf: portfolio JSON 의 saa_diagnostics.rf 가 기본. risk_free_rate override 시
+    # 그 값 사용 (lasso 리뷰 도구에서 엔진 config / frozen baseline 미변경하고
+    # Sharpe 기준 rf 만 조정).
+    rf = float(risk_free_rate if risk_free_rate is not None else (saa.get("rf") or 0.0))
 
     bucket_map = _extract_bucket_map(portfolio, asset_keys)
-    ref_80_20_w = _build_ref_80_20_equal_intra_bucket_weights(asset_keys, bucket_map)
 
-    # bucket key partitions (asset_keys 순서 보존)
+    # bucket key partitions (asset_keys 순서 보존) — 사용자 message 일관성 위해
+    # ref_eq_w 계산 전에 검증.
     eq_keys = [k for k in asset_keys if bucket_map[k] == EQUITY_BUCKET]
     fi_keys = [k for k in asset_keys if bucket_map[k] == FIXED_INCOME_BUCKET]
-    if not eq_keys or not fi_keys:
+    if equity_total > 1e-9 and not eq_keys:
         raise ValueError(
-            "R-1B.2 bucket-constrained sampling requires at least one equity and "
-            "one fixed_income asset."
+            f"equity_total={equity_total} > 0 but no equity asset selected."
+        )
+    if fixed_income_total > 1e-9 and not fi_keys:
+        raise ValueError(
+            f"fixed_income_total={fixed_income_total} > 0 but no fixed_income asset selected."
         )
     eq_index_in_full = {k: asset_keys.index(k) for k in eq_keys}
     fi_index_in_full = {k: asset_keys.index(k) for k in fi_keys}
 
-    # frontier for mvo_efficiency_score
+    ref_eq_w = _build_ref_equal_intra_bucket_weights(
+        asset_keys, bucket_map, equity_total, fixed_income_total
+    )
+
+    # Normalize asset_constraints: default (0, bucket_total) per asset.
+    norm_constraints: dict[str, tuple[float, float]] = {}
+    for k in asset_keys:
+        bk = bucket_map[k]
+        bt = equity_total if bk == EQUITY_BUCKET else fixed_income_total
+        if asset_constraints and k in asset_constraints:
+            fl_raw, cp_raw = asset_constraints[k]
+            fl, cp = float(fl_raw), float(cp_raw)
+        else:
+            fl, cp = 0.0, float(bt)
+        if fl < -1e-9 or cp > 1.0 + 1e-9 or fl > cp + 1e-9:
+            raise ValueError(
+                f"invalid constraint for {k}: floor={fl}, cap={cp} (require 0 <= floor <= cap <= 1)"
+            )
+        norm_constraints[k] = (max(fl, 0.0), min(cp, 1.0))
+
+    # Per-bucket feasibility (sum of floors <= bucket_total <= sum of caps).
+    def _bucket_feasibility(keys, bt, name):
+        if not keys:
+            return
+        fls = [norm_constraints[k][0] for k in keys]
+        cps = [norm_constraints[k][1] for k in keys]
+        if sum(fls) > bt + 1e-9:
+            raise ValueError(
+                f"{name} bucket infeasible: sum(floors)={sum(fls):.4f} > bucket_total={bt:.4f}"
+            )
+        if sum(cps) < bt - 1e-9:
+            raise ValueError(
+                f"{name} bucket infeasible: sum(caps)={sum(cps):.4f} < bucket_total={bt:.4f}"
+            )
+
+    _bucket_feasibility(eq_keys, equity_total, "equity")
+    _bucket_feasibility(fi_keys, fixed_income_total, "fixed_income")
+
+    eq_floors = [norm_constraints[k][0] for k in eq_keys]
+    eq_caps = [norm_constraints[k][1] for k in eq_keys]
+    fi_floors = [norm_constraints[k][0] for k in fi_keys]
+    fi_caps = [norm_constraints[k][1] for k in fi_keys]
+
+    # frontier for mvo_efficiency_score (on selected subset)
     frontier_pts = _build_frontier_points(er, cov, grid_points=frontier_grid_points)
 
-    # ── Bucket-constrained Dirichlet sampling (deterministic) ────────
+    # ── Bucket-constrained Dirichlet sampling with cap/floor rejection ────
     rng = np.random.default_rng(int(random_seed))
-    eq_alpha = np.ones(len(eq_keys), dtype=float)
-    fi_alpha = np.ones(len(fi_keys), dtype=float)
-    eq_samples = rng.dirichlet(eq_alpha, size=int(n_candidates))
-    fi_samples = rng.dirichlet(fi_alpha, size=int(n_candidates))
+
+    eq_rows, eq_attempts = _sample_bucket_constrained(
+        rng, int(n_candidates), len(eq_keys), equity_total,
+        eq_floors, eq_caps, max_attempts_multiplier=max_attempts_multiplier,
+        dirichlet_alpha=dirichlet_alpha,
+    )
+    fi_rows, fi_attempts = _sample_bucket_constrained(
+        rng, int(n_candidates), len(fi_keys), fixed_income_total,
+        fi_floors, fi_caps, max_attempts_multiplier=max_attempts_multiplier,
+        dirichlet_alpha=dirichlet_alpha,
+    )
+
+    n_actual = min(len(eq_rows), len(fi_rows), int(n_candidates))
+    sampling_warning: str | None = None
+    if n_actual < int(n_candidates):
+        sampling_warning = (
+            f"partial result: requested {int(n_candidates)} candidates, accepted {n_actual} "
+            f"(equity_accepted={len(eq_rows)}, fi_accepted={len(fi_rows)}). "
+            f"cap/floor constraints may be too tight — try relaxing per-asset bounds."
+        )
 
     # ── candidate metrics ────────────────────────────────────────────
     candidates: list[dict[str, Any]] = []
-    for idx in range(int(n_candidates)):
-        eq_row = eq_samples[idx]
-        fi_row = fi_samples[idx]
-        # Normalize within bucket (ULP safety) → scale by bucket target.
-        eq_s = float(eq_row.sum())
-        fi_s = float(fi_row.sum())
-        if eq_s <= 0 or fi_s <= 0:
-            # 사실상 불가능하나 안전장치
-            continue
-        eq_scaled = (eq_row / eq_s) * EQUITY_BUCKET_TOTAL
-        fi_scaled = (fi_row / fi_s) * FIXED_INCOME_BUCKET_TOTAL
-
+    for idx in range(n_actual):
+        eq_row = eq_rows[idx]
+        fi_row = fi_rows[idx]
         w = [0.0] * n
         for i, k in enumerate(eq_keys):
-            w[eq_index_in_full[k]] = float(eq_scaled[i])
+            w[eq_index_in_full[k]] = float(eq_row[i])
         for j, k in enumerate(fi_keys):
-            w[fi_index_in_full[k]] = float(fi_scaled[j])
-
+            w[fi_index_in_full[k]] = float(fi_row[j])
         cid = f"cand_{idx + 1:06d}"
         candidates.append(
             _metrics_for_weights(
@@ -475,7 +661,7 @@ def build_opportunity_set(
         frontier_pts,
     )
     ref_80_20 = _metrics_for_weights(
-        "ref_80_20_equal_intra_bucket", ref_80_20_w, asset_keys, bucket_map,
+        "ref_80_20_equal_intra_bucket", ref_eq_w, asset_keys, bucket_map,
         er, cov, rf, frontier_pts,
     )
 
@@ -522,18 +708,29 @@ def build_opportunity_set(
             "random_seed": int(random_seed),
             "n_requested": int(n_candidates),
             "n_generated": len(candidates),
-            "alpha_equity": [1.0] * len(eq_keys),
-            "alpha_fixed_income": [1.0] * len(fi_keys),
-            "equity_bucket_total": EQUITY_BUCKET_TOTAL,
-            "fixed_income_bucket_total": FIXED_INCOME_BUCKET_TOTAL,
+            "alpha_equity": [float(dirichlet_alpha)] * len(eq_keys),
+            "alpha_fixed_income": [float(dirichlet_alpha)] * len(fi_keys),
+            "dirichlet_alpha": float(dirichlet_alpha),
+            "equity_bucket_total": float(equity_total),
+            "fixed_income_bucket_total": float(fixed_income_total),
+            "max_attempts_multiplier": int(max_attempts_multiplier),
+            "attempts_used": {
+                "equity": int(eq_attempts),
+                "fixed_income": int(fi_attempts),
+            },
         },
         "constraints": {
             "long_only": True,
             "full_investment": True,
-            "equity_bucket_total_fixed": EQUITY_BUCKET_TOTAL,
-            "fixed_income_bucket_total_fixed": FIXED_INCOME_BUCKET_TOTAL,
+            "equity_bucket_total_fixed": float(equity_total),
+            "fixed_income_bucket_total_fixed": float(fixed_income_total),
+            "asset_constraints": {
+                k: [float(norm_constraints[k][0]), float(norm_constraints[k][1])]
+                for k in asset_keys
+            },
+            "selected_assets": list(asset_keys),
             "optional_filters_enabled": {
-                "max_single_asset_weight": False,
+                "max_single_asset_weight": bool(asset_constraints is not None),
                 "min_nonzero_assets": False,
             },
         },
@@ -555,6 +752,8 @@ def build_opportunity_set(
                 "first_5_candidate_weight_strings": determinism_check_hashes,
             },
             "warnings": [],
+            "sampling_warning": sampling_warning,
+            "n_actual": int(n_actual),
             "missing_data": [
                 "ref_min_vol (deferred to R-1C+)",
                 "ref_equal_weight (deferred to R-1C+)",

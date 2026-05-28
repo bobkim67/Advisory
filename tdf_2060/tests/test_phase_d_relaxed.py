@@ -3,7 +3,7 @@
 본 단계 hard constraint:
   - long-only (정책 #4)
   - sum-to-100% (정책 #6)
-  - 데이터 무결성 (BRFUT004 / DB / NaN / optimizer · projection convergence)
+  - 데이터 무결성 (LBUSTRUU Index / DB / NaN / optimizer · projection convergence)
 
 본 단계 NOT enforced (relaxed):
   - bucket range (75-85 / 15-25)
@@ -296,7 +296,7 @@ def test_projection_drift_source_long_only_clipping():
     target = pd.Series({
         "us_growth_equity": 0.716,
         "us_value_equity": 0.284,
-        "us_treasury_30y": -0.03,
+        "us_aggregate_bond": -0.03,
         "kr_treasury_10y": -0.02,
         "em_equity": 0.02,
         "kr_equity": 0.02,
@@ -306,7 +306,7 @@ def test_projection_drift_source_long_only_clipping():
     bucket_bounds = {}  # relaxed mode
     bucket_by_asset = {
         "us_growth_equity": "equity", "us_value_equity": "equity",
-        "us_treasury_30y": "fixed_income", "kr_treasury_10y": "fixed_income",
+        "us_aggregate_bond": "fixed_income", "kr_treasury_10y": "fixed_income",
         "em_equity": "equity", "kr_equity": "equity",
         "us_high_yield": "fixed_income",
     }
@@ -319,7 +319,7 @@ def test_projection_drift_source_long_only_clipping():
     # sum = 1.0
     assert abs(float(final.sum()) - 1.0) < 1e-6
     # ust30, kr_t10 은 long_only_clipping 으로 분류
-    assert diag.drift_source_by_asset["us_treasury_30y"] == PROJECTION_DRIFT_LONG_ONLY_CLIPPING
+    assert diag.drift_source_by_asset["us_aggregate_bond"] == PROJECTION_DRIFT_LONG_ONLY_CLIPPING
     assert diag.drift_source_by_asset["kr_treasury_10y"] == PROJECTION_DRIFT_LONG_ONLY_CLIPPING
     # 양수 target 자산은 redistribution 또는 none
     assert diag.drift_source_by_asset["us_growth_equity"] in (
@@ -329,7 +329,7 @@ def test_projection_drift_source_long_only_clipping():
     # clipping_summary 보존
     summary = diag.clipping_summary
     assert summary["n_assets_clipped_long_only"] == 2
-    assert "us_treasury_30y" in summary["clipped_assets"]
+    assert "us_aggregate_bond" in summary["clipped_assets"]
     assert "kr_treasury_10y" in summary["clipped_assets"]
     assert abs(summary["total_long_only_clipping_magnitude"] - 0.05) < 1e-6
     assert summary["drift_source_primary"] == PROJECTION_DRIFT_REDISTRIBUTION  # 5 자산 redistribution > 2 long_only

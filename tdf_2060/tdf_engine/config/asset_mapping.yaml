@@ -94,30 +94,42 @@ assets:
     fallback_policy: error_if_missing
     notes: "regimeAnalysis_src 에 별도 컬럼 없음 → regime_return 용도는 사용자 결정 시점까지 null."
 
-  - asset_key: us_treasury_30y
-    display_name: "미국 국고채30년"
+  - asset_key: us_aggregate_bond
+    display_name: "미국 종합채권"
     source_names:
-      # Phase C.2 — DB 매핑 확정: SCIP id=201 'KIS 미국채 30Y TR 지수' (BRFUT004).
-      # file 모드 (Asset_rt_vol/Corr_mat) 에는 여전히 row 가 없으므로 file 실행 시
-      # CMA Builder 가 ValueError. file 모드용 별도 row 추가가 필요하면 augmented fixture 처럼.
-      optimization: "BRFUT004"
+      # 2026-05-27 — LT-CMA Asset_rt_vol 의 "미국 채권" = LBUSTRUU Index.
+      # SCIP DB symbol = LHMN0001 (동일 지수, Bloomberg US Aggregate Bond Index).
+      optimization: "LBUSTRUU Index"
       regime_return: null               # regime_return source (regimeAnalysis_src) 에는 별도 컬럼 없음
     bucket: fixed_income
-    flags: [safe, duration]
+    flags: [safe]
     required: true
-    fallback_policy: explicit_proxy_only
-    proxy:
-      enabled: false
-      proxy_ticker: null
-    db_dataset_id: 201
-    # Phase C.2 — DB direct mapping 확정 (db_sources.yaml::us_treasury_30y 와 정합).
+    fallback_policy: error_if_missing
+    db_dataset_id: 278
     db_mapping_mode: direct
     notes: |
-      [Phase C.2] DB 매핑 = SCIP id=201 'KIS 미국채 30Y TR 지수' (BRFUT004).
-      KIS bond index dict blob → totRtnIndex 키 추출. semantic_type=total_return_index.
-      [file 모드] Asset_rt_vol/Corr_mat 에 BRFUT004 row 가 없으면 여전히 ValueError.
-      → file 모드 사용은 augmented fixture 또는 운영자가 row 채울 때만 가능.
-      → 실제 운용에서는 --source db 사용 권장.
+      LT-CMA (Asset_rt_vol) ticker = LBUSTRUU Index, SCIP symbol = LHMN0001 (id=278).
+      Bloomberg US Aggregate Bond Index = Treasury + MBS + Corp + Credit. dataseries=6 FG Return (dict USD/KRW).
+      1999-12 ~ (6888 행).
+      이전 us_treasury_30y (id=201 BRFUT004, ~2019) / us_treasury_long (id=400 LTXUTRUU) 모두 폐기.
+
+  - asset_key: gold
+    display_name: "금"
+    source_names:
+      # 2026-05-27 — LT-CMA Asset_rt_vol 의 "금" = XAU Curncy. SCIP id=408 동일 ticker.
+      optimization: "XAU Curncy"
+      regime_return: null               # regime_return source (regimeAnalysis_src) 에는 별도 컬럼 없음
+    bucket: equity                       # 사용자 결정 (2026-05-27): equity bucket 편입
+    flags: [risk_asset, alternative]    # LT-CMA 분류 = Alternative. risk_asset 으로 취급.
+    required: true
+    fallback_policy: error_if_missing
+    db_dataset_id: 408
+    db_mapping_mode: direct
+    notes: |
+      LT-CMA (Asset_rt_vol) Alternative bucket / ticker = XAU Curncy.
+      SCIP id=408 동일 ticker. dataseries=48 PX_LAST. 단일 숫자 blob (USD/oz).
+      2000-01 ~ (6882 행).
+      LT-CMA Alternative 이지만 본 프로젝트는 사용자 결정으로 equity bucket 편입.
 
   - asset_key: us_high_yield
     display_name: "미국 하이일드 회사채"

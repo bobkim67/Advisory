@@ -28,11 +28,23 @@
 #                       not_allowed     : MVO 입력에 사용 불가 (즉시 ValueError)
 #
 # 알려진 dataset_id (CLAUDE.md 기준):
-#   11=Vanguard Growth ETF (US9229087369), 12=Vanguard Value ETF (US9229087443),
-#   24=S&P 500 TR, 31=USD/KRW, 36=Vanguard FTSE Developed (US9219438580),
-#   37=Vanguard FTSE EM (US9220428588), 63=MSCI EAFE, 66=MSCI Japan,
-#   87=iShares S&P GSCI Commodity, 144=MSCI Korea, 403=VIX,
-#   404=US HY OAS Spread (level 아님 - 사용 주의), 408=Gold Spot.
+#   현재 매핑 (2026-05-27 dataseries 통일 적용):
+#     273=KAP 종합채권 TR AA- (KBPMKTMB, ds=9),
+#     278=BBG US Aggregate Bond Index (LHMN0001, ds=39, ds=9 부재),
+#     318=M2US000G Index (ds=9), 319=M2US000V Index (ds=9),
+#     320=M2EA Index (ds=9), 321=M2EF Index (ds=9),
+#     398=M2KR Index (ds=9), 401=BBG US HY TR (LF98TRUU, ds=9),
+#     408=Gold Spot Price (XAU Curncy, ds=48 PX_LAST),
+#     421=KRX 10년채권지수 (KTBITR, ds=9).
+#   과거 매핑 (history):
+#     11=Vanguard Growth ETF (이전 us_growth_equity, ds=6, ETF NAV),
+#     12=Vanguard Value ETF (이전 us_value_equity), 31=USD/KRW,
+#     37=Vanguard FTSE EM ETF (이전 em_equity),
+#     63=MSCI EAFE iShares ETF (이전 dm_ex_us_equity 초기),
+#     144=iShares MSCI Korea ETF EWY-US (이전 kr_equity),
+#     201=KIS US30Y TR BRFUT004 (이전 us_treasury_30y, dict blob, 폐기),
+#     400=BBG US Long Treasury TR LTXUTRUU (이전 us_treasury_long, 폐기),
+#     403=VIX, 404=US HY OAS Spread (level 아님 - 사용 금지).
 #
 # null 값은 "운영자 결정 필요" 의 의미. DBMarketDataRepository 가
 # null 을 만나면 명시적 ValueError (silent fallback 금지).
@@ -74,71 +86,96 @@ corr_matrix:
   intersection_policy: common
   short_history_warning_ratio: 0.8       # max_obs * 0.8 미만 → short_history telemetry/warning
 
-# ── 9 자산군별 매핑 ──────────────────────────────────────────────────
+# ── 10 자산군별 매핑 ─────────────────────────────────────────────────
+# 2026-05-27 — dataseries 통일 적용. equity 4종은 MSCI 지수 본체로 교체.
+# dataseries 9 (Bloomberg TOT RETURN INDEX NET DVDS) 가능 한 자산은 모두 ds=9 사용.
+# 예외 2건: us_aggregate_bond (278, ds=9 부재 → ds=39 FG TR Unhedged 사용),
+#          gold (408, ds=9 부재 → ds=48 PX_LAST 사용).
 assets:
 
   - asset_key: kr_equity
-    dataset_id: 144             # MSCI Korea
+    # 2026-05-27 — id=144 (EWY-US ETF, ds=6) → id=398 (M2KR Index 본체, ds=9) 교체.
+    # ticker = LT-CMA Asset_rt_vol 정본 "M2KR INDEX" (대문자, asset_mapping 정합).
+    dataset_id: 398
     ticker: "M2KR INDEX"
-    value_dataseries: 6         # FG Return
-    fallback_dataseries: 39     # Total Return Index
-    currency: USD               # USD 기준 (필요 시 KRW 환산은 환율로)
+    value_dataseries: 9         # TOT RETURN INDEX NET DVDS (Bloomberg)
+    fallback_dataseries: null
+    currency: null              # 단일 숫자 blob → currency 무시
     frequency: D
     required: true
     semantic_type: total_return_index
     return_transform: pct_change
+    notes: |
+      SCIP id=398 M2KR Index 본체 (Bloomberg TR Net DVDS). 2000-05 ~ (6640 행).
+      이전 id=144 (iShares MSCI South Korea ETF EWY-US, ds=6) 대체 — ETF 추적오차 제거.
 
   - asset_key: us_growth_equity
-    dataset_id: 11              # Vanguard Growth ETF (proxy 성격이지만 대표)
-    ticker: "M2US000G Index"     # asset_mapping 정합 라벨. 실 dataset 은 dataset_id 로 query.
-    value_dataseries: 6
-    fallback_dataseries: 39
-    currency: USD
+    # 2026-05-27 — id=11 (VUG-US ETF, ds=6) → id=318 (M2US000G Index 본체, ds=9) 교체.
+    dataset_id: 318
+    ticker: "M2US000G Index"
+    value_dataseries: 9
+    fallback_dataseries: null
+    currency: null
     frequency: D
     required: true
     semantic_type: total_return_index
     return_transform: pct_change
-    notes: "MSCI US Growth (M2US000G) 직접 dataset 가 있으면 그쪽으로 교체 권장."
+    notes: |
+      SCIP id=318 M2US000G Index 본체 (Bloomberg TR Net DVDS). 6747 행.
+      이전 id=11 (Vanguard Growth ETF VUG-US, ds=6) 대체.
 
   - asset_key: us_value_equity
-    dataset_id: 12              # Vanguard Value ETF
+    # 2026-05-27 — id=12 (VTV-US ETF, ds=6) → id=319 (M2US000V Index 본체, ds=9) 교체.
+    dataset_id: 319
     ticker: "M2US000V Index"
-    value_dataseries: 6
-    fallback_dataseries: 39
-    currency: USD
+    value_dataseries: 9
+    fallback_dataseries: null
+    currency: null
     frequency: D
     required: true
     semantic_type: total_return_index
     return_transform: pct_change
+    notes: |
+      SCIP id=319 M2US000V Index 본체 (Bloomberg TR Net DVDS). 6739 행.
+      이전 id=12 (Vanguard Value ETF VTV-US, ds=6) 대체.
 
   - asset_key: dm_ex_us_equity
-    dataset_id: 63              # MSCI EAFE
+    # 2026-05-27 사용자 지정 — id=320 M2EA Index (Bloomberg TR, dataseries=9).
+    # 단일 숫자 blob, 1999-12 ~ (4302 행). 이전 id=63 (iShares EAFE ETF) 대체.
+    # ticker = LT-CMA 정본 "TAD09XU Index" (asset_mapping 정합). SCIP symbol = M2EA Index.
+    dataset_id: 320
     ticker: "TAD09XU Index"
-    value_dataseries: 6
-    fallback_dataseries: 39
-    currency: USD
+    value_dataseries: 9         # TOT RETURN INDEX NET DVDS (Bloomberg)
+    fallback_dataseries: null
+    currency: null              # 단일 숫자 blob → currency 무시
     frequency: D
     required: true
     semantic_type: total_return_index
     return_transform: pct_change
-    notes: "TAD09XU(optimization) 또는 M2WOU(regime) dataset 가 별도로 있으면 그쪽 사용."
+    notes: "SCIP id=320 M2EA Index (Bloomberg TR)."
 
   - asset_key: em_equity
-    dataset_id: 37              # Vanguard FTSE EM
+    # 2026-05-27 — id=37 (VWO-US ETF, ds=6) → id=321 (M2EF Index 본체, ds=9) 교체.
+    dataset_id: 321
     ticker: "M2EF Index"
-    value_dataseries: 6
-    fallback_dataseries: 39
-    currency: USD
+    value_dataseries: 9
+    fallback_dataseries: null
+    currency: null
     frequency: D
     required: true
     semantic_type: total_return_index
     return_transform: pct_change
+    notes: |
+      SCIP id=321 M2EF Index 본체 (Bloomberg TR Net DVDS). 1999-12 ~ (6888 행).
+      이전 id=37 (Vanguard Emerging Markets VWO-US, ds=6) 대체.
 
   - asset_key: kr_aggregate_bond
-    # Phase C.2 — SCIP id=59 KIS Pricing Composite Total Return Index (KST0000T Index).
-    # dataseries=9 (TOT RETURN INDEX NET DVDS). 단일 숫자 blob. 2015~ 시계열.
-    dataset_id: 59
-    ticker: "SPBKRCOT Index"     # asset_mapping 정합. 실 dataset 은 KST0000T (id=59).
+    # 2026-05-27 사용자 지정 — id=273 KAP 종합채권 총수익 지수(AA- 이상) (KBPMKTMB Index).
+    # dataseries=9 (TOT RETURN INDEX NET DVDS). 단일 숫자 blob. 2001-01 ~ (6364 행).
+    # 이전 id=59 (KIS Composite TR / SPBKRCOT) 대체.
+    # ticker = LT-CMA 정본 "SPBKRCOT Index" (asset_mapping 정합). SCIP symbol = KBPMKTMB Index.
+    dataset_id: 273
+    ticker: "SPBKRCOT Index"
     value_dataseries: 9
     fallback_dataseries: null
     currency: null              # 단일 숫자 blob → currency 무시
@@ -146,7 +183,7 @@ assets:
     required: true
     semantic_type: total_return_index
     return_transform: pct_change
-    notes: "SCIP id=59 'KIS Pricing Composite Total Return Index'. Phase C.2 확정."
+    notes: "SCIP id=273 KAP 종합채권 총수익 지수(AA- 이상) (KBPMKTMB Index)."
 
   - asset_key: kr_treasury_10y
     # Phase C.2 — SCIP id=421 KRX 10년채권지수 (KTBITR Index).
@@ -164,30 +201,44 @@ assets:
       SCIP id=421 'KRX 10년채권지수' (KTBITR Index) — TR index. Phase C.2 확정.
       이전 KPGB10YR Index 는 yield only 라 사용 불가 → 본 매핑으로 교체.
 
-  - asset_key: us_treasury_30y
-    # Phase C.2 — SCIP id=201 'KIS 미국채 30Y TR 지수' (BRFUT004).
-    # 운영자가 지정. dataseries=33 (KIS Bond Index). KIS 전용 dict blob:
-    #   {"totRtnIndex": "8344.74", "cleanPriceIndex": "...", "mktPriceIndex": "...",
-    #    "addIndex": "0", "avgDur": "15.315", "avgYtm": "4.963", "avgConvex": "...",
-    #    "avgCpnRate": "...", "avgRemainMat": "...", "etfName": "...",
-    #    "mngCorpName": "...", "note": "...", "indexName": "...", "indexCode": "..."}
-    # totRtnIndex 키 = Total Return Index 값.
-    dataset_id: 201
-    ticker: "BRFUT004"
-    value_dataseries: 33
-    fallback_dataseries: null
-    currency: null
-    blob_key: totRtnIndex                  # KIS bond index dict 의 TR 키
+  - asset_key: us_aggregate_bond
+    # 2026-05-27 — id=278 Bloomberg US Aggregate Bond Index (LHMN0001).
+    # LT-CMA (Asset_rt_vol) 의 "미국 채권" = LBUSTRUU Index 와 동일 지수.
+    # ds=9 (TOT RETURN INDEX NET DVDS) 본체 부재 → ds=39 (FG Total Return Index Unhedged) 사용.
+    # ds=39 는 단일 숫자 blob (TR Unhedged), ds=9 와 의미 가장 유사.
+    dataset_id: 278
+    ticker: "LBUSTRUU Index"    # LT-CMA 정본 (asset_mapping 정합). SCIP symbol = LHMN0001.
+    value_dataseries: 39        # FG Total Return Index (Unhedged) — ds=9 부재로 ds=39 사용
+    fallback_dataseries: 6      # ds=6 FG Return (dict USD/KRW) fallback
+    currency: null              # ds=39 는 단일 숫자 blob → currency 무시
     frequency: D
     required: true
     semantic_type: total_return_index
     return_transform: pct_change
     notes: |
-      Phase C.2 = KIS 미국채 30Y TR 지수 (BRFUT004) 직접 매핑.
-      이전 후보:
-        - id=99 (USGG30YR Yield) — yield only, not_allowed.
-        - id=73 (TLT-US ETF NAV) — proxy 후보였으나 BRFUT004 가 더 적합.
-      KIS bond index blob 은 dict 형식이므로 blob_key=totRtnIndex 로 추출.
+      SCIP id=278 Bloomberg US Aggregate Bond Index (LHMN0001).
+      LT-CMA (Asset_rt_vol) ticker = LBUSTRUU Index. SCIP symbol = LHMN0001. 동일 지수.
+      이전 us_treasury_30y (id=201 BRFUT004 KIS US30Y TR, 2019~) / us_treasury_long (id=400 LTXUTRUU Long Treasury TR) 폐기 →
+      US Aggregate (Treasury + MBS + Corp + Credit) 가 LT-CMA 정합.
+      ds=9 본체 부재 → ds=39 FG Total Return Index Unhedged 사용 (의미 동일, 단일 숫자 blob).
+
+  - asset_key: gold
+    # 2026-05-27 사용자 지정 — id=408 Gold Spot Price (XAU Curncy).
+    # dataseries=48 PX_LAST. 단일 숫자 문자열 blob ('4534.51' 같은). USD/oz.
+    # 2000-01 ~ (6882 행). LT-CMA Asset_rt_vol 에는 Alternative bucket 이지만,
+    # 사용자 결정 (2026-05-27): equity bucket 으로 편입.
+    dataset_id: 408
+    ticker: "XAU Curncy"
+    value_dataseries: 48
+    fallback_dataseries: null
+    currency: null              # 단일 숫자 blob → currency 무시
+    frequency: D
+    required: true
+    semantic_type: price_index
+    return_transform: pct_change
+    notes: |
+      SCIP id=408 Gold Spot Price (XAU Curncy). dataseries=48 PX_LAST (가격 수준).
+      LT-CMA Asset_rt_vol 분류 = Alternative. 본 프로젝트는 사용자 결정으로 equity bucket 편입.
 
   - asset_key: us_high_yield
     # Phase C.2 — SCIP id=401 'Bloomberg US HY TR' (LF98TRUU Index).

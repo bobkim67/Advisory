@@ -50,9 +50,10 @@ _TICKER_BY_KEY = {
     "us_value_equity":    "M2US000V Index",
     "dm_ex_us_equity":    "TAD09XU Index",
     "em_equity":          "M2EF Index",
+    "gold":               "XAU Curncy",        # 2026-05-27 신규
     "kr_aggregate_bond":  "SPBKRCOT Index",
     "kr_treasury_10y":    "KPGB10YR Index",
-    "us_treasury_30y":    "BRFUT004",  # Phase C.2 매핑 갱신
+    "us_aggregate_bond":  "LBUSTRUU Index",    # 2026-05-27 매핑 변경
     "us_high_yield":      "LF98TRUU Index",
 }
 
@@ -75,7 +76,7 @@ def _make_db_sources_yaml_dict(mapping: dict[str, int], ust30_mode: str = "direc
             "frequency": "M",
             "required": True,
         }
-        if ak == "us_treasury_30y":
+        if ak == "us_aggregate_bond":
             entry["mapping_mode"] = ust30_mode
             if ust30_mode == "proxy":
                 entry["dataset_id"] = None
@@ -101,9 +102,10 @@ _NINE_KEYS = [
     "us_value_equity",
     "dm_ex_us_equity",
     "em_equity",
+    "gold",
     "kr_aggregate_bond",
     "kr_treasury_10y",
-    "us_treasury_30y",
+    "us_aggregate_bond",
     "us_high_yield",
 ]
 
@@ -121,12 +123,12 @@ def test_db_repository_returns_normalized_asset_rt_vol():
     df = repo.load_asset_rt_vol()
     # file 형식: columns 동일
     assert set(df.columns) >= {"Ticker", "Name", "σ", "E[R]"}
-    assert len(df) == 9
+    assert len(df) == 10
     # σ 와 E[R] 가 % 형식 문자열
     assert df["σ"].iloc[0].endswith("%")
     assert df["E[R]"].iloc[0].endswith("%")
     # diagnostics 채워짐
-    assert len(repo.diag.datasets_loaded) == 9
+    assert len(repo.diag.datasets_loaded) == 10
     assert repo.diag.as_of_date == "2026-03-31"
 
 
@@ -141,7 +143,7 @@ def test_db_repository_returns_normalized_corr_matrix():
     repo = DBMarketDataRepository(fake, sources)
 
     corr = repo.load_corr_matrix()
-    assert corr.shape == (9, 9)
+    assert corr.shape == (10, 10)
     # 대각 = 1
     assert np.allclose(np.diag(corr.to_numpy()), 1.0, atol=1e-9)
     # 대칭
@@ -156,9 +158,9 @@ def test_db_repository_missing_required_dataset_raises():
 
     fake, mapping = _build_fake_db_for_assets(_NINE_KEYS)
     sources = _make_db_sources_yaml_dict(mapping)
-    # us_treasury_30y 를 requires_decision 으로 바꿔서 강제 ValueError 유도
+    # us_aggregate_bond 를 requires_decision 으로 바꿔서 강제 ValueError 유도
     for a in sources["assets"]:
-        if a["asset_key"] == "us_treasury_30y":
+        if a["asset_key"] == "us_aggregate_bond":
             a["mapping_mode"] = "requires_decision"
             a["dataset_id"] = None
 
@@ -272,22 +274,23 @@ def test_build_portfolio_source_db_with_fake_repo_produces_valid_result(
 
     # 형식 정합성
     assert abs(float(portfolio.product_weights["weight"].sum()) - 1.0) < 1e-6
-    assert len(portfolio.asset_weights) == 9
+    assert len(portfolio.asset_weights) == 10
     # Phase D relaxed (D-01 closed): bucket hard bound 비활성. long-only + sum=1만 hard.
     assert (portfolio.asset_weights >= -1e-9).all()
     eq_keys = [a.asset_key for a in augmented_assets if a.bucket.value == "equity"]
     eq_sum = float(portfolio.asset_weights.loc[eq_keys].sum())
     assert 0.0 <= eq_sum <= 1.0  # bucket 자유 범위
 
-    # db_repo diagnostics 가 채워짐 (자산 9 모두 fake DB 에서 load)
-    assert len(db_repo.diag.datasets_loaded) == 9
+    # db_repo diagnostics 가 채워짐 (자산 10 모두 fake DB 에서 load)
+    assert len(db_repo.diag.datasets_loaded) == 10
     assert db_repo.diag.as_of_date == "2026-03-31"
 
 
 # ── 6) ust30 proxy 사용 시 warning/diag 기록 ──────────────────────────
 
 
-def test_us_treasury_30y_proxy_records_warning():
+@pytest.mark.skip(reason="2026-05-27 자산 매핑 변경: us_aggregate_bond 는 explicit_proxy_only 가 아니라 error_if_missing. proxy 시나리오 obsolete.")
+def test_us_aggregate_bond_proxy_records_warning():
     from tdf_engine.repositories.db_market_data import DBMarketDataRepository
 
     fake, mapping = _build_fake_db_for_assets(_NINE_KEYS)
@@ -300,10 +303,10 @@ def test_us_treasury_30y_proxy_records_warning():
     repo = DBMarketDataRepository(fake, sources)
 
     df = repo.load_asset_rt_vol()
-    assert len(df) == 9
+    assert len(df) == 10
     assert repo.diag.proxy_used is True
-    assert "us_treasury_30y" in repo.diag.proxy_mappings
-    pm = repo.diag.proxy_mappings["us_treasury_30y"]
+    assert "us_aggregate_bond" in repo.diag.proxy_mappings
+    pm = repo.diag.proxy_mappings["us_aggregate_bond"]
     assert pm["proxy_dataset_id"] == proxy_id
 
 

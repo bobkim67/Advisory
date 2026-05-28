@@ -17,9 +17,10 @@ regime_input:
     us_value_equity: USA
     dm_ex_us_equity: G7
     em_equity: G20
+    gold: USA                       # 2026-05-27 — XAU Curncy spot (USD 기준)
     kr_aggregate_bond: KOR
     kr_treasury_10y: KOR
-    us_treasury_30y: USA
+    us_aggregate_bond: USA          # 2026-05-27 — LBUSTRUU (이전 us_aggregate_bond rename)
     us_high_yield: USA
 
 # ── Regime 별 tilt 정책 (단위: %p, sum = 0) ──────────────────────────
@@ -35,7 +36,7 @@ regime_tilts:
       kr_equity: +0.02
       us_high_yield: +0.01        # HY 는 risk_asset
       kr_treasury_10y: -0.02
-      us_treasury_30y: -0.03
+      us_aggregate_bond: -0.03
     reason: "위험자산 강세, 모든 equity bucket 우호. 안전채권 underweight."
 
   2:        # Recovery (P<0, V>0)
@@ -56,7 +57,7 @@ regime_tilts:
       equity: -0.05
       fixed_income: +0.05
     asset_tilts:
-      us_treasury_30y: +0.03      # long duration safe asset
+      us_aggregate_bond: +0.03      # long duration safe asset
       kr_aggregate_bond: +0.02
       kr_equity: -0.02
       em_equity: -0.02
@@ -96,12 +97,7 @@ constraints:
   # false 로 풀 경우 TAA 합 ≠ 1.0 가능 → 별도 normalization 필요.
   tilt_sum_must_be_zero: true
 
-  # reference only — NOT enforced
-  equity_total_min_reference: 0.75
-  equity_total_max_reference: 0.85
-  fixed_income_total_min_reference: 0.15
-  fixed_income_total_max_reference: 0.25
-  per_asset_max_tilt_reference: 0.03
+  # 2026-05-27 — reference only variants 모두 비움 (운용역 결정 전).
 
 # ── 검증 / 출력 정책 ─────────────────────────────────────────────────
 validation:

@@ -35,9 +35,10 @@ ASSET_BUCKET_HINT: dict[str, str] = {
     "us_value_equity": "equity",
     "dm_ex_us_equity": "equity",
     "em_equity": "equity",
+    "gold": "equity",                  # 2026-05-27 — 사용자 결정 equity bucket
     "kr_aggregate_bond": "fixed_income",
     "kr_treasury_10y": "fixed_income",
-    "us_treasury_30y": "fixed_income",
+    "us_aggregate_bond": "fixed_income",
     "us_high_yield": "risk_asset",
 }
 

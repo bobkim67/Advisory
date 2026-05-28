@@ -178,7 +178,7 @@ def test_db_dry_run_reports_missing_dataset(loader):
                                    permissive=True)
     with pytest.raises(ValueError, match=r"유효한 자산 데이터 없음"):
         repo.load_asset_rt_vol()
-    # 9 자산 모두 missing 으로 잡혀야 함
+    # 10 자산 모두 missing 으로 잡혀야 함
     missing = set(repo.diag.datasets_missing)
     assert {"kr_equity", "us_growth_equity", "us_high_yield",
             "kr_aggregate_bond", "kr_treasury_10y"}.issubset(missing)

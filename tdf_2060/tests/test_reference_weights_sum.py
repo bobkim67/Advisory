@@ -20,7 +20,7 @@ def test_equity_reference_sum_is_080(loader: ConfigLoader):
 def test_fixed_income_reference_sum_is_020(loader: ConfigLoader):
     cfg = loader.load_tdf_config()
     rw = cfg["reference_weights"]
-    fi_keys = ("kr_aggregate_bond", "kr_treasury_10y", "us_treasury_30y", "us_high_yield")
+    fi_keys = ("kr_aggregate_bond", "kr_treasury_10y", "us_aggregate_bond", "us_high_yield")
     s = sum(rw[k] for k in fi_keys)
     assert abs(s - 0.20) < 1e-9
 

@@ -91,10 +91,14 @@ def test_tilt_rules_match_policy_non_zero() -> None:
     policy = _load_taa_policy()
     portfolio = json.loads(ETF_E62_JSON.read_text(encoding="utf-8"))
     regime_id = int(portfolio["diagnostics"]["regime"]["regime"])
+    # ETF_E62_JSON 은 frozen out/ artifact (2026-05-11 시점, 옛 us_treasury_30y 자산).
+    # 2026-05-27 자산 매핑 변경 (us_aggregate_bond / gold) 후 baseline regen 시 portfolio JSON
+    # 도 새 자산명으로 갱신될 예정. 현재는 frozen portfolio 가 hold 한 자산 set 으로 한정.
+    portfolio_asset_keys = set((portfolio.get("asset_weights") or {}).keys())
     expected_non_zero = {
         ak for ak, w in
         ((policy.get("regime_tilts") or {}).get(regime_id) or {}).get("asset_tilts", {}).items()
-        if abs(float(w)) > 1e-9
+        if abs(float(w)) > 1e-9 and ak in portfolio_asset_keys
     }
     payload = build_taa_tilt(portfolio, taa_policy=policy)
     rules_non_zero = {

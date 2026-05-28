@@ -423,8 +423,8 @@ def _build_excluded_summary(universe_diag: dict, sel_diag: dict) -> dict:
 
 # ── Decision Register linker (Section F — best-effort) ────────────────
 #
-# 우선순위 기반 매핑. 더 구체적인 패턴(BRFUT004/projection/cap 등) 부터 검사하고,
-# 마지막에 자산명 fallback. ust30 의 경우 BRFUT004/file mode/proxy 키워드만 D-04
+# 우선순위 기반 매핑. 더 구체적인 패턴(file mode/projection/cap 등) 부터 검사하고,
+# 마지막에 자산명 fallback. 미국채권 의 경우 LBUSTRUU/file mode/proxy 키워드만 D-04
 # 로 가고, zero/0%/near bound/negative/lookback 등은 정책 결정 필요 항목(D-10/02/03)
 # 으로 분리한다.
 #
@@ -440,10 +440,10 @@ def _link_decision(message: str) -> str | None:
         return None
     msg = message.lower()
 
-    # 1) BRFUT004 mapping / fallback / file mode / hard error / proxy → D-04 (closed)
+    # 1) US bond mapping / fallback / file mode / hard error / proxy → D-04 (closed)
     if _has_any(
         msg,
-        "brfut004", "file mode", "explicit_proxy_only",
+        "lbustruu", "lhmn0001", "file mode", "explicit_proxy_only",
         "no_silent_fallback", "hard_error_if_missing", "proxy_used",
         "tlt", "edv", "usgg10yr", "usgg30yr",
     ):
@@ -484,8 +484,8 @@ def _link_decision(message: str) -> str | None:
     ):
         return "D-10"
 
-    # 7) ust30 / kr_t10 자산명 fallback → D-10 (default)
-    if _has_any(msg, "us_treasury_30y", "kr_treasury_10y"):
+    # 7) us_aggregate_bond / kr_t10 자산명 fallback → D-10 (default)
+    if _has_any(msg, "us_aggregate_bond", "kr_treasury_10y"):
         return "D-10"
 
     # 8) quant_grade / score / candidates / cash placeholder → D-13
@@ -573,7 +573,7 @@ def _build_review_checklist() -> list[dict]:
     """운용역 표준 체크리스트 (Section G)."""
     return [
         {"key": "asset_allocation_range", "label": "자산배분 범위 적정 (주식 75~85%, 채권 15~25%)", "checked": False},
-        {"key": "ust30_brfut004", "label": "미국 국고채30년 BRFUT004 처리 확인 (D-04 closed)", "checked": False},
+        {"key": "us_agg_lbustruu", "label": "미국 종합채권 LBUSTRUU/LHMN0001 처리 확인 (D-04 closed)", "checked": False},
         {"key": "hy_in_fi_bucket", "label": "HY 채권 버킷 편입 적정 (risk_asset + credit, D-07 closed)", "checked": False},
         {"key": "asset_concentration", "label": "특정 자산군 쏠림 적정 (us_value cap 30% — D-12)", "checked": False},
         {"key": "manager_concentration", "label": "특정 상품/운용사 쏠림 적정 (D-14)", "checked": False},
@@ -600,7 +600,7 @@ def _build_operating_mode_banner(tdf_config: dict | None) -> dict:
                 "glide path 80/20 은 **reference / starting SAA** 로만 보존되며 hard constraint 가 아닙니다.",
                 "equity 100% / fixed_income 0% 등 극단 비중은 **fail 이 아닌 monitoring flag** 로만 노출됩니다.",
                 "향후 운용안 확정 시 **자산군별 band 또는 bucket range 를 재도입** 할 수 있습니다 (Decision Register D-11/D-12 deferred).",
-                "현 단계 hard constraint = `long-only` + `sum-to-100%` + 데이터 무결성 (BRFUT004 mapping / DB / NaN / convergence).",
+                "현 단계 hard constraint = `long-only` + `sum-to-100%` + 데이터 무결성 (LBUSTRUU mapping / DB / NaN / convergence).",
             ],
         }
     return {"mode": mode, "banner": None, "disclaimer": []}

@@ -1,0 +1,515 @@
+{
+  "portfolio_etf_20260508.json": {
+    "sha256": "42ab2ec5b2af17b9d1a102972ee8fb504396ed36c482815bb790e3ba7e876726",
+    "core": {
+      "asset_weights": {
+        "kr_equity": 0.009999999183413651,
+        "us_growth_equity": 0.7060444397939856,
+        "us_value_equity": 0.2739555618391872,
+        "dm_ex_us_equity": 4.792248135595191e-18,
+        "em_equity": 0.009999999183413677,
+        "kr_aggregate_bond": 0.0,
+        "kr_treasury_10y": 0.0,
+        "us_treasury_30y": 0.0,
+        "us_high_yield": 4.325260807427785e-17
+      },
+      "asset_weight_sum": 1.0,
+      "product_weight_sum": 1.0,
+      "product_weights": [
+        {
+          "asset_key": "kr_equity",
+          "product_id": "434730",
+          "fund_code": "K55232DU8475",
+          "name": "NH-AmundiHANARO\uc6d0\uc790\ub825iSelect\uc0c1\uc7a5\uc9c0\uc218(\uc8fc\uc2dd)",
+          "manager": "NH-Amundi\uc6b4\uc6a9",
+          "kis_asset_class": "\uad6d\ub0b4\uc8fc\uc2dd",
+          "sub_type": "\uae30\ud0c0\uc778\ub371\uc2a4",
+          "weight": 0.01764040296436597,
+          "role": "core"
+        },
+        {
+          "asset_key": "kr_equity",
+          "product_id": "449450",
+          "fund_code": "K55213DZ4142",
+          "name": "\ud55c\ud654PLUSK\ubc29\uc0b0\uc0c1\uc7a5\uc9c0\uc218(\uc8fc\uc2dd)",
+          "manager": "\ud55c\ud654\uc6b4\uc6a9",
+          "kis_asset_class": "\uad6d\ub0b4\uc8fc\uc2dd",
+          "sub_type": "\uae30\ud0c0\uc778\ub371\uc2a4",
+          "weight": 0.010640403535976412,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "kr_equity",
+          "product_id": "433500",
+          "fund_code": "K55101DU0363",
+          "name": "\ud55c\uad6d\ud22c\uc790ACE\uc6d0\uc790\ub825TOP10\uc0c1\uc7a5\uc9c0\uc218(\uc8fc\uc2dd)",
+          "manager": "\ud55c\uad6d\ud22c\uc790\uc2e0\ud0c1\uc6b4\uc6a9",
+          "kis_asset_class": "\uad6d\ub0b4\uc8fc\uc2dd",
+          "sub_type": "\uae30\ud0c0\uc778\ub371\uc2a4",
+          "weight": 0.010640403535976412,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "us_growth_equity",
+          "product_id": "426030",
+          "fund_code": "K553J1DT1912",
+          "name": "\ud0c0\uc784\ud3f4\ub9ac\uc624TIME\ubbf8\uad6d\ub098\uc2a4\ub2e5100\uc561\ud2f0\ube0c\uc0c1\uc7a5\uc9c0\uc218(\uc8fc\uc2dd)",
+          "manager": "\ud0c0\uc784\ud3f4\ub9ac\uc624\uc790\uc0b0\uc6b4\uc6a9",
+          "kis_asset_class": "\uae00\ub85c\ubc8c\uc8fc\uc2dd",
+          "sub_type": "\ubd81\ubbf8\uc8fc\uc2dd",
+          "weight": 0.2,
+          "role": "core"
+        },
+        {
+          "asset_key": "us_growth_equity",
+          "product_id": "411420",
+          "fund_code": "K55105DO3916",
+          "name": "\uc0bc\uc131KODEX\ubbf8\uad6d\ub098\uc2a4\ub2e5AI\ud14c\ud06c\uc561\ud2f0\ube0c\uc0c1\uc7a5\uc9c0\uc218[\uc8fc\uc2dd]",
+          "manager": "\uc0bc\uc131\uc6b4\uc6a9",
+          "kis_asset_class": "\uae00\ub85c\ubc8c\uc8fc\uc2dd",
+          "sub_type": "\ubd81\ubbf8\uc8fc\uc2dd",
+          "weight": 0.2,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "us_growth_equity",
+          "product_id": "381180",
+          "fund_code": "K55301DF8777",
+          "name": "\ubbf8\ub798\uc5d0\uc14bTIGER\ubbf8\uad6d\ud544\ub77c\ub378\ud53c\uc544\ubc18\ub3c4\uccb4\ub098\uc2a4\ub2e5\uc0c1\uc7a5\uc9c0\uc218(\uc8fc\uc2dd)",
+          "manager": "\ubbf8\ub798\uc5d0\uc14b\uc6b4\uc6a9",
+          "kis_asset_class": "\uae00\ub85c\ubc8c\uc8fc\uc2dd",
+          "sub_type": "\uc815\ubcf4\uae30\uc220\uc139\ud130",
+          "weight": 0.2,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "us_value_equity",
+          "product_id": "402970",
+          "fund_code": "K55101DN4471",
+          "name": "\ud55c\uad6d\ud22c\uc790ACE\ubbf8\uad6d\ubc30\ub2f9\ub2e4\uc6b0\uc874\uc2a4\uc0c1\uc7a5\uc9c0\uc218(\uc8fc\uc2dd)",
+          "manager": "\ud55c\uad6d\ud22c\uc790\uc2e0\ud0c1\uc6b4\uc6a9",
+          "kis_asset_class": "\uae00\ub85c\ubc8c\uc8fc\uc2dd",
+          "sub_type": "\ubd81\ubbf8\uc8fc\uc2dd",
+          "weight": 0.2,
+          "role": "core"
+        },
+        {
+          "asset_key": "us_value_equity",
+          "product_id": "446720",
+          "fund_code": "K55210DY2868",
+          "name": "\uc2e0\ud55cSOL\ubbf8\uad6d\ubc30\ub2f9\ub2e4\uc6b0\uc874\uc2a4\uc0c1\uc7a5\uc9c0\uc218[\uc8fc\uc2dd]",
+          "manager": "\uc2e0\ud55c\uc790\uc0b0\uc6b4\uc6a9",
+          "kis_asset_class": "\uae00\ub85c\ubc8c\uc8fc\uc2dd",
+          "sub_type": "\ubd81\ubbf8\uc8fc\uc2dd",
+          "weight": 0.046618184537228616,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "us_value_equity",
+          "product_id": "429000",
+          "fund_code": "K55301DS7063",
+          "name": "\ubbf8\ub798\uc5d0\uc14bTIGER\ubbf8\uad6dS&P500\ubc30\ub2f9\uadc0\uc871\uc0c1\uc7a5\uc9c0\uc218(\uc8fc\uc2dd)",
+          "manager": "\ubbf8\ub798\uc5d0\uc14b\uc6b4\uc6a9",
+          "kis_asset_class": "\uae00\ub85c\ubc8c\uc8fc\uc2dd",
+          "sub_type": "\ubd81\ubbf8\uc8fc\uc2dd",
+          "weight": 0.046618184537228616,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "dm_ex_us_equity",
+          "product_id": "238720",
+          "fund_code": "K55101BA8230",
+          "name": "\ud55c\uad6d\ud22c\uc790ACE\uc77c\ubcf8Nikkei225\uc0c1\uc7a5\uc9c0\uc218(\uc8fc\uc2dd-\ud30c\uc0dd)(H)",
+          "manager": "\ud55c\uad6d\ud22c\uc790\uc2e0\ud0c1\uc6b4\uc6a9",
+          "kis_asset_class": "\uae00\ub85c\ubc8c\uc8fc\uc2dd",
+          "sub_type": "\uc77c\ubcf8\uc8fc\uc2dd",
+          "weight": 0.009640403617635051,
+          "role": "core"
+        },
+        {
+          "asset_key": "dm_ex_us_equity",
+          "product_id": "101280",
+          "fund_code": "KR5105797835",
+          "name": "\uc0bc\uc131KODEX\uc77c\ubcf8TOPIX100\uc0c1\uc7a5\uc9c0\uc218[\uc8fc\uc2dd]",
+          "manager": "\uc0bc\uc131\uc6b4\uc6a9",
+          "kis_asset_class": "\uae00\ub85c\ubc8c\uc8fc\uc2dd",
+          "sub_type": "\uc77c\ubcf8\uc8fc\uc2dd",
+          "weight": 0.009640403617635048,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "dm_ex_us_equity",
+          "product_id": "251350",
+          "fund_code": "K55105BF7266",
+          "name": "\uc0bc\uc131KODEXMSCI\uc120\uc9c4\uad6d\uc0c1\uc7a5\uc9c0\uc218[\uc8fc\uc2dd]",
+          "manager": "\uc0bc\uc131\uc6b4\uc6a9",
+          "kis_asset_class": "\uae00\ub85c\ubc8c\uc8fc\uc2dd",
+          "sub_type": "\uae00\ub85c\ubc8c\uc8fc\uc2dd",
+          "weight": 0.009640403617635048,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "em_equity",
+          "product_id": "446690",
+          "fund_code": "K55105DX9912",
+          "name": "\uc0bc\uc131KODEX\uc544\uc2dc\uc544AI\ubc18\ub3c4\uccb4exChina\uc561\ud2f0\ube0c\uc0c1\uc7a5\uc9c0\uc218[\uc8fc\uc2dd]",
+          "manager": "\uc0bc\uc131\uc6b4\uc6a9",
+          "kis_asset_class": "\uc2e0\ud765\uad6d\uc8fc\uc2dd",
+          "sub_type": "\uc544\uc2dc\uc544\ud0dc\ud3c9\uc591\uc8fc\uc2dd",
+          "weight": 0.01764040296436599,
+          "role": "core"
+        },
+        {
+          "asset_key": "em_equity",
+          "product_id": "105010",
+          "fund_code": "KR5225844749",
+          "name": "\ubbf8\ub798\uc5d0\uc14bTIGER\ub77c\ud2f4\uc0c1\uc7a5\uc9c0\uc218(\uc8fc\uc2dd)",
+          "manager": "\ubbf8\ub798\uc5d0\uc14b\uc6b4\uc6a9",
+          "kis_asset_class": "\uc2e0\ud765\uad6d\uc8fc\uc2dd",
+          "sub_type": "\ub0a8\ubbf8\uc2e0\ud765\uad6d\uc8fc\uc2dd",
+          "weight": 0.010640403535976416,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "em_equity",
+          "product_id": "277540",
+          "fund_code": "K55101BU2759",
+          "name": "\ud55c\uad6d\ud22c\uc790ACE\uc544\uc2dc\uc544TOP50\uc0c1\uc7a5\uc9c0\uc218(\uc8fc\uc2dd)",
+          "manager": "\ud55c\uad6d\ud22c\uc790\uc2e0\ud0c1\uc6b4\uc6a9",
+          "kis_asset_class": "\uc2e0\ud765\uad6d\uc8fc\uc2dd",
+          "sub_type": "\uc544\uc2dc\uc544\ud0dc\ud3c9\uc591\uc8fc\uc2dd(ex J)",
+          "weight": 0.010640403535976416,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "us_high_yield",
+          "product_id": "468380",
+          "fund_code": "K55105E57081",
+          "name": "\uc0bc\uc131KODEXiShares\ubbf8\uad6d\ud558\uc774\uc77c\ub4dc\uc561\ud2f0\ube0c\uc0c1\uc7a5\uc9c0\uc218[\ucc44\uad8c-\uc7ac\uac04\uc811]",
+          "manager": "\uc0bc\uc131\uc6b4\uc6a9",
+          "kis_asset_class": "\ud574\uc678\ucc44\uad8c",
+          "sub_type": "\uae00\ub85c\ubc8c\ud558\uc774\uc77c\ub4dc\ucc44\uad8c",
+          "weight": 3.4602086459422286e-17,
+          "role": "core"
+        },
+        {
+          "asset_key": "us_high_yield",
+          "product_id": "455660",
+          "fund_code": "K55101E13018",
+          "name": "\ud55c\uad6d\ud22c\uc790ACE\ubbf8\uad6d\ud558\uc774\uc77c\ub4dc\uc561\ud2f0\ube0c\uc0c1\uc7a5\uc9c0\uc218[\ucc44\uad8c-\uc7ac\uac04\uc811](H)",
+          "manager": "\ud55c\uad6d\ud22c\uc790\uc2e0\ud0c1\uc6b4\uc6a9",
+          "kis_asset_class": "\ud574\uc678\ucc44\uad8c",
+          "sub_type": "\uae00\ub85c\ubc8c\ud558\uc774\uc77c\ub4dc\ucc44\uad8c",
+          "weight": 8.650521614855565e-18,
+          "role": "satellite"
+        }
+      ],
+      "final_weights_after_projection": {
+        "kr_equity": 0.009999999183413651,
+        "us_growth_equity": 0.7060444397939856,
+        "us_value_equity": 0.2739555618391872,
+        "dm_ex_us_equity": 4.792248135595191e-18,
+        "em_equity": 0.009999999183413677,
+        "kr_aggregate_bond": 0.0,
+        "kr_treasury_10y": 0.0,
+        "us_treasury_30y": 0.0,
+        "us_high_yield": 4.325260807427785e-17
+      },
+      "target_weights_before_projection": {
+        "kr_equity": 0.02,
+        "us_growth_equity": 0.7160444298881974,
+        "us_value_equity": 0.2839555701118023,
+        "dm_ex_us_equity": 1.1408666168698144e-16,
+        "em_equity": 0.02000000000000011,
+        "kr_aggregate_bond": 1.0651187230907341e-16,
+        "kr_treasury_10y": -0.019999999999999962,
+        "us_treasury_30y": -0.03,
+        "us_high_yield": 0.01
+      },
+      "max_abs_projection_drift": 0.03,
+      "bucket_weights_after_projection": {
+        "equity": 1.0,
+        "fixed_income": 4.325260807427785e-17
+      },
+      "drift_clipping_summary": {
+        "n_assets_with_outflow": 1,
+        "outflow_assets": [
+          "us_growth_equity"
+        ],
+        "outflow_by_asset": {
+          "us_growth_equity": 0.10604443979398548
+        },
+        "total_outflow_magnitude": 0.10604443979398548,
+        "n_assets_with_inflow": 4,
+        "inflow_assets": [
+          "dm_ex_us_equity",
+          "em_equity",
+          "kr_equity",
+          "us_value_equity"
+        ],
+        "inflow_by_asset": {
+          "dm_ex_us_equity": 0.02892121085290514,
+          "em_equity": 0.028921210852905145,
+          "kr_equity": 0.02892121085290514,
+          "us_value_equity": 0.019280807235270092
+        },
+        "total_inflow_magnitude": 0.10604443979398552,
+        "drift_source_primary": "fallback_redistribution_inflow",
+        "drift_source_counts": {
+          "fallback_redistribution_inflow": 4,
+          "product_cap_clipping_outflow": 1
+        }
+      },
+      "max_abs_asset_weight_drift": 0.10604443979398548
+    },
+    "ordering": "deterministic_sorted_post_e62_patch"
+  },
+  "portfolio_fund_20260508.json": {
+    "sha256": "f4e1b44cb78bd47686a0b4e24b388bb698e87f3f99dbbfc203cd9caa1ad3d0ee",
+    "core": {
+      "asset_weights": {
+        "kr_equity": 0.009999999183413651,
+        "us_growth_equity": 0.7060444397939856,
+        "us_value_equity": 0.2739555618391872,
+        "dm_ex_us_equity": 4.792248135595191e-18,
+        "em_equity": 0.009999999183413677,
+        "kr_aggregate_bond": 0.0,
+        "kr_treasury_10y": 0.0,
+        "us_treasury_30y": 0.0,
+        "us_high_yield": 4.325260807427785e-17
+      },
+      "asset_weight_sum": 1.0,
+      "product_weight_sum": 1.0,
+      "product_weights": [
+        {
+          "asset_key": "kr_equity",
+          "product_id": "43306",
+          "fund_code": "K55236CG1954",
+          "name": "\ud55c\uad6d\ubc38\ub95810\ub144\ud22c\uc790\ud30c\uc774\uc624\ub2c8\uc544(\uc8fc\uc2dd)(C-Re)",
+          "manager": "\ud55c\uad6d\ud22c\uc790\ubc38\ub958\uc6b4\uc6a9",
+          "kis_asset_class": "\uad6d\ub0b4\uc8fc\uc2dd",
+          "sub_type": "\uc77c\ubc18\uc8fc\uc2dd",
+          "weight": 0.00799999934673092,
+          "role": "core"
+        },
+        {
+          "asset_key": "kr_equity",
+          "product_id": "43040",
+          "fund_code": "K55232C99576",
+          "name": "NH-Amundi\ud544\uc2b9\ucf54\ub9ac\uc544[\uc8fc\uc2dd]ClassC-P2(\ud1f4\uc9c1\uc5f0\uae08)",
+          "manager": "NH-Amundi\uc6b4\uc6a9",
+          "kis_asset_class": "\uad6d\ub0b4\uc8fc\uc2dd",
+          "sub_type": "\uc77c\ubc18\uc8fc\uc2dd",
+          "weight": 0.0009999999183413653,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "kr_equity",
+          "product_id": "41944",
+          "fund_code": "KR5207A10369",
+          "name": "\uad50\ubcf4\uc545\uc0ac\ud30c\uc6cc\uc778\ub371\uc2a4\uc790 1[\uc8fc\uc2dd]ClassCP",
+          "manager": "\uad50\ubcf4\uc545\uc0ac\uc6b4\uc6a9",
+          "kis_asset_class": "\uad6d\ub0b4\uc8fc\uc2dd",
+          "sub_type": "K200\uc778\ub371\uc2a4",
+          "weight": 0.0009999999183413653,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "us_growth_equity",
+          "product_id": "76305",
+          "fund_code": "K55223D45352",
+          "name": "KB\ubbf8\uad6d\ub300\ud45c\uc131\uc7a5\uc8fc\uc790(\uc8fc\uc2dd)(UH)C-\ud1f4\uc9c1",
+          "manager": "KB\uc6b4\uc6a9",
+          "kis_asset_class": "\uae00\ub85c\ubc8c\uc8fc\uc2dd",
+          "sub_type": "\ubd81\ubbf8\uc8fc\uc2dd",
+          "weight": 0.3,
+          "role": "core"
+        },
+        {
+          "asset_key": "us_growth_equity",
+          "product_id": "74176",
+          "fund_code": "K55105CS5827",
+          "name": "\uc0bc\uc131\ubbf8\uad6d\uadf8\ub85c\uc2a4\uc790UH[\uc8fc\uc2dd-\uc7ac\uac04\uc811]_Cp(\ud1f4\uc9c1\uc5f0\uae08)",
+          "manager": "\uc0bc\uc131\uc6b4\uc6a9",
+          "kis_asset_class": "\uae00\ub85c\ubc8c\uc8fc\uc2dd",
+          "sub_type": "\ubd81\ubbf8\uc8fc\uc2dd",
+          "weight": 0.2030222198969928,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "us_growth_equity",
+          "product_id": "73125",
+          "fund_code": "K55370D73619",
+          "name": "AB\ubbf8\uad6d\uadf8\ub85c\uc2a4UH(\uc8fc\uc2dd-\uc7ac\uac04\uc811)\uc885\ub958C-P2",
+          "manager": "AB\uc790\uc0b0\uc6b4\uc6a9",
+          "kis_asset_class": "\uae00\ub85c\ubc8c\uc8fc\uc2dd",
+          "sub_type": "\ubd81\ubbf8\uc8fc\uc2dd",
+          "weight": 0.2030222198969928,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "us_value_equity",
+          "product_id": "70467",
+          "fund_code": "K55101D20882",
+          "name": "\ud55c\uad6d\ud22c\uc790\ubbf8\uad6d\ubc30\ub2f9\uadc0\uc871\uc790UH(\uc8fc\uc2dd)(C-R)",
+          "manager": "\ud55c\uad6d\ud22c\uc790\uc2e0\ud0c1\uc6b4\uc6a9",
+          "kis_asset_class": "\uae00\ub85c\ubc8c\uc8fc\uc2dd",
+          "sub_type": "\ubd81\ubbf8\uc8fc\uc2dd",
+          "weight": 0.21916444947134975,
+          "role": "core"
+        },
+        {
+          "asset_key": "us_value_equity",
+          "product_id": "70455",
+          "fund_code": "K55101D20684",
+          "name": "\ud55c\uad6d\ud22c\uc790\ubbf8\uad6d\ubc30\ub2f9\uadc0\uc871\uc790H(\uc8fc\uc2dd)(C-R)",
+          "manager": "\ud55c\uad6d\ud22c\uc790\uc2e0\ud0c1\uc6b4\uc6a9",
+          "kis_asset_class": "\uae00\ub85c\ubc8c\uc8fc\uc2dd",
+          "sub_type": "\ubd81\ubbf8\uc8fc\uc2dd",
+          "weight": 0.05479111236783743,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "dm_ex_us_equity",
+          "product_id": "42669",
+          "fund_code": "K55237B46693",
+          "name": "\ud55c\ud654\ucc9c\uc5f0\uc790\uc6d0\uc790(\uc8fc\uc2dd)P\ud074\ub798\uc2a4",
+          "manager": "\ud55c\ud654\uc6b4\uc6a9",
+          "kis_asset_class": "\uae00\ub85c\ubc8c\uc8fc\uc2dd",
+          "sub_type": "\uae30\ucd08\uc18c\uc7ac\uc139\ud130",
+          "weight": 3.833798508476153e-18,
+          "role": "core"
+        },
+        {
+          "asset_key": "dm_ex_us_equity",
+          "product_id": "71463",
+          "fund_code": "KR5235924028",
+          "name": "\ud53c\ub378\ub9ac\ud2f0\uc7ac\ud32c\uc790(\uc8fc\uc2dd-\uc7ac\uac04\uc811)CP",
+          "manager": "\ud53c\ub378\ub9ac\ud2f0\uc6b4\uc6a9",
+          "kis_asset_class": "\uae00\ub85c\ubc8c\uc8fc\uc2dd",
+          "sub_type": "\uc77c\ubcf8\uc8fc\uc2dd",
+          "weight": 4.792248135595192e-19,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "dm_ex_us_equity",
+          "product_id": "70744",
+          "fund_code": "K55105B48953",
+          "name": "\uc0bc\uc131\uc77c\ubcf8\ub9ac\ub354\uc2a4\uc804\ud658\uc790 1[\uc8fc\uc2dd](Cp(\ud1f4\uc9c1\uc5f0\uae08))",
+          "manager": "\uc0bc\uc131\uc6b4\uc6a9",
+          "kis_asset_class": "\uae00\ub85c\ubc8c\uc8fc\uc2dd",
+          "sub_type": "\uc77c\ubcf8\uc8fc\uc2dd",
+          "weight": 4.792248135595192e-19,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "em_equity",
+          "product_id": "2074",
+          "fund_code": "K55232B48005",
+          "name": "NH-Amundi\uc131\uc7a5\uc911\uc18c\ud615\uc8fc[\uc8fc\uc2dd]ClassC-P2(\ud1f4\uc9c1\uc5f0\uae08)",
+          "manager": "NH-Amundi\uc6b4\uc6a9",
+          "kis_asset_class": "\uc2e0\ud765\uad6d\uc8fc\uc2dd",
+          "sub_type": "\uc911\uc18c\ud615\uc8fc\uc2dd",
+          "weight": 0.007999999346730942,
+          "role": "core"
+        },
+        {
+          "asset_key": "em_equity",
+          "product_id": "71972",
+          "fund_code": "K55303CR9028",
+          "name": "\ub9c8\uc774\ub2e4\uc2a4\uc544\uc2dc\uc544\ub9ac\ub354\uc2a4\uc131\uc7a5\uc8fc\uc790(H)(\uc8fc\uc2dd)C-P2",
+          "manager": "\ub9c8\uc774\ub2e4\uc2a4\uc6b4\uc6a9",
+          "kis_asset_class": "\uc2e0\ud765\uad6d\uc8fc\uc2dd",
+          "sub_type": "\uc544\uc2dc\uc544\ud0dc\ud3c9\uc591\uc8fc\uc2dd",
+          "weight": 0.000999999918341368,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "em_equity",
+          "product_id": "71976",
+          "fund_code": "K55303D98252",
+          "name": "\ub9c8\uc774\ub2e4\uc2a4\uc544\uc2dc\uc544\ub9ac\ub354\uc2a4\uc131\uc7a5\uc8fc\uc790(UH)(\uc8fc\uc2dd)C-P2",
+          "manager": "\ub9c8\uc774\ub2e4\uc2a4\uc6b4\uc6a9",
+          "kis_asset_class": "\uc2e0\ud765\uad6d\uc8fc\uc2dd",
+          "sub_type": "\uc544\uc2dc\uc544\ud0dc\ud3c9\uc591\uc8fc\uc2dd",
+          "weight": 0.000999999918341368,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "us_high_yield",
+          "product_id": "71800",
+          "fund_code": "K55302CE8406",
+          "name": "\ubca0\uc5b4\ub9c1\uae00\ub85c\ubc8c\ud558\uc774\uc77c\ub4dc\uc790[UH](\ucc44\uad8c-\uc7ac\uac04\uc811)ClassC-P2e",
+          "manager": "\ubca0\uc5b4\ub9c1\uc6b4\uc6a9",
+          "kis_asset_class": "\ud574\uc678\ucc44\uad8c",
+          "sub_type": "\uae00\ub85c\ubc8c\ud558\uc774\uc77c\ub4dc\ucc44\uad8c",
+          "weight": 3.4602086459422286e-17,
+          "role": "core"
+        },
+        {
+          "asset_key": "us_high_yield",
+          "product_id": "71791",
+          "fund_code": "K55302CE8240",
+          "name": "\ubca0\uc5b4\ub9c1\uae00\ub85c\ubc8c\ud558\uc774\uc77c\ub4dc\uc790[H](\ucc44\uad8c-\uc7ac\uac04\uc811)ClassC-P2",
+          "manager": "\ubca0\uc5b4\ub9c1\uc6b4\uc6a9",
+          "kis_asset_class": "\ud574\uc678\ucc44\uad8c",
+          "sub_type": "\uae00\ub85c\ubc8c\ud558\uc774\uc77c\ub4dc\ucc44\uad8c",
+          "weight": 4.325260807427783e-18,
+          "role": "satellite"
+        },
+        {
+          "asset_key": "us_high_yield",
+          "product_id": "74369",
+          "fund_code": "K55207EL7882",
+          "name": "\uad50\ubcf4\uc545\uc0ac\ubbf8\uad6d\ucf54\uc5b4\ud558\uc774\uc77c\ub4dc\uc790(UH)[\ucc44\uad8c-\uc7ac\uac04\uc811]_ClassC-Re(\ud1f4\uc9c1\uc5f0\uae08)",
+          "manager": "\uad50\ubcf4\uc545\uc0ac\uc6b4\uc6a9",
+          "kis_asset_class": "\ud574\uc678\ucc44\uad8c",
+          "sub_type": "\uae00\ub85c\ubc8c\ud558\uc774\uc77c\ub4dc\ucc44\uad8c",
+          "weight": 4.325260807427783e-18,
+          "role": "satellite"
+        }
+      ],
+      "final_weights_after_projection": {
+        "kr_equity": 0.009999999183413651,
+        "us_growth_equity": 0.7060444397939856,
+        "us_value_equity": 0.2739555618391872,
+        "dm_ex_us_equity": 4.792248135595191e-18,
+        "em_equity": 0.009999999183413677,
+        "kr_aggregate_bond": 0.0,
+        "kr_treasury_10y": 0.0,
+        "us_treasury_30y": 0.0,
+        "us_high_yield": 4.325260807427785e-17
+      },
+      "target_weights_before_projection": {
+        "kr_equity": 0.02,
+        "us_growth_equity": 0.7160444298881974,
+        "us_value_equity": 0.2839555701118023,
+        "dm_ex_us_equity": 1.1408666168698144e-16,
+        "em_equity": 0.02000000000000011,
+        "kr_aggregate_bond": 1.0651187230907341e-16,
+        "kr_treasury_10y": -0.019999999999999962,
+        "us_treasury_30y": -0.03,
+        "us_high_yield": 0.01
+      },
+      "max_abs_projection_drift": 0.03,
+      "bucket_weights_after_projection": {
+        "equity": 1.0,
+        "fixed_income": 4.325260807427785e-17
+      },
+      "drift_clipping_summary": {
+        "n_assets_with_outflow": 0,
+        "outflow_assets": [],
+        "outflow_by_asset": {},
+        "total_outflow_magnitude": 0,
+        "n_assets_with_inflow": 0,
+        "inflow_assets": [],
+        "inflow_by_asset": {},
+        "total_inflow_magnitude": 0,
+        "drift_source_primary": "none",
+        "drift_source_counts": {}
+      },
+      "max_abs_asset_weight_drift": 0.0
+    },
+    "ordering": "deterministic_sorted_post_e62_patch"
+  }
+}

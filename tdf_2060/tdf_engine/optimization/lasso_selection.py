@@ -34,9 +34,10 @@ ASSETS: tuple[str, ...] = (
     "us_value_equity",
     "dm_ex_us_equity",
     "em_equity",
+    "gold",
     "kr_aggregate_bond",
     "kr_treasury_10y",
-    "us_treasury_30y",
+    "us_aggregate_bond",
     "us_high_yield",
 )
 

@@ -175,7 +175,8 @@ def test_zero_eligible_asset_marked_as_none() -> None:
 
     payload = build_visualization_data(ETF_TELEMETRY)
     cov = payload["asset_coverage"]["by_asset"]
-    # 데이터: kr_aggregate_bond / kr_treasury_10y / us_treasury_30y 0 eligible
+    # ETF_TELEMETRY 는 frozen out/ artifact (2026-05-11 시점, 옛 자산명 us_treasury_30y 포함).
+    # 2026-05-27 자산 매핑 변경 이후 baseline regen 시 us_aggregate_bond / gold 로 갱신될 예정.
     expected_none = {"kr_aggregate_bond", "kr_treasury_10y", "us_treasury_30y"}
     actual_none = {k for k, v in cov.items() if v["coverage_status"] == "none"}
     assert expected_none.issubset(actual_none)

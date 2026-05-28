@@ -32,15 +32,27 @@ DEFAULT_RULES: list[ClassificationRule] = [
         keywords_any=("하이일드", "High Yield", "HY", "Hi-Yield"),
     ),
     ClassificationRule(
-        asset_key="us_treasury_30y",
+        asset_key="gold",
+        priority=15,
+        keywords_any=(
+            "Gold", "GOLD", "XAU", "GLD", "IAU", "GLDM",
+            "골드", "KRX금", "금ETF", "금현물", "금선물",
+        ),
+        # "금" 단독 키워드는 "금융/금리/예금" 까지 매칭하므로 제거.
+        name_excludes=("황금",),
+    ),
+    ClassificationRule(
+        asset_key="us_aggregate_bond",
         priority=20,
         keywords_any=(
-            "미국30년", "미국 30년", "미국국채30", "美30Y", "TLT", "EDV", "30년국채",
-            "미국장기국채", "미국 장기국채", "미국장기채", "장기미국채",
-            "미국투자등급장기채", "미국투자등급장기채권",
-            "US Treasury", "UST 30",
+            "미국채권", "미국 채권", "미국종합채권", "미국 종합채권",
+            "US Aggregate", "US Agg", "Aggregate Bond", "LBUSTRUU",
+            "AGG", "BND", "미국투자등급", "미국 투자등급",
+            "미국우량채", "미국채",
         ),
-        name_excludes=("하이일드",),
+        # Bloomberg US Aggregate 는 장기/단기 회사채/국채 모두 포함 광범위 지수.
+        # "장기"/"30년" 같은 duration 키워드는 exclude 하지 않음.
+        name_excludes=("하이일드", "High Yield", "단기", "초단기"),
     ),
     ClassificationRule(
         asset_key="kr_treasury_10y",

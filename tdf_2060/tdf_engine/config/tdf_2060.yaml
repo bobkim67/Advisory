@@ -52,32 +52,26 @@ taa_bounds:
   fixed_income_min: 0.0
   fixed_income_max: 1.0
 
-taa_bounds_reference:           # 이전 enforced 운영값 (Phase B/C). reference only.
-  equity_min: 0.75
-  equity_max: 0.85
-  fixed_income_min: 0.15
-  fixed_income_max: 0.25
-  enforced: false
+taa_bounds_reference: {}        # 2026-05-27: reference only 비움 (운용역 결정 전).
 
-taa_sanity_range:               # Phase D relaxed: sanity monitoring only — NOT enforced.
-  # 운용역 정책: 이탈 시 fail 이 아닌 검토 flag.
-  equity_min: 0.60
-  equity_max: 0.95
-  fixed_income_min: 0.05
-  fixed_income_max: 0.40
+taa_sanity_range: {}            # 2026-05-27: sanity monitoring 비움 (운용역 결정 전).
+                                # review.py 는 cfg.get('taa_sanity_range') 미지정 시 default fallback.
 
 # ── 기준비중 후보 (MVO 초기값 / baseline) ─────────────────────────────
+# 2026-05-27 — 10 자산 매핑 변경 (us_aggregate_bond / gold 도입). 0% default 자산은
+# MVO warm-start 에서 자동 skip + equal_weight fallback.
 reference_weights:
   kr_equity: 0.10
   us_growth_equity: 0.30
   us_value_equity: 0.20
   dm_ex_us_equity: 0.12
   em_equity: 0.08
+  gold: 0.00
   kr_aggregate_bond: 0.08
   kr_treasury_10y: 0.04
-  us_treasury_30y: 0.05
+  us_aggregate_bond: 0.05
   us_high_yield: 0.03
-  # 합 = 1.00
+  # 합 = 1.00 (equity 0.80 / fixed_income 0.20)
 
 # ── Bounds 개념 분리 ────────────────────────────────────────────────
 # (Phase B.5)
@@ -92,54 +86,38 @@ reference_weights:
 # ── 자산군별 비중 상하한 (MVO 제약) ─────────────────────────────────
 # Phase D relaxed (2026-05-08, D-01 closed): per-asset min/max 비활성.
 # 모든 자산을 [0, 1] 로 완화 → MVO 가 long-only + sum-to-1 만 enforce.
-# 이전 운영값은 weight_bounds_reference 에 보존.
+# 2026-05-27 — reference variants 모두 비움 (운용역 결정 전).
 weight_bounds:
   kr_equity:          { min: 0.0, max: 1.0 }
   us_growth_equity:   { min: 0.0, max: 1.0 }
   us_value_equity:    { min: 0.0, max: 1.0 }
   dm_ex_us_equity:    { min: 0.0, max: 1.0 }
   em_equity:          { min: 0.0, max: 1.0 }
+  gold:               { min: 0.0, max: 1.0 }
   kr_aggregate_bond:  { min: 0.0, max: 1.0 }
   kr_treasury_10y:    { min: 0.0, max: 1.0 }
-  us_treasury_30y:    { min: 0.0, max: 1.0 }
+  us_aggregate_bond:  { min: 0.0, max: 1.0 }
   us_high_yield:      { min: 0.0, max: 1.0 }
 
-weight_bounds_reference:        # reference only — NOT enforced
-  kr_equity:          { min: 0.03, max: 0.20 }
-  us_growth_equity:   { min: 0.05, max: 0.40 }
-  us_value_equity:    { min: 0.05, max: 0.30 }
-  dm_ex_us_equity:    { min: 0.05, max: 0.25 }
-  em_equity:          { min: 0.03, max: 0.15 }
-  kr_aggregate_bond:  { min: 0.00, max: 0.15 }
-  kr_treasury_10y:    { min: 0.00, max: 0.10 }
-  us_treasury_30y:    { min: 0.00, max: 0.15 }
-  us_high_yield:      { min: 0.00, max: 0.07 }
+weight_bounds_reference: {}     # 2026-05-27: reference only 비움 (운용역 결정 전).
 
 # ── final_asset_bounds ────────────────────────────────────────────────
 # Phase D relaxed (2026-05-08, D-01 closed): final per-asset bounds 비활성.
 # 모든 자산 [0, 1] 로 완화 → validator 의 warning 자체가 trivially 미발생.
-# 이전 운영값은 final_asset_bounds_reference 에 보존.
+# 2026-05-27 — reference variants 모두 비움 (운용역 결정 전).
 final_asset_bounds:
   kr_equity:          { min: 0.0, max: 1.0 }
   us_growth_equity:   { min: 0.0, max: 1.0 }
   us_value_equity:    { min: 0.0, max: 1.0 }
   dm_ex_us_equity:    { min: 0.0, max: 1.0 }
   em_equity:          { min: 0.0, max: 1.0 }
+  gold:               { min: 0.0, max: 1.0 }
   kr_aggregate_bond:  { min: 0.0, max: 1.0 }
   kr_treasury_10y:    { min: 0.0, max: 1.0 }
-  us_treasury_30y:    { min: 0.0, max: 1.0 }
+  us_aggregate_bond:  { min: 0.0, max: 1.0 }
   us_high_yield:      { min: 0.0, max: 1.0 }
 
-final_asset_bounds_reference:   # reference only — NOT enforced
-  kr_equity:          { min: 0.02, max: 0.22 }
-  us_growth_equity:   { min: 0.04, max: 0.42 }
-  us_value_equity:    { min: 0.04, max: 0.32 }
-  dm_ex_us_equity:    { min: 0.04, max: 0.27 }
-  em_equity:          { min: 0.02, max: 0.17 }
-  kr_aggregate_bond:  { min: 0.00, max: 0.17 }
-  kr_treasury_10y:    { min: 0.00, max: 0.12 }
-  us_treasury_30y:    { min: 0.00, max: 0.17 }
-  us_high_yield:      { min: 0.00, max: 0.09 }
+final_asset_bounds_reference: {}  # 2026-05-27: reference only 비움 (운용역 결정 전).
 
 # ── ETF형 / 펀드형 분리 정책 ─────────────────────────────────────────
 portfolio_types:
@@ -155,6 +133,7 @@ portfolio_types:
 # 본 파일은 2060 단일 vintage 만 다룸
 
 # ── 미확정 항목 ─────────────────────────────────────────────────────
-# (1) us_treasury_30y 데이터 미존재 → fallback 정책은 asset_mapping_draft.yaml 참고
+# (1) reference variants (weight_bounds_reference / final_asset_bounds_reference /
+#     taa_bounds_reference / taa_sanity_range) 모두 비움 — 운용역 결정 전.
 # (2) MVO 목적함수 정의 (Sharpe / Utility / Excess Return) 는 optimization_constraints
 #     에서 결정하며, 사용자 결정 사항

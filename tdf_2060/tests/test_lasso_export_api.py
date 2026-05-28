@@ -20,7 +20,7 @@ def _mk_cand(cid, sharpe, er, vol, hhi, maxw, mvo=0.02,
         "weights": {a: 0.1 for a in (
             "kr_equity", "us_growth_equity", "us_value_equity",
             "dm_ex_us_equity", "em_equity", "kr_aggregate_bond",
-            "kr_treasury_10y", "us_treasury_30y", "us_high_yield",
+            "kr_treasury_10y", "us_aggregate_bond", "us_high_yield",
         )},
         "sharpe": sharpe,
         "expected_return": er,

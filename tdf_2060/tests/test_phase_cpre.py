@@ -69,7 +69,7 @@ def test_classifier_loads_yaml_rules(loader):
     expected = {
         "kr_equity", "us_growth_equity", "us_value_equity",
         "dm_ex_us_equity", "em_equity",
-        "kr_aggregate_bond", "kr_treasury_10y", "us_treasury_30y", "us_high_yield",
+        "kr_aggregate_bond", "kr_treasury_10y", "us_aggregate_bond", "us_high_yield",
     }
     assert expected.issubset(asset_keys)
 
@@ -82,7 +82,7 @@ def test_classifier_loads_yaml_rules(loader):
         "소유형": "북미채권",
     }
     ak, reason = cls.classify(row)
-    assert ak == "us_treasury_30y"
+    assert ak == "us_aggregate_bond"
     assert reason and "미국" in reason or "장기" in reason or "투자등급장기채" in reason
 
 
@@ -103,7 +103,7 @@ def test_classifier_records_match_reason():
 
 
 def test_fund_bond_products_are_classified_when_keywords_match(advisory_root, loader):
-    """Fund 채권 펀드가 룰 보강으로 매칭된다 (kr_treasury_10y / us_treasury_30y / etc)."""
+    """Fund 채권 펀드가 룰 보강으로 매칭된다 (kr_treasury_10y / us_aggregate_bond / etc)."""
     from tdf_engine.domain.enums import ProductType
     from tdf_engine.repositories.file_repositories import FileProductRepository
     from tdf_engine.universe.classifier import ProductClassifier, load_rules
@@ -118,10 +118,10 @@ def test_fund_bond_products_are_classified_when_keywords_match(advisory_root, lo
     result = tool.run()
 
     by_class = result.diagnostics["classified_by_asset_class"]
-    # 보강 후엔 적어도 us_treasury_30y / kr_treasury_10y / us_high_yield / kr_aggregate_bond 중
+    # 보강 후엔 적어도 us_aggregate_bond / kr_treasury_10y / us_high_yield / kr_aggregate_bond 중
     # 다수가 매칭되어야 함 (이전엔 0이었음)
     bond_classes_with_matches = sum(
-        1 for k in ("us_treasury_30y", "kr_treasury_10y", "us_high_yield", "kr_aggregate_bond")
+        1 for k in ("us_aggregate_bond", "kr_treasury_10y", "us_high_yield", "kr_aggregate_bond")
         if by_class.get(k, 0) > 0
     )
     assert bond_classes_with_matches >= 3, (

@@ -107,7 +107,7 @@ def test_policy_review_items_include_zero_weight_required_assets():
     from tdf_engine.reporting.review import build_review_packet
 
     asset_w = pd.Series({
-        "kr_equity": 0.85, "us_treasury_30y": 0.0, "kr_aggregate_bond": 0.15,
+        "kr_equity": 0.85, "us_aggregate_bond": 0.0, "kr_aggregate_bond": 0.15,
     })
     pw = pd.DataFrame([
         {"asset_key": "kr_equity", "product_id": "1", "name": "P1", "manager": "X",
@@ -120,18 +120,18 @@ def test_policy_review_items_include_zero_weight_required_assets():
         portfolio_type=ProductType.ETF, constraints_passed=True,
         diagnostics={"taa_diagnostics": {"taa_feasibility": {"projection_used": False}}},
     )
-    # us_treasury_30y 에 의미 있는 lower bound (0.05 > 0) 를 강제로 설정 → violation 트리거
+    # us_aggregate_bond 에 의미 있는 lower bound (0.05 > 0) 를 강제로 설정 → violation 트리거
     tdf = {
         "final_asset_bounds": {
             "kr_equity": {"min": 0.03, "max": 0.20},
-            "us_treasury_30y": {"min": 0.05, "max": 0.15},  # min > 0 (test scenario)
+            "us_aggregate_bond": {"min": 0.05, "max": 0.15},  # min > 0 (test scenario)
             "kr_aggregate_bond": {"min": 0.0, "max": 0.15},
         }
     }
     packet = build_review_packet(p, assets=None, tdf_config=tdf)
     items = packet["policy_review_items"]
     joined = "\n".join(items)
-    assert "us_treasury_30y" in joined and "0.00%" in joined
+    assert "us_aggregate_bond" in joined and "0.00%" in joined
 
 
 # ── 4) projection_summary: 음수 자산 노출 ─────────────────────────────
@@ -158,21 +158,21 @@ def test_projection_summary_lists_negative_assets_before_projection():
                     "projection_used": True,
                     "projection_success": True,
                     "negative_weight_assets_before_projection": {
-                        "kr_treasury_10y": -0.02, "us_treasury_30y": -0.03,
+                        "kr_treasury_10y": -0.02, "us_aggregate_bond": -0.03,
                     },
                     "bucket_weights_before_projection": {"equity": 0.86, "fixed_income": 0.14},
                     "bucket_weights_after_projection": {"equity": 0.82, "fixed_income": 0.18},
                     "asset_weight_drift_from_target": {
-                        "kr_treasury_10y": 0.02, "us_treasury_30y": 0.03,
+                        "kr_treasury_10y": 0.02, "us_aggregate_bond": 0.03,
                         "us_growth_equity": -0.005,
                     },
                     "max_abs_projection_drift": 0.03,
                     "target_weights_before_projection": {
-                        "kr_treasury_10y": -0.02, "us_treasury_30y": -0.03,
+                        "kr_treasury_10y": -0.02, "us_aggregate_bond": -0.03,
                         "us_growth_equity": 0.40,
                     },
                     "final_weights_after_projection": {
-                        "kr_treasury_10y": 0.0, "us_treasury_30y": 0.0,
+                        "kr_treasury_10y": 0.0, "us_aggregate_bond": 0.0,
                         "us_growth_equity": 0.395,
                     },
                 }
@@ -183,11 +183,11 @@ def test_projection_summary_lists_negative_assets_before_projection():
     ps = packet["projection_summary"]
     assert ps["projection_used"] is True
     neg = ps["negative_assets_before_projection"]
-    assert "kr_treasury_10y" in neg and "us_treasury_30y" in neg
+    assert "kr_treasury_10y" in neg and "us_aggregate_bond" in neg
     top = ps["largest_projection_drifts_top5"]
     assert top, "top5 drift 비어있음"
-    # 가장 큰 drift 가 us_treasury_30y (3%)
-    assert top[0]["asset_key"] == "us_treasury_30y"
+    # 가장 큰 drift 가 us_aggregate_bond (3%)
+    assert top[0]["asset_key"] == "us_aggregate_bond"
 
 
 # ── 5) review_<pt>_<date>.md 생성 ─────────────────────────────────────
