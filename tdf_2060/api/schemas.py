@@ -178,3 +178,132 @@ class CustomOpportunitySetRequest(BaseModel):
     mvo_frontier_min: float = Field(default=0.05, ge=0.0, le=0.5)
     mvo_frontier_max: float = Field(default=0.09, ge=0.0, le=0.5)
     mvo_frontier_step: float = Field(default=0.005, ge=0.001, le=0.05)
+
+
+# ---------------------------------------------------------------------------
+# Frontier Neighborhood Explorer (review-only)
+#   efficient frontier 최적 포트 주변의 near-frontier feasible portfolio cloud.
+#   제약 set = frontier_relaxed_hy_cap_only (long-only, sum=1, target, HY<=cap).
+#   80:20 bucket / equity cap / asset-class band 미적용. Dirichlet cloud 와 별개.
+# ---------------------------------------------------------------------------
+
+
+class FrontierNeighborhoodRequest(BaseModel):
+    """POST /api/r-track/frontier-neighborhood payload (review-only)."""
+
+    portfolio_source: str = Field(
+        default="out/file_mode_cma_20260528/portfolio_etf_20260528.json",
+        description="CMA source portfolio JSON path (engine-root 상대)",
+    )
+    hy_key: str = Field(default="us_high_yield")
+    hy_cap: float = Field(default=0.07, ge=0.0, le=1.0)
+    # rf: None → portfolio saa rf 사용. Sharpe 표시에만 영향 (μ/Σ 불변).
+    risk_free_rate: float | None = Field(default=0.025, ge=0.0, le=0.2)
+    # target return 격자 (frontier point 생성). equality.
+    target_return_min: float = Field(default=0.05, ge=0.0, le=0.5)
+    target_return_max: float = Field(default=0.12, ge=0.0, le=0.5)
+    target_return_step: float = Field(default=0.005, ge=0.001, le=0.05)
+    # neighborhood shell (변동성 gap, bps) + return tolerance (bps).
+    vol_gaps_bps: list[int] = Field(default_factory=lambda: [10, 25, 50, 100])
+    return_tolerance_bps: float = Field(default=5.0, ge=0.0, le=200.0)
+    # method A (perturbation) 강도.
+    n_directions: int = Field(default=80, ge=1, le=2000)
+    steps_per_direction: int = Field(default=2, ge=1, le=20)
+    # method B (variance-gap shell asset weight max/min, QCQP) 포함 여부.
+    method_b: bool = True
+    random_seed: int = Field(default=42)
+    include_weights: bool = True
+    # Random Cloud + EF Overlay 모드 — relaxed region random cloud (long-only,
+    # sum=1, HY<=cap) + EF overlay. neighborhood(exact-slice)는 advanced 용.
+    include_neighborhood: bool = True
+    include_random_cloud: bool = False
+    n_random_samples: int = Field(default=4000, ge=10, le=50000)
+    random_cloud_alpha: float = Field(default=1.0, ge=0.05, le=10.0)
+    # 주식비중 밴드 (equity bucket=주식+금). random cloud + EF solver 양쪽에 동일
+    # 제약으로 적용. 기본 0~1 = 무제약(relaxed). HY<=7% 와 같은 성격의 제약.
+    equity_weight_min: float = Field(default=0.0, ge=0.0, le=1.0)
+    equity_weight_max: float = Field(default=1.0, ge=0.0, le=1.0)
+
+
+class FrontierPoint(BaseModel):
+    frontier_id: int
+    target_return: float | None = None
+    equity_weight: float | None = None
+    min_volatility: float | None = None
+    weights: dict[str, float] | None = None
+    expected_return: float | None = None
+    volatility: float | None = None
+    sharpe: float | None = None
+    active_asset_count: int | None = None
+    zero_asset_count: int | None = None
+    us_hy_weight: float | None = None
+    optimizer_status: str
+
+
+class FrontierNeighborhoodCandidate(BaseModel):
+    candidate_id: str
+    source_type: str = "frontier_neighborhood"
+    frontier_id: int
+    target_return: float
+    frontier_min_volatility: float
+    candidate_return: float
+    candidate_volatility: float
+    return_gap_bps: float
+    vol_gap_bps: float
+    vol_gap_bucket: int
+    weights: dict[str, float] | None = None
+    allocation_distance_l1_from_frontier: float
+    allocation_distance_l2_from_frontier: float
+    active_asset_count: int
+    zero_asset_count: int
+    hhi: float
+    max_asset_weight: float
+    us_hy_weight: float
+    largest_weight_differences_vs_frontier: list[dict[str, Any]] = Field(default_factory=list)
+    generation_method: str
+
+
+class RandomCloudCandidate(BaseModel):
+    candidate_id: str
+    source_type: str = "random_cloud"
+    volatility: float
+    expected_return: float
+    sharpe: float
+    hhi: float
+    max_asset_weight: float
+    weights: dict[str, float] | None = None
+    active_asset_count: int
+    zero_asset_count: int
+    us_hy_weight: float
+    equity_weight: float | None = None
+
+
+class FrontierNeighborhoodResponse(BaseModel):
+    """near-frontier feasible portfolio cloud + per-frontier summary."""
+
+    schema_version: str = "frontier_neighborhood.1"
+    source_opportunity_set_path: str
+    source_opportunity_set_sha256: str
+    constraint_set: str = "frontier_relaxed_hy_cap_only"
+    included_constraints: list[str] = Field(default_factory=list)
+    excluded_constraints: list[str] = Field(default_factory=list)
+    asset_keys: list[str] = Field(default_factory=list)
+    asset_labels: dict[str, str] | None = None
+    asset_buckets: dict[str, str] | None = None
+    frontier_points: list[FrontierPoint] = Field(default_factory=list)
+    candidates: list[FrontierNeighborhoodCandidate] = Field(default_factory=list)
+    random_cloud: list[RandomCloudCandidate] | None = None
+    candidate_count: int = 0
+    summary: list[dict[str, Any]] = Field(default_factory=list)
+    inputs: dict[str, Any] = Field(default_factory=dict)
+    # review-only invariants (강제)
+    is_production_selection: bool = False
+    dry_run_only: bool = True
+    notes: list[str] = Field(
+        default_factory=lambda: [
+            "frontier_relaxed_hy_cap_only: long-only + sum=1 + target return + US HY<=cap only.",
+            "80:20 bucket / equity cap / asset-class band NOT applied — 기존 Dirichlet "
+            "explorer cloud(80:20 hard)와 동일 feasible region 아님. 직접 혼합/비교 금지.",
+            "review-only: is_production_selection=False, dry_run_only=True.",
+        ]
+    )

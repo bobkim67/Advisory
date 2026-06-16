@@ -11,6 +11,7 @@ from __future__ import annotations
 from fastapi import FastAPI
 
 from .asset_returns import router as asset_returns_router
+from .frontier_neighborhood import router as frontier_neighborhood_router
 from .lasso import router as lasso_router
 from .opportunity_set import router as opportunity_set_router
 
@@ -29,6 +30,7 @@ def build_app() -> FastAPI:
     app.include_router(lasso_router)
     app.include_router(opportunity_set_router)
     app.include_router(asset_returns_router)
+    app.include_router(frontier_neighborhood_router)
 
     @app.get("/health")
     def health() -> dict[str, str]:
