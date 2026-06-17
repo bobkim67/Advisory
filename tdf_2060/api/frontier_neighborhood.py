@@ -12,6 +12,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+from datetime import date
 
 from fastapi import APIRouter, HTTPException
 
@@ -60,9 +62,93 @@ def _cache_key(req: FrontierNeighborhoodRequest, portfolio_sha: str) -> str:
         "n_random_samples": req.n_random_samples,
         "random_cloud_alpha": round(req.random_cloud_alpha, 6),
         "equity_band": [round(req.equity_weight_min, 6), round(req.equity_weight_max, 6)],
+        "cma_source": req.cma_source,
+        "db_window": [req.db_window_start, req.db_window_end],
     }
     blob = json.dumps(payload, sort_keys=True, default=str)
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()
+
+
+def _clean_ticker(t: str) -> str:
+    """표시용 ticker — 후행 " Index" / " Curncy" 접미사 제거 (대소문자 무시)."""
+    s = t.strip()
+    for suf in (" index", " curncy"):
+        if s.lower().endswith(suf):
+            return s[: -len(suf)].strip()
+    return s
+
+
+def _prev_month_end(today: date) -> date:
+    """today 기준 전월 말일."""
+    first_of_this_month = today.replace(day=1)
+    import datetime as _dt
+
+    return first_of_this_month - _dt.timedelta(days=1)
+
+
+def _default_db_window() -> tuple[str, str]:
+    """default = 종료 전월 말 / 시작 −10년 (직전 10년)."""
+    end = _prev_month_end(date.today())
+    try:
+        start = end.replace(year=end.year - 10)
+    except ValueError:  # 2/29 등
+        start = end.replace(year=end.year - 10, day=28)
+    return start.isoformat(), end.isoformat()
+
+
+def _build_db_window_cma(req: "FrontierNeighborhoodRequest", asset_keys: list[str]) -> dict:
+    """SCIP DB 에서 [db_window_start, db_window_end] 라이브 CMA 산출 (review-only).
+
+    credential 은 환경변수(TDF_DB_HOST/USER/PASSWORD/NAME) — 코드 미하드코딩.
+    """
+    import yaml
+
+    from tdf_engine.optimization.db_cma_window import build_window_cma
+
+    start = req.db_window_start
+    end = req.db_window_end
+    if not start or not end:
+        d_start, d_end = _default_db_window()
+        start = start or d_start
+        end = end or d_end
+    try:
+        s_date = date.fromisoformat(start)
+        e_date = date.fromisoformat(end)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=f"db_window 날짜 형식(YYYY-MM-DD) 오류: {exc}")
+    if e_date < s_date:
+        raise HTTPException(status_code=422, detail=f"db_window_end({end}) < db_window_start({start})")
+
+    cfg_path = ENGINE_ROOT / "tdf_engine" / "config" / "db_sources.yaml"
+    if not cfg_path.exists():
+        raise HTTPException(status_code=500, detail="db_sources.yaml 없음")
+    db_sources_cfg = yaml.safe_load(cfg_path.read_text(encoding="utf-8"))
+
+    db_user = os.environ.get("TDF_DB_USER", "${DB_USER}")
+    db_pw = os.environ.get("TDF_DB_PASSWORD", "${DB_PASSWORD}")
+    db_host = os.environ.get("TDF_DB_HOST", "${DB_HOST}")
+    db_name = os.environ.get("TDF_DB_NAME", "SCIP")
+    try:
+        from sqlalchemy import create_engine, text
+
+        url = f"mysql+pymysql://{db_user}:{db_pw}@{db_host}/{db_name}?charset=utf8mb4"
+        engine = create_engine(url, pool_pre_ping=True)
+        with engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+    except Exception as exc:
+        raise HTTPException(
+            status_code=503,
+            detail=(
+                f"SCIP DB 연결 실패 (host={db_host}): {exc}. "
+                "내부망/VPN + 환경변수(TDF_DB_HOST/USER/PASSWORD/NAME) 확인."
+            ),
+        )
+    try:
+        return build_window_cma(asset_keys, db_sources_cfg, engine, start=s_date, end=e_date)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=f"db_window CMA 산출 실패: {exc}")
+    finally:
+        engine.dispose()
 
 
 def _build_grid(lo: float, hi: float, step: float) -> list[float]:
@@ -103,11 +189,50 @@ def frontier_neighborhood(req: FrontierNeighborhoodRequest) -> FrontierNeighborh
         raise HTTPException(status_code=422, detail=str(e))
     cma = saa["cma"]
     asset_keys = [str(k) for k in cma["asset_keys"]]
-    mu = _vec(cma["expected_returns"], asset_keys)
-    cov = _mat(cma["covariance_matrix"], asset_keys)
+    # asset 순서·ticker 는 portfolio JSON 기준 유지 (db_window 모드에서도 동일).
+    # 표시용으로 " Index" / " Curncy" 접미사 제거 (M2KR INDEX → M2KR 등).
+    ticker_by_key = {
+        str(k): _clean_ticker(str(v)) for k, v in (cma.get("ticker_by_key") or {}).items()
+    }
     rf = float(
         req.risk_free_rate if req.risk_free_rate is not None else (saa.get("rf") or 0.0)
     )
+
+    # ── CMA 소스 분기 ──
+    # "portfolio" (default) = JSON saa_diagnostics.cma 그대로.
+    # "db_window"          = SCIP DB 라이브 재계산 μ/Σ 로 교체 (review-only).
+    db_window_meta: dict | None = None
+    if req.cma_source == "db_window":
+        live = _build_db_window_cma(req, asset_keys)
+        missing = [k for k in asset_keys if k not in live["expected_returns"]]
+        if missing:
+            raise HTTPException(
+                status_code=422,
+                detail=(
+                    f"db_window CMA: window 내 데이터 부족으로 자산 누락 {missing}. "
+                    "window 를 넓히세요."
+                ),
+            )
+        expected_returns = {k: float(live["expected_returns"][k]) for k in asset_keys}
+        volatilities = {k: float(live["volatilities"][k]) for k in asset_keys}
+        cov_src = live["covariance_matrix"]
+        db_window_meta = {
+            "window": live["window"],
+            "per_asset": live["per_asset"],
+            "warnings": live["warnings"],
+        }
+    elif req.cma_source != "portfolio":
+        raise HTTPException(
+            status_code=422,
+            detail=f"unknown cma_source: {req.cma_source} (portfolio | db_window)",
+        )
+    else:
+        expected_returns = {k: float(cma["expected_returns"].get(k, 0.0)) for k in asset_keys}
+        volatilities = {k: float((cma.get("volatilities") or {}).get(k, 0.0)) for k in asset_keys}
+        cov_src = cma["covariance_matrix"]
+
+    mu = _vec(expected_returns, asset_keys)
+    cov = _mat(cov_src, asset_keys)
     # bucket map — equity_weight frontier mode 의 주식비중(equity bucket=주식+금) 정의용.
     try:
         bucket_map = _extract_bucket_map(portfolio, asset_keys)
@@ -163,6 +288,8 @@ def frontier_neighborhood(req: FrontierNeighborhoodRequest) -> FrontierNeighborh
         ]
 
     asset_labels, asset_buckets = _asset_metadata_for(result["asset_keys"])
+    out_keys = [str(k) for k in result["asset_keys"]]
+    asset_tickers = {k: ticker_by_key[k] for k in out_keys if k in ticker_by_key} or None
 
     response = FrontierNeighborhoodResponse(
         source_opportunity_set_path=(
@@ -173,9 +300,14 @@ def frontier_neighborhood(req: FrontierNeighborhoodRequest) -> FrontierNeighborh
         constraint_set=result["constraint_set"],
         included_constraints=result["included_constraints"],
         excluded_constraints=result["excluded_constraints"],
-        asset_keys=result["asset_keys"],
+        asset_keys=out_keys,
         asset_labels=asset_labels,
         asset_buckets=asset_buckets,
+        asset_expected_returns={k: expected_returns[k] for k in out_keys if k in expected_returns},
+        asset_volatilities={k: volatilities[k] for k in out_keys if k in volatilities},
+        asset_tickers=asset_tickers,
+        cma_source=req.cma_source,
+        db_window=db_window_meta,
         frontier_points=fps,
         candidates=cands,
         random_cloud=random_cloud,

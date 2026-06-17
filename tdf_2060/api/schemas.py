@@ -223,6 +223,13 @@ class FrontierNeighborhoodRequest(BaseModel):
     # 제약으로 적용. 기본 0~1 = 무제약(relaxed). HY<=7% 와 같은 성격의 제약.
     equity_weight_min: float = Field(default=0.0, ge=0.0, le=1.0)
     equity_weight_max: float = Field(default=1.0, ge=0.0, le=1.0)
+    # CMA 소스. "portfolio" = portfolio_source JSON 의 saa_diagnostics.cma 사용(default,
+    # 기존 동작). "db_window" = SCIP DB 에서 [db_window_start, db_window_end] 구간으로
+    # 라이브 재계산한 μ/Σ 로 교체(asset 순서·bucket·ticker 는 portfolio_source 유지).
+    # review-only — frozen baseline JSON 미변경.
+    cma_source: str = Field(default="portfolio")
+    db_window_start: str | None = Field(default=None, description="YYYY-MM-DD (db_window 모드)")
+    db_window_end: str | None = Field(default=None, description="YYYY-MM-DD (db_window 모드)")
 
 
 class FrontierPoint(BaseModel):
@@ -290,6 +297,13 @@ class FrontierNeighborhoodResponse(BaseModel):
     asset_keys: list[str] = Field(default_factory=list)
     asset_labels: dict[str, str] | None = None
     asset_buckets: dict[str, str] | None = None
+    # per-asset CMA — 패널 표시용 (file/db 공통). db_window 모드면 라이브 window 값.
+    asset_expected_returns: dict[str, float] | None = None
+    asset_volatilities: dict[str, float] | None = None
+    asset_tickers: dict[str, str] | None = None
+    # CMA 출처 메타. cma_source="db_window" 일 때 db_window 에 window/per_asset/warnings.
+    cma_source: str = "portfolio"
+    db_window: dict[str, Any] | None = None
     frontier_points: list[FrontierPoint] = Field(default_factory=list)
     candidates: list[FrontierNeighborhoodCandidate] = Field(default_factory=list)
     random_cloud: list[RandomCloudCandidate] | None = None
