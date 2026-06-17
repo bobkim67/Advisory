@@ -223,6 +223,13 @@ class FrontierNeighborhoodRequest(BaseModel):
     # 제약으로 적용. 기본 0~1 = 무제약(relaxed). HY<=7% 와 같은 성격의 제약.
     equity_weight_min: float = Field(default=0.0, ge=0.0, le=1.0)
     equity_weight_max: float = Field(default=1.0, ge=0.0, le=1.0)
+    # equity 밴드의 "주식비중" 정의 그룹 (asset_key 목록). None 이면 bucket=="equity"
+    # (주식5+금) default. 3-mode 토글(주식 / 주식+금 / 주식+금+HY)을 frontend 가
+    # 해당 키 목록으로 보냄. 밴드는 상한만 의미 있게 쓰지만 min/max 둘 다 지원.
+    equity_weight_keys: list[str] | None = Field(default=None)
+    # per-asset (floor, cap) 제약 — {asset_key: [floor, cap]}. EF solver + random cloud
+    # + Method B 에 적용. 미지정 자산은 (0,1). HY 는 hy_cap 과 intersect.
+    asset_constraints: dict[str, list[float]] | None = Field(default=None)
     # CMA 소스. "portfolio" = portfolio_source JSON 의 saa_diagnostics.cma 사용(default,
     # 기존 동작). "db_window" = SCIP DB 에서 [db_window_start, db_window_end] 구간으로
     # 라이브 재계산한 μ/Σ 로 교체(asset 순서·bucket·ticker 는 portfolio_source 유지).

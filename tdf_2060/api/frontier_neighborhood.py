@@ -62,6 +62,11 @@ def _cache_key(req: FrontierNeighborhoodRequest, portfolio_sha: str) -> str:
         "n_random_samples": req.n_random_samples,
         "random_cloud_alpha": round(req.random_cloud_alpha, 6),
         "equity_band": [round(req.equity_weight_min, 6), round(req.equity_weight_max, 6)],
+        "equity_weight_keys": sorted(req.equity_weight_keys) if req.equity_weight_keys else None,
+        "asset_constraints": (
+            {k: [round(float(v[0]), 6), round(float(v[1]), 6)] for k, v in sorted(req.asset_constraints.items())}
+            if req.asset_constraints else None
+        ),
         "cma_source": req.cma_source,
         "db_window": [req.db_window_start, req.db_window_end],
     }
@@ -238,7 +243,33 @@ def frontier_neighborhood(req: FrontierNeighborhoodRequest) -> FrontierNeighborh
         bucket_map = _extract_bucket_map(portfolio, asset_keys)
     except ValueError as e:
         raise HTTPException(status_code=422, detail=str(e))
-    equity_keys = [k for k in asset_keys if bucket_map.get(k) == "equity"]
+    # equity 밴드 그룹 — request 가 명시(3-mode: 주식/주식+금/주식+금+HY)하면 그걸,
+    # 아니면 bucket=="equity"(주식5+금) default.
+    if req.equity_weight_keys:
+        unknown = [k for k in req.equity_weight_keys if k not in asset_keys]
+        if unknown:
+            raise HTTPException(status_code=422, detail=f"unknown equity_weight_keys: {unknown}")
+        equity_keys = [k for k in asset_keys if k in set(req.equity_weight_keys)]
+    else:
+        equity_keys = [k for k in asset_keys if bucket_map.get(k) == "equity"]
+
+    # per-asset (floor, cap) — request asset_constraints → asset_keys 순서 (lo,hi) 리스트.
+    asset_bounds = None
+    if req.asset_constraints:
+        unknown = [k for k in req.asset_constraints if k not in asset_keys]
+        if unknown:
+            raise HTTPException(status_code=422, detail=f"unknown asset_constraints keys: {unknown}")
+        ab: list[tuple[float, float]] = []
+        for k in asset_keys:
+            pair = req.asset_constraints.get(k)
+            if pair and len(pair) == 2:
+                lo, hi = float(pair[0]), float(pair[1])
+                if hi < lo:
+                    raise HTTPException(status_code=422, detail=f"asset_constraints[{k}]: cap < floor")
+                ab.append((max(0.0, lo), min(1.0, hi)))
+            else:
+                ab.append((0.0, 1.0))
+        asset_bounds = ab
 
     grid = _build_grid(req.target_return_min, req.target_return_max, req.target_return_step)
     if not grid:
@@ -269,6 +300,7 @@ def frontier_neighborhood(req: FrontierNeighborhoodRequest) -> FrontierNeighborh
         equity_keys=equity_keys,
         equity_weight_min=float(req.equity_weight_min),
         equity_weight_max=float(req.equity_weight_max),
+        asset_bounds=asset_bounds,
     )
 
     fps = [FrontierPoint(**fp) for fp in result["frontier_points"]]

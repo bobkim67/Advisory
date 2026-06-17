@@ -46,6 +46,49 @@ def _vol(w: np.ndarray, cov: np.ndarray) -> float:
     return float(math.sqrt(max(float(w @ cov @ w), 0.0)))
 
 
+def _build_bounds(
+    n: int,
+    asset_bounds: list[tuple[float, float]] | None,
+    hy_idx: int | None,
+    hy_cap: float,
+) -> list[tuple[float, float]]:
+    """per-asset (floor, cap) 경계. asset_bounds 없으면 (0,1). HY 는 hy_cap 으로
+    상한을 추가로 죈다(asset_bounds 와 intersect)."""
+    if asset_bounds is None:
+        bnds = [(0.0, 1.0) for _ in range(n)]
+    else:
+        bnds = [
+            (max(0.0, float(lo)), min(1.0, float(hi)))
+            for lo, hi in asset_bounds
+        ]
+    if hy_idx is not None:
+        lo, hi = bnds[hy_idx]
+        bnds[hy_idx] = (lo, min(hi, float(hy_cap)))
+    return bnds
+
+
+def _feasible_init(n: int, bnds: list[tuple[float, float]]) -> "np.ndarray":
+    """floor 합/cap 합을 고려한 시작점. floor 부터 채우고 잔여를 cap 여유에 비례 분배."""
+    lo = np.array([b[0] for b in bnds], dtype=float)
+    hi = np.array([b[1] for b in bnds], dtype=float)
+    base = lo.copy()
+    rem = 1.0 - base.sum()
+    if rem > 0:
+        room = hi - base
+        total_room = room.sum()
+        if total_room > 1e-12:
+            base = base + room * (rem / total_room)
+    s = base.sum()
+    return base / s if s > 0 else np.full(n, 1.0 / n)
+
+
+def _within_bounds(w: "np.ndarray", bnds: list[tuple[float, float]], tol: float = 1e-6) -> bool:
+    for i, (lo, hi) in enumerate(bnds):
+        if w[i] < lo - tol or w[i] > hi + tol:
+            return False
+    return True
+
+
 def solve_frontier_point(
     mu: np.ndarray,
     cov: np.ndarray,
@@ -56,6 +99,7 @@ def solve_frontier_point(
     equity_idx: list[int] | None = None,
     equity_min: float = 0.0,
     equity_max: float = 1.0,
+    asset_bounds: list[tuple[float, float]] | None = None,
 ) -> np.ndarray | None:
     """min wᵀΣw s.t. sum(w)=1, μ·w = target (eq), w>=0, w[hy] <= hy_cap,
     그리고 (선택) equity_min <= sum(w[equity_idx]) <= equity_max (주식비중 밴드).
@@ -78,12 +122,11 @@ def solve_frontier_point(
         ei = tuple(equity_idx or [])
         cons.append({"type": "ineq", "fun": lambda w, e=ei: float(sum(w[i] for i in e) - equity_min)})
         cons.append({"type": "ineq", "fun": lambda w, e=ei: float(equity_max - sum(w[i] for i in e))})
-    bnds = [(0.0, 1.0)] * n
-    if hy_idx is not None:
-        bnds[hy_idx] = (0.0, float(hy_cap))
+    bnds = _build_bounds(n, asset_bounds, hy_idx, hy_cap)
+    w0 = _feasible_init(n, bnds)
 
     res = minimize(
-        pvar, np.full(n, 1.0 / n), method="SLSQP",
+        pvar, w0, method="SLSQP",
         bounds=bnds, constraints=cons,
         options={"maxiter": 1000, "ftol": 1e-12},
     )
@@ -99,6 +142,9 @@ def solve_frontier_point(
     if abs(float(w @ mu) - target_return) > 5e-4:
         return None
     if hy_idx is not None and w[hy_idx] > hy_cap + 1e-6:
+        return None
+    # per-asset floor/cap 검증 (renorm drift 흡수, cap 2e-3 / floor 2e-3 tol)
+    if not _within_bounds(w, bnds, tol=2e-3):
         return None
     if band_on:
         eqw = float(sum(w[i] for i in (equity_idx or [])))
@@ -264,6 +310,7 @@ def solve_asset_extreme(
     mu: np.ndarray, cov: np.ndarray, target_return: float, asset_idx: int, *,
     maximize: bool, hy_idx: int | None, hy_cap: float, vol_cap: float,
     return_tol: float, w_init: np.ndarray,
+    asset_bounds: list[tuple[float, float]] | None = None,
 ) -> np.ndarray | None:
     """Method B — variance gap shell 안에서 asset_idx weight 최대/최소화 (QCQP)."""
     n = len(mu)
@@ -278,9 +325,7 @@ def solve_asset_extreme(
         {"type": "ineq", "fun": lambda w: float(return_tol + (w @ mu - target_return))},
         {"type": "ineq", "fun": lambda w: float(vol_cap ** 2 - w @ cov @ w)},
     ]
-    bnds = [(0.0, 1.0)] * n
-    if hy_idx is not None:
-        bnds[hy_idx] = (0.0, float(hy_cap))
+    bnds = _build_bounds(n, asset_bounds, hy_idx, hy_cap)
 
     res = minimize(
         obj, np.asarray(w_init, dtype=float), method="SLSQP",
@@ -300,6 +345,8 @@ def solve_asset_extreme(
         return None
     if hy_idx is not None and w[hy_idx] > hy_cap + 1e-6:
         return None
+    if not _within_bounds(w, bnds, tol=2e-3):
+        return None
     return w
 
 
@@ -309,6 +356,7 @@ def generate_random_cloud(
     alpha: float = 1.0, random_seed: int = 42,
     equity_idx: list[int] | None = None,
     equity_min: float = 0.0, equity_max: float = 1.0,
+    asset_bounds: list[tuple[float, float]] | None = None,
 ) -> list[dict[str, Any]]:
     """Random portfolio cloud — relaxed feasible region (long-only, sum=1, HY<=cap,
     + 선택 equity 밴드 equity_min<=sum(w[equity_idx])<=equity_max).
@@ -321,6 +369,12 @@ def generate_random_cloud(
     n = len(asset_keys)
     band_on = bool(equity_idx) and (equity_min > 0.0 or equity_max < 1.0)
     ei = list(equity_idx or [])
+    # per-asset (floor, cap) — HY 는 hy_cap 으로 이미 reject 하므로 그대로 둠.
+    abounds = (
+        [(max(0.0, float(lo)), min(1.0, float(hi))) for lo, hi in asset_bounds]
+        if asset_bounds is not None else None
+    )
+    bounds_on = abounds is not None and any(lo > 0.0 or hi < 1.0 for lo, hi in abounds)
     rng = np.random.default_rng(random_seed)
     out: list[dict[str, Any]] = []
     cid = 0
@@ -338,6 +392,14 @@ def generate_random_cloud(
             eqw = float(sum(w[i] for i in ei)) if band_on else 0.0
             if band_on and (eqw < equity_min - 1e-9 or eqw > equity_max + 1e-9):
                 continue  # equity 밴드 밖 reject
+            if bounds_on:
+                bad = False
+                for i, (lo, hi) in enumerate(abounds):
+                    if w[i] < lo - 1e-9 or w[i] > hi + 1e-9:
+                        bad = True
+                        break
+                if bad:
+                    continue  # per-asset floor/cap 밖 reject
             ret = float(w @ mu)
             vol = _vol(w, cov)
             out.append({
@@ -426,6 +488,7 @@ def build_frontier_neighborhood(
     equity_keys: list[str] | None = None,
     equity_weight_min: float = 0.0,
     equity_weight_max: float = 1.0,
+    asset_bounds: list[tuple[float, float]] | None = None,
 ) -> dict[str, Any]:
     """frontier point + near-frontier neighborhood candidates 를 생성.
 
@@ -462,6 +525,7 @@ def build_frontier_neighborhood(
             mu_a, cov_a, float(tr_target), hy_idx=hy_idx, hy_cap=hy_cap,
             equity_idx=equity_idx if band_on else None,
             equity_min=equity_weight_min, equity_max=equity_weight_max,
+            asset_bounds=asset_bounds,
         )
         if w_star is None:
             frontier_points.append({
@@ -507,7 +571,7 @@ def build_frontier_neighborhood(
                         w = solve_asset_extreme(
                             mu_a, cov_a, tr, ai, maximize=maximize, hy_idx=hy_idx,
                             hy_cap=hy_cap, vol_cap=vol_cap, return_tol=return_tol,
-                            w_init=w_star,
+                            w_init=w_star, asset_bounds=asset_bounds,
                         )
                         if w is None:
                             continue
@@ -537,15 +601,23 @@ def build_frontier_neighborhood(
             alpha=random_cloud_alpha, random_seed=random_seed,
             equity_idx=equity_idx,
             equity_min=equity_weight_min, equity_max=equity_weight_max,
+            asset_bounds=asset_bounds,
         )
         if include_random_cloud
         else None
     )
 
+    per_asset_on = asset_bounds is not None and any(
+        lo > 0.0 or hi < 1.0 for lo, hi in asset_bounds
+    )
     constraint_set = (
         "random_cloud_relaxed_hy_cap_equity_band" if band_on else CONSTRAINT_SET
     )
+    if per_asset_on:
+        constraint_set += "_per_asset_bounds"
     included = list(INCLUDED_CONSTRAINTS) + (["equity_weight_band"] if band_on else [])
+    if per_asset_on:
+        included.append("per_asset_floor_cap")
 
     return {
         "schema_version": "frontier_neighborhood.1",
