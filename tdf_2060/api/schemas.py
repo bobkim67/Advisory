@@ -328,3 +328,109 @@ class FrontierNeighborhoodResponse(BaseModel):
             "review-only: is_production_selection=False, dry_run_only=True.",
         ]
     )
+
+
+# ---------------------------------------------------------------------------
+# Near-Frontier Scan (review-only) — batch frontier line scan.
+#   EF 라인의 각 expected-return node(anchor) 근처에 near-frontier band 안에서
+#   배분이 실질적으로 다른(active_share 큰) 대안 포트를 directional 탐색.
+# ---------------------------------------------------------------------------
+
+
+class NearFrontierScanRequest(BaseModel):
+    """POST /api/r-track/near-frontier-scan payload (review-only)."""
+
+    portfolio_source: str = Field(
+        default="out/file_mode_cma_20260528/portfolio_etf_20260528.json",
+        description="CMA source portfolio JSON path (engine-root 상대)",
+    )
+    hy_key: str = Field(default="us_high_yield")
+    hy_cap: float = Field(default=0.07, ge=0.0, le=1.0)
+    risk_free_rate: float | None = Field(default=0.025, ge=0.0, le=0.2)
+    # anchor grid = EF target-return node 격자.
+    target_return_min: float = Field(default=0.05, ge=0.0, le=0.5)
+    target_return_max: float = Field(default=0.12, ge=0.0, le=0.5)
+    target_return_step: float = Field(default=0.005, ge=0.001, le=0.05)
+    # near-frontier band tolerance.
+    tol_return_bps: float = Field(default=10.0, ge=0.0, le=500.0)
+    # near-frontier 폭. 작을수록 EF 라인에 더 붙음(=성과 유사). 클수록 더 다른 대안 허용.
+    tol_vol_bps: float = Field(default=10.0, ge=0.0, le=1000.0)
+    # directional 탐색. random + structured(pairwise swap·bucket group·support-change).
+    n_random_directions: int = Field(default=150, ge=0, le=1000)
+    random_seed: int = Field(default=42)
+    # active_share 필터/강조.
+    active_share_min: float = Field(default=0.05, ge=0.0, le=1.0)
+    active_share_emphasis: float = Field(default=0.10, ge=0.0, le=1.0)
+    # 후처리. dedupe_threshold = per-anchor diversity 거리(클수록 강하게 병합).
+    snap_grid: float = Field(default=0.005, ge=0.0, le=0.05)  # 0 = snap off
+    dedupe_threshold: float = Field(default=0.03, ge=0.0, le=0.5)
+    per_anchor_top_n: int = Field(default=5, ge=1, le=50)
+    cross_anchor_dedupe: bool = Field(default=False)  # 표시용 flag (제거 안 함)
+    single_anchor_max_sharpe: bool = Field(default=False)  # diagnostic only
+    include_weights: bool = True
+    # 제약 (frontier explorer 와 동일 plumbing).
+    equity_weight_keys: list[str] | None = Field(default=None)
+    equity_weight_min: float = Field(default=0.0, ge=0.0, le=1.0)
+    equity_weight_max: float = Field(default=1.0, ge=0.0, le=1.0)
+    asset_constraints: dict[str, list[float]] | None = Field(default=None)
+    # CMA 소스 (portfolio | db_window) — frontier explorer 와 동일.
+    cma_source: str = Field(default="portfolio")
+    db_window_start: str | None = Field(default=None)
+    db_window_end: str | None = Field(default=None)
+
+
+class NearFrontierScanAnchor(BaseModel):
+    anchor_node_id: int
+    anchor_return: float
+    anchor_vol: float
+    anchor_sharpe: float
+    anchor_weights: dict[str, float] | None = None
+
+
+class NearFrontierScanCandidate(BaseModel):
+    candidate_id: str
+    anchor_node_id: int
+    anchor_return: float
+    anchor_vol: float
+    candidate_return: float
+    candidate_volatility: float
+    sharpe: float
+    return_gap_vs_anchor: float
+    vol_gap_vs_anchor: float
+    active_share_vs_anchor: float
+    hhi: float
+    max_asset_weight: float
+    active_asset_count: int
+    zero_count: int
+    us_hy_weight: float
+    search_direction: str
+    emphasis: bool = False
+    cross_anchor_duplicate_of: int | None = None
+    weights: dict[str, float] | None = None
+
+
+class NearFrontierScanResponse(BaseModel):
+    schema_version: str = "near_frontier_scan.1"
+    source_opportunity_set_path: str
+    source_opportunity_set_sha256: str
+    constraint_set: str = "near_frontier_scan"
+    asset_keys: list[str] = Field(default_factory=list)
+    asset_labels: dict[str, str] | None = None
+    asset_buckets: dict[str, str] | None = None
+    asset_tickers: dict[str, str] | None = None
+    cma_source: str = "portfolio"
+    db_window: dict[str, Any] | None = None
+    anchors: list[NearFrontierScanAnchor] = Field(default_factory=list)
+    candidates: list[NearFrontierScanCandidate] = Field(default_factory=list)
+    candidate_count: int = 0
+    summary: dict[str, Any] = Field(default_factory=dict)
+    inputs: dict[str, Any] = Field(default_factory=dict)
+    is_production_selection: bool = False
+    dry_run_only: bool = True
+    notes: list[str] = Field(
+        default_factory=lambda: [
+            "near_frontier_scan: EF 라인 각 anchor node 근처 near-frontier band 안의 "
+            "active_share 큰 대안 포트. anchor 별 dedupe 우선, cross-anchor 는 표시용.",
+            "review-only: is_production_selection=False, dry_run_only=True.",
+        ]
+    )
